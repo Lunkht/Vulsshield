@@ -99,7 +99,7 @@ body {
 .inscription {
     background-color: transparent;
     border-radius: 30px;
-    padding: 9px;
+    padding: 7px;
     border: 1px solid #fff;
 }
 
@@ -107,7 +107,7 @@ body {
     color: var(--primary-white);
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-family: sans-serif;
 }
 
