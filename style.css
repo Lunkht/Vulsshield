@@ -244,7 +244,7 @@ main {
     color: var(--primary-white);
     margin: 8px;
     font-weight: 400;
-    text-align: start;
+    text-align: center;
 }
 
 .solution-card p {
@@ -252,7 +252,7 @@ main {
     color: #4a4949;
     margin: 8px;
     font-weight: 100;
-        text-align: start;
+        text-align: center;
 }
 
 /* Why Us Section */
