@@ -92,6 +92,8 @@ body {
 
 .top-nav nav ul li a:hover {
     color: var(--primary-white);
+    background-color: var(--primary-grey-transparent);
+    border-radius: 10px;
 }
 
 .inscription {
