@@ -150,6 +150,7 @@ main {
 
 .hero-image {
     max-width: 220%;
+    height: auto;
 }
 
 .hero-image img {
