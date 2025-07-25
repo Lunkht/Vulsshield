@@ -83,11 +83,11 @@ body {
 .top-nav nav ul li a {
     color: #797878;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: capitalize;
     border-radius: 40px;
     padding: 9px;
     font-weight: 100;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .top-nav nav ul li a:hover {
