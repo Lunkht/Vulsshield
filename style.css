@@ -31,7 +31,7 @@ body {
 .bottom-line {
     width: 30%;
     height: 1px;
-    background: linear-gradient(to right, #03302e,#2c002a);
+    background: linear-gradient(to right, #03302e, #2c002a);
     margin: 20px auto;
     background-attachment: var(--primary-red);
     float: right;
@@ -139,7 +139,7 @@ main {
 
 .hero-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -186,6 +186,7 @@ main {
 .cta-button:hover {
     background-color: var(--primary-red);
 }
+
 .page-hero {
     padding: 120px 0 80px 0;
     text-align: center;
@@ -204,8 +205,7 @@ main {
     color: #aaa;
 }
 
-#features{
-}
+#features {}
 
 .section {
     padding: 60px 0;
@@ -257,16 +257,17 @@ main {
     color: #4a4949;
     margin: 8px;
     font-weight: 100;
-        text-align: center;
+    text-align: center;
 }
 
 /* Why Us Section */
-.whyUs-grid{
-   display: grid;
+.whyUs-grid {
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 10px;
     margin-top: 40px;
 }
+
 .whyUs-card {
     padding: 30px 20px;
     text-align: center;
@@ -297,7 +298,7 @@ main {
     color: #4a4949;
     margin: 8px;
     font-weight: 100;
-        text-align: center;
+    text-align: center;
 }
 
 
@@ -316,7 +317,7 @@ main {
     text-align: center;
 }
 
-.team-card img{
+.team-card img {
     width: 100%;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -330,12 +331,14 @@ main {
     margin: 8px;
 
 }
+
 .team-card p {
     color: #ccc;
     text-align: left;
-        margin: 8px;
+    margin: 8px;
 
 }
+
 .team-card h4 {
     color: #ccc;
     text-align: left;
@@ -353,18 +356,18 @@ main {
 
 .partners-track {
     display: flex;
-    width: calc(200px * 12);
+    width: calc(120px * 12);
     /* 200px per logo * 12 logos */
-    animation: scroll 30s linear infinite;
+    animation: scroll 15s linear infinite;
 }
 
 .partner-logo {
-    width: 200px;
+    width: 120px;
     text-align: center;
 }
 
 .partner-logo i {
-    font-size: 4rem;
+    font-size: 3rem;
     color: #797878;
     transition: color 0.3s;
 }
@@ -386,7 +389,30 @@ main {
 
 /* Newsletter Section */
 .newsletter-section {
-    padding: 60px 0;
+    width: 100%;
+    margin: 0 auto;
+    padding: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+
+}
+
+.newsletter_texts {
+    width: 50%;
+    text-align: center;
+}
+
+.newsletter_texts h2 {
+    text-align: center;
+    font-size: 35px;
+}
+
+.newsletter-section h2,
+p {
+    text-align: center;
 }
 
 .newsletter-form {
@@ -394,11 +420,11 @@ main {
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-    gap: 10px;
+    gap: 0px;
 }
 
 .newsletter-form input {
-    width: 200px;
+    min-width: 400px;
     height: 35px;
     padding: 15px;
     border-radius: 0px;
@@ -408,13 +434,9 @@ main {
     font-size: 1rem;
 }
 
- button {
-    border: none;
-}
 
 .newsletter-section .cta-button {
     color: #fff;
-    padding: 15px;
     text-decoration: none;
     transition: background-color 0.3s;
 }
@@ -440,9 +462,11 @@ main {
     max-width: 50%;
     text-align: left;
 }
-.download-text h2{
+
+.download-text h2 {
     text-align: left;
 }
+
 .download-text .cta-button {
     display: inline-flex;
     align-items: center;
@@ -511,26 +535,34 @@ main {
    ================================= */
 
 footer {
-    color: #ccc; /* Couleur de texte gris clair */
-    padding: 60px 0 0 0; /* Espace en haut */
+    color: #ccc;
+    /* Couleur de texte gris clair */
+    padding: 60px 0 0 0;
+    /* Espace en haut */
     font-size: 15px;
 }
 
 .footer-container {
     display: flex;
-    justify-content: space-between; /* Espace les colonnes équitablement */
-    flex-wrap: wrap; /* Permet aux colonnes de passer à la ligne sur mobile */
-    gap: 30px; /* Espace entre les colonnes */
+    justify-content: space-between;
+    /* Espace les colonnes équitablement */
+    flex-wrap: wrap;
+    /* Permet aux colonnes de passer à la ligne sur mobile */
+    gap: 30px;
+    /* Espace entre les colonnes */
     padding-bottom: 40px;
 }
 
 .footer-section {
-    flex: 1; /* Permet aux colonnes de prendre une taille égale */
-    min-width: 250px; /* Largeur minimale avant de passer à la ligne */
+    flex: 1;
+    /* Permet aux colonnes de prendre une taille égale */
+    min-width: 250px;
+    /* Largeur minimale avant de passer à la ligne */
 }
 
 .footer-section h3 {
-    color: #fff; /* Titres en blanc pour ressortir */
+    color: #fff;
+    /* Titres en blanc pour ressortir */
     margin-bottom: 20px;
     font-size: 18px;
     position: relative;
@@ -544,13 +576,15 @@ footer {
     bottom: -8px;
     width: 40px;
     height: 2px;
-    background-color: var(--primary-green); /* Utiliser la couleur de vos boutons (à adapter si besoin) */
+    background-color: var(--primary-green);
+    /* Utiliser la couleur de vos boutons (à adapter si besoin) */
 }
 
 
 /* --- Colonne "À propos" --- */
 .footer-about .logo img {
-    width: 120px; /* Taille du logo */
+    width: 120px;
+    /* Taille du logo */
     margin-bottom: 15px;
 }
 
@@ -577,8 +611,10 @@ footer {
 }
 
 .footer-links a:hover {
-    color: #fff; /* Le lien devient blanc au survol */
-    padding-left: 5px; /* Petit effet de décalage */
+    color: #fff;
+    /* Le lien devient blanc au survol */
+    padding-left: 5px;
+    /* Petit effet de décalage */
 }
 
 
@@ -598,8 +634,10 @@ footer {
 }
 
 .footer-contact .fas {
-    margin-right: 10px; /* Espace entre l'icône et le texte */
-    color: var(--primary-white); /* Couleur des icônes */
+    margin-right: 10px;
+    /* Espace entre l'icône et le texte */
+    color: var(--primary-white);
+    /* Couleur des icônes */
 }
 
 
@@ -607,7 +645,8 @@ footer {
 .social-links {
     margin-top: 20px;
     display: flex;
-    gap: 15px; /* Espace entre les icônes */
+    gap: 15px;
+    /* Espace entre les icônes */
 }
 
 .social-links a {
@@ -616,7 +655,8 @@ footer {
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%; /* Icônes rondes */
+    border-radius: 50%;
+    /* Icônes rondes */
     background-color: #333;
     color: #fff;
     font-size: 16px;
@@ -625,18 +665,22 @@ footer {
 }
 
 .social-links a:hover {
-    background-color: var(--primary-green); /* Changement de couleur au survol */
-    transform: translateY(-3px); /* Petit effet de lévitation */
+    background-color: var(--primary-green);
+    /* Changement de couleur au survol */
+    transform: translateY(-3px);
+    /* Petit effet de lévitation */
 }
 
 
 /* --- Section Copyright --- */
 .copyright {
-    background-color: #000; /* Fond noir pour la dernière ligne */
+    background-color: #000;
+    /* Fond noir pour la dernière ligne */
     text-align: center;
     padding: 20px 0;
     font-size: 14px;
-    border-top: 1px solid #333; /* Ligne de séparation fine */
+    border-top: 1px solid #333;
+    /* Ligne de séparation fine */
 }
 
 .copyright p {
@@ -649,15 +693,18 @@ footer {
    ================================= */
 @media (max-width: 768px) {
     .footer-container {
-        flex-direction: column; /* Les colonnes se superposent */
-        align-items: flex-start; /* Aligne le contenu à gauche */
+        flex-direction: column;
+        /* Les colonnes se superposent */
+        align-items: flex-start;
+        /* Aligne le contenu à gauche */
     }
 
     .footer-section {
-        min-width: 100%; /* Chaque section prend toute la largeur */
+        min-width: 100%;
+        /* Chaque section prend toute la largeur */
         margin-bottom: 30px;
     }
-    
+
     .footer-section:last-child {
         margin-bottom: 0;
     }
@@ -687,6 +734,7 @@ footer {
     0% {
         transform: translateY(0) rotate(0deg);
     }
+
     100% {
         transform: translateY(100vh) rotate(360deg);
     }
