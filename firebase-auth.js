@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -66,3 +66,55 @@ if (loginForm) {
             });
     });
 }
+
+// Listen for auth state changes
+onAuthStateChanged(auth, (user) => {
+    const projectName = document.querySelector('.project-name');
+    const userMenu = document.getElementById('userMenu');
+    const logoutButton = document.querySelector('.logout');
+    const userAvatar = document.querySelector('.user-avatar');
+    const inscriptionButton = document.querySelector('.inscription.cta-button');
+
+    if (user) {
+        // User is signed in
+        if (projectName) {
+            projectName.textContent = user.displayName || user.email;
+        }
+        if (userMenu) {
+            const userDetails = userMenu.querySelector('.user-details');
+            if (userDetails) {
+                userDetails.querySelector('.user-name').textContent = user.displayName || 'No Name';
+                userDetails.querySelector('.user-email').textContent = user.email;
+            }
+        }
+        if (logoutButton) {
+            logoutButton.style.display = 'block';
+            logoutButton.addEventListener('click', () => {
+                signOut(auth).then(() => {
+                    window.location.href = 'index.html';
+                });
+            });
+        }
+        if (userAvatar) {
+            userAvatar.style.display = 'block';
+        }
+        if (inscriptionButton) {
+            inscriptionButton.style.display = 'none';
+        }
+
+    } else {
+        // User is signed out
+        if (projectName) {
+            projectName.textContent = 'Forge Projects';
+        }
+        if (userAvatar) {
+            userAvatar.style.display = 'none';
+        }
+        if (logoutButton) {
+            logoutButton.style.display = 'none';
+        }
+        if (inscriptionButton) {
+            inscriptionButton.style.display = 'block';
+        }
+    }
+});
