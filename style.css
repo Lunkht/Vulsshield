@@ -28,15 +28,6 @@ body {
     margin: 10px auto;
 }
 
-.bottom-line {
-    width: 30%;
-    height: 1px;
-    background: linear-gradient(to right, #03302e, #2c002a);
-    margin: 20px auto;
-    background-attachment: var(--primary-red);
-    float: right;
-
-}
 
 .container {
     width: 80%;
@@ -1507,7 +1498,6 @@ body {
     color: #797878;
     text-decoration: none;
     text-transform: capitalize;
-    border-radius: 40px;
     padding: 9px;
     font-weight: 100;
     font-size: 14px;
@@ -1516,7 +1506,7 @@ body {
 .top-nav nav ul li a:hover {
     color: var(--primary-white);
     background-color: var(--primary-grey-transparent);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .inscription {
@@ -1640,7 +1630,12 @@ main {
     color: #ccc;
     text-align: center;
 }
-
+.section p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #313030;
+    text-align: center;
+}
 
 .solutions-grid {
     display: grid;
