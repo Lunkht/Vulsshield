@@ -1522,7 +1522,7 @@ body {
 .inscription {
     background-color: transparent;
     border-radius: 30px;
-    padding: 3px;
+    padding: 7px;
     border: 1px solid #fff;
 }
 
@@ -1530,7 +1530,7 @@ body {
     color: var(--primary-white);
     text-decoration: none;
     font-weight: bold;
-    font-size: 0.6rem;
+    font-size: 1rem;
     font-family: sans-serif;
 }
 
@@ -1597,13 +1597,13 @@ main {
 
 .cta-button {
     background-color: transparent;
-    color: #fff;
-    padding: 15px 30px;
+    color: #7a7979;
+    padding: 5px 6px;
     text-decoration: none;
     border-radius: 5px;
-    font-weight: bold;
+    font-weight: normal;
     transition: background-color 0.3s;
-    border: 1px solid #fff;
+    border: 0.5px solid #7a7979;
 }
 
 .cta-button:hover {
