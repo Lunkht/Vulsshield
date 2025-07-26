@@ -3,7 +3,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyC96G3sw6K9gSjWfhjstIyeOr4Wvsd9cN8",
   authDomain: "forge-643b5.firebaseapp.com",
-  projectId: "forge-643b5",
+  projectId: "forge-9f0ec",
   storageBucket: "forge-643b5.firebasestorage.app",
   messagingSenderId: "41015118503",
   appId: "1:41015118503:web:315036db6e7bdbc6c66982",
