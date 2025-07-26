@@ -1607,7 +1607,7 @@ main {
 }
 
 .cta-button:hover {
-    background-color: var(--primary-red);
+    background-color: var(--primary-gray);
 }
 
 .page-hero {
