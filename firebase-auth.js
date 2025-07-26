@@ -1,21 +1,23 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
-// Initialize Firebase
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC96G3sw6K9gSjWfhjstIyeOr4Wvsd9cN8",
-  authDomain: "forge-643b5.firebaseapp.com",
+  authDomain: "forge-9f0ec.firebaseapp.com",
   projectId: "forge-9f0ec",
-  storageBucket: "forge-643b5.firebasestorage.app",
-  messagingSenderId: "41015118503",
-  appId: "1:41015118503:web:315036db6e7bdbc6c66982",
-  measurementId: "G-2N913H7J6W"
+  storageBucket: "forge-9f0ec.firebasestorage.app",
+  messagingSenderId: "746089630426",
+  appId: "1:746089630426:web:532d935628d5e988cf73e3",
+  measurementId: "G-HGJG72PGY2"
 };
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+const auth = getAuth(app);
 
 // Signup
 const signupForm = document.getElementById('signup-form');
@@ -25,7 +27,7 @@ if (signupForm) {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        auth.createUserWithEmailAndPassword(email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
@@ -49,7 +51,7 @@ if (loginForm) {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        auth.signInWithEmailAndPassword(email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
