@@ -866,6 +866,9 @@ main {
     width: 100%;
     margin-top: 40px;
 }
+#partners h2{
+font-size: 1.5rem;
+}
 
 .partners-track {
     display: flex;
