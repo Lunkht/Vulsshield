@@ -74,6 +74,7 @@ onAuthStateChanged(auth, (user) => {
     const logoutButton = document.querySelector('.logout');
     const userAvatar = document.querySelector('.user-avatar');
     const inscriptionButton = document.querySelector('.inscription.cta-button');
+    const passwordButton = document.querySelector('.password-action-btn');
 
     if (user) {
         // User is signed in
@@ -101,6 +102,9 @@ onAuthStateChanged(auth, (user) => {
         if (inscriptionButton) {
             inscriptionButton.style.display = 'none';
         }
+        if (passwordButton) {
+            passwordButton.style.display = 'block';
+        }
 
     } else {
         // User is signed out
@@ -115,6 +119,9 @@ onAuthStateChanged(auth, (user) => {
         }
         if (inscriptionButton) {
             inscriptionButton.style.display = 'block';
+        }
+        if (passwordButton) {
+            passwordButton.style.display = 'none';
         }
     }
 });
