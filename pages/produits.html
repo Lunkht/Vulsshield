@@ -9,6 +9,82 @@
     <link rel="shortcut icon" href="../assets/images/favicon-04.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .product-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(120deg, #03302e 0%, #2c002a 100%);
+            text-align: center;
+            padding: 100px 0 80px 0;
+        }
+        .product-hero .hero-text {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .product-hero h1 {
+            font-size: 3.2rem;
+            color: #fff;
+            margin-bottom: 18px;
+            font-weight: bold;
+        }
+        .product-hero p {
+            font-size: 1.3rem;
+            color: #eee;
+            margin-bottom: 0;
+        }
+        .about-section {
+            padding: 60px 0;
+        }
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .about-text {
+            flex: 1 1 320px;
+            min-width: 280px;
+        }
+        .about-text h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .about-text span {
+            color: var(--primary-green);
+        }
+        .about-text p {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+        }
+        .about-image {
+            flex: 1 1 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-image img {
+            max-width: 220px;
+            max-height: 220px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            object-fit: contain;
+        }
+        @media (max-width: 900px) {
+            .about-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .about-image img {
+                max-width: 180px;
+                max-height: 180px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -29,17 +105,15 @@
                 </ul>
             </nav>
             <a class="inscription cta-button" href="../inscription.html">S'inscrire</a>
-
         </div>
     </header>
 
     <main>
-        <section id="product-hero" class="hero page-hero">
+        <section id="product-hero" class="product-hero">
             <div class="container">
                 <div class="hero-text" data-aos="fade-up">
                     <h1>Nos Produits</h1>
-                    <p>Découvrez notre gamme de produits innovants, conçus pour améliorer votre quotidien avec style et
-                        efficacité.</p>
+                    <p>Découvrez la gamme Forge : innovation, performance et design pour un quotidien plus simple, plus sûr et plus connecté.</p>
                 </div>
             </div>
         </section>
@@ -48,7 +122,8 @@
             <div class="container about-container" data-aos="fade-up">
                 <div class="about-text" data-aos="fade-right" data-aos-delay="200">
                     <h2>FORGE <span>GE-GEONE</span></h2>
-                    <p>Le GEONE est un drone surpuissant avec une longue autonomie et une caméra HD.</p>
+                    <p><strong>Drone intelligent longue portée</strong><br>
+                    Le GEONE est un drone nouvelle génération doté d'une autonomie exceptionnelle, d'une caméra HD stabilisée et d'une navigation intelligente. Idéal pour la prise de vue aérienne, la surveillance ou le loisir, il offre une expérience de vol fluide et sécurisée grâce à ses capteurs avancés et son retour vidéo en temps réel. Léger, pliable et robuste, il s'adapte à tous vos besoins d'exploration.</p>
                 </div>
                 <div class="about-image" data-aos="fade-left" data-aos-delay="400">
                     <img src="../assets/images/ge1.png" alt="Drone GEONE">
@@ -62,10 +137,8 @@
                 </div>
                 <div class="about-text" data-aos="fade-left" data-aos-delay="200">
                     <h2>FORGE <span>GE-ENgy</span></h2>
-                    <h2>Boostez Votre Énergie</h2>
-                    <p>Découvrez notre nouvelle boisson énergisante, conçue pour vous donner le coup de fouet nécessaire
-                        pour affronter vos journées les plus intenses. Un mélange unique d'ingrédients naturels pour une
-                        performance maximale.</p>
+                    <p><strong>Boisson énergisante naturelle</strong><br>
+                    La GE-ENgy est une boisson énergisante à base d'ingrédients naturels, sans colorants artificiels. Elle combine vitamines, extraits de plantes et caféine pour booster votre énergie et votre concentration sans effet de "crash". Son goût rafraîchissant et sa formule saine en font l'alliée idéale des sportifs, étudiants et professionnels actifs.</p>
                 </div>
             </div>
         </section>
@@ -73,9 +146,8 @@
             <div class="container about-container" data-aos="fade-up">
                 <div class="about-text" data-aos="fade-right" data-aos-delay="200">
                     <h2>FORGE <span>GE-At1 ONE</span></h2>
-                    <h2>Casque Audio Sans Fil</h2>
-                    <p>Plongez dans une expérience sonore immersive avec notre casque audio sans fil. Qualité sonore
-                        exceptionnelle, confort optimal et design élégant.</p>
+                    <p><strong>Casque audio sans fil premium</strong><br>
+                    Plongez dans une expérience sonore immersive avec le GE-At1 ONE. Ce casque sans fil offre une qualité audio haute fidélité, une réduction active du bruit, et un confort longue durée grâce à ses coussinets ergonomiques. Son autonomie étendue et son design moderne en font le compagnon parfait pour la musique, les appels et le gaming.</p>
                 </div>
                 <div class="about-image" data-aos="fade-left" data-aos-delay="400">
                     <img src="../assets/images/casque.png" alt="Casque Audio Sans Fil">
@@ -89,9 +161,8 @@
                 </div>
                 <div class="about-text" data-aos="fade-left" data-aos-delay="200">
                     <h2>FORGE <span>GE-one W3s</span></h2>
-                    <h2>Une montre Électronique Époustouflant</h2>
-                    <p>Restez connecté et suivez votre activité avec notre montre électronique. Un concentré de
-                        technologie à votre poignet.</p>
+                    <p><strong>Montre connectée multifonction</strong><br>
+                    La GE-one W3s est une montre électronique élégante qui vous accompagne partout. Suivi d'activité, notifications intelligentes, cardiofréquencemètre, étanchéité et autonomie longue durée : elle allie technologie de pointe et design raffiné pour vous aider à rester connecté et en forme au quotidien.</p>
                 </div>
             </div>
         </section>

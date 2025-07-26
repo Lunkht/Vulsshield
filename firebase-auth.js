@@ -1,7 +1,7 @@
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyDCPG79NnAI0dosZfqi-Dgua3NWnmJ5XaQ",
+  apiKey: "AIzaSyC96G3sw6K9gSjWfhjstIyeOr4Wvsd9cN8",
   authDomain: "forge-643b5.firebaseapp.com",
   projectId: "forge-643b5",
   storageBucket: "forge-643b5.firebasestorage.app",

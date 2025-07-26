@@ -6,45 +6,126 @@
     <title>Inscription - Forge</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .auth-flex {
+            display: flex;
+            min-height: 100vh;
+        }
+        .auth-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            color: #fff;
+            padding: 40px 20px;
+        }
+        .auth-side .logo {
+            margin-bottom: 30px;
+        }
+        .auth-side .logo img {
+            width: 120px;
+        }
+        .auth-side h1 {
+            font-size: 2.2rem;
+            margin-bottom: 18px;
+            font-weight: bold;
+        }
+        .auth-side p {
+            font-size: 1.1rem;
+            color: #aaa;
+            max-width: 350px;
+        }
+        .auth-form-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+        }
+        .auth-form-container {
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 40px 32px;
+            min-width: 340px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .auth-form-container h2 {
+            color: #fff;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .auth-form-container .btn-primary {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .auth-form-container .btn-secondary {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .auth-form-container p {
+            text-align: center;
+            margin-top: 18px;
+        }
+        @media (max-width: 900px) {
+            .auth-flex { flex-direction: column; }
+            .auth-side, .auth-form-side { min-height: 300px; }
+        }
+    </style>
 </head>
 <body>
-    <div class="auth-container">
-        <h2>Créer un compte</h2>
-        <form id="registerForm" autocomplete="off">
-            <div class="form-group">
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" required>
+    <div class="auth-flex">
+        <div class="auth-side">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.svg" alt="Forge Logo">
+            </a>
+            <h1>Rejoignez Forge</h1>
+            <p>Créez votre coffre-fort numérique et protégez vos mots de passe et données sensibles en toute simplicité.</p>
+        </div>
+        <div class="auth-form-side">
+            <div class="auth-form-container">
+                <h2>Créer un compte</h2>
+                <form id="registerForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adresse">Adresse</label>
+                        <input type="text" id="adresse" name="adresse" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="password" minlength="8" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmer le mot de passe</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" required>
+                            <span class="checkmark"></span>
+                            J'accepte les <a href="#" target="_blank">termes et conditions d’utilisation</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary">S'inscrire</button>
+                    <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Retour</button>
+                    <p>Déjà un compte ? <a href="connexion.html">Se connecter</a></p>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="adresse">Adresse</label>
-                <input type="text" id="adresse" name="adresse" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" minlength="8" required>
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirmer le mot de passe</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" required>
-            </div>
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="terms" required>
-                    <span class="checkmark"></span>
-                    J'accepte les <a href="#" target="_blank">termes et conditions d’utilisation</a>
-                </label>
-            </div>
-            <button type="submit" class="btn-primary" style="width:100%;margin-bottom:10px;">S'inscrire</button>
-            <p>Déjà un compte ? <a href="connexion.html">Se connecter</a></p>
-        </form>
+        </div>
     </div>
     <script>
         document.getElementById('registerForm').addEventListener('submit', function(e) {
