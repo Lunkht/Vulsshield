@@ -45,13 +45,13 @@ body {
 
 /* Top Bar Styles */
 .top-bar {
-    background-color: #1a1a1a;
+    background-color: #000000;
     border-bottom: 1px solid #333;
     padding: 12px 0;
     position: fixed;
     width: 100%;
     top: 0;
-    left: 0;
+    left: 0;s
     right: 0;
     z-index: 2;
 }
