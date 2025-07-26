@@ -717,6 +717,57 @@ body {
     grid-template-columns: 1fr;
 }
 
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #1a1a1a;
+    border: 2px dashed #333;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.empty-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #2a2a2a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.empty-icon i {
+    font-size: 32px;
+    color: #666;
+}
+
+.empty-state h3 {
+    color: #ccc;
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: #666;
+    font-size: 16px;
+    margin: 0 0 30px 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.empty-state .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
 .password-card {
     background-color: #1a1a1a;
     border: 1px solid #333;
