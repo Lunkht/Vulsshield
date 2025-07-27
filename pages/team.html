@@ -12,23 +12,179 @@
 </head>
 
 <body>
+     <!-- Barre supérieure avec navigation et actions -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="breadcrumb">
+                    <div class="project-icon">
+                        <div class="gradient-circle"></div>
+                    </div>
+                    <span class="project-name">Forge Projects</span>
+                    <span class="project-tag"></span>
+                </div>
+            </div>
+            
+            <div class="top-bar-center">
+                <!-- Espace central vide -->
+            </div>
+            
+            <div class="top-bar-right">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Find..." class="search-input">
+                </div>
+                <button class="action-btn password-action-btn" onclick="window.location.href='pages/my-password-lists.html'">
+                    <i class="fas fa-key"></i>
+                </button>
+                <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <!-- Menu Feedback -->
+                <div class="dropdown-menu feedback-menu" id="feedbackMenu">
+                    <div class="menu-header">
+                        <h4>Envoyer un feedback</h4>
+                    </div>
+                    <div class="menu-content">
+                        <div class="feedback-form">
+                            <div class="form-group">
+                                <label for="feedbackType">Type de feedback</label>
+                                <select id="feedbackType" class="feedback-select">
+                                    <option value="bug">Rapport de bug</option>
+                                    <option value="feature">Demande de fonctionnalité</option>
+                                    <option value="improvement">Amélioration</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackMessage">Message</label>
+                                <textarea id="feedbackMessage" class="feedback-textarea" placeholder="Décrivez votre feedback..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackEmail">Email (optionnel)</label>
+                                <input type="email" id="feedbackEmail" class="feedback-input" placeholder="votre@email.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-footer">
+                        <button class="btn-secondary" onclick="closeFeedbackMenu()">Annuler</button>
+                        <button class="btn-primary" onclick="submitFeedback()">Envoyer</button>
+                    </div>
+                </div>
+                <div class="notification-icon" onclick="toggleNotificationMenu()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-dot"></span>
+                    
+                    <!-- Menu des notifications -->
+                    <div class="dropdown-menu notification-menu" id="notificationMenu">
+                        <div class="menu-header">
+                            <h4>Notifications</h4>
+                            <button class="mark-all-read">Marquer comme lu</button>
+                        </div>
+                        <div class="menu-content">
+                            <div class="notification-item unread">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Sécurité renforcée</p>
+                                    <p class="notification-text">Votre mot de passe a été mis à jour avec succès.</p>
+                                    <span class="notification-time">Il y a 2h</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Synchronisation</p>
+                                    <p class="notification-text">Nouvelles données synchronisées sur le cloud.</p>
+                                    <span class="notification-time">Il y a 4h</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Rappel</p>
+                                    <p class="notification-text">Pensez à changer vos mots de passe régulièrement.</p>
+                                    <span class="notification-time">Hier</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-footer">
+                            <a href="#" class="view-all">Voir toutes les notifications</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                
+                <div class="user-avatar" onclick="toggleUserMenu()">
+                    <div class="avatar-gradient"></div>
+                    
+                    <!-- Menu utilisateur -->
+                    <div class="dropdown-menu user-menu" id="userMenu">
+                        <div class="menu-header">
+                            <div class="user-info">
+                                <div class="user-avatar-small">
+                                    <div class="avatar-gradient"></div>
+                                </div>
+                                <div class="user-details">
+                                    <p class="user-name">John Doe</p>
+                                    <p class="user-email">john.doe@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-content">
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profil</span>
+                            </a>
+                            <a href="pages/settings.html" class="menu-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Paramètres</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Sécurité</span>
+                            </a>
+                            <a href="pages/aide.html" class="menu-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Aide</span>
+                            </a>
+                        </div>
+                        <div class="menu-footer">
+                            <a href="#" class="menu-item logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Déconnexion</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header class="top-nav">
         <div class="container">
-            <a href="../index.html" class="logo">
-                <img src="../assets/images/logo.svg" alt="Forge Logo">
+            <a href="#" class="logo">
+                <img src="assets/images/logo.svg" alt="Forge Logo">
             </a>
             <nav>
                 <ul>
-                    <li><a href="../index.html#home">Accueil</a></li>
-                    <li><a href="../index.html#features">Fonctionnalités</a></li>
-                    <li><a href="../index.html#why-us">Pourquoi nous?</a></li>
-                    <li><a href="produits.html">Produits</a></li>
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#features">Fonctionnalités</a></li>
+                    <li><a href="#why-us">Pourquoi nous</a></li>
+                    <li><a href="pages/produits.html">Produits</a></li>
                     <li><a href="pages/team.html">Team</a></li>
-                    <li><a href="../index.html#partners">Partenaires</a></li>
-                    <li><a href="../index.html#download">Télécharger</a></li>
+                    <li><a href="#partners">Partenaires</a></li>
+                    <li><a href="pages/download.html">Télécharger</a></li>
                 </ul>
             </nav>
-            <a class="inscription cta-button" href="../inscription.html">S'inscrire</a>
+            <a class="inscription cta-button" href="inscription.html">S'inscrire</a>
 
         </div>
     </header>
