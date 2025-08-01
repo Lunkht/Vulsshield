@@ -156,7 +156,7 @@
             }
             // Enregistrement local (pour démo, à remplacer par un backend sécurisé en prod)
             const user = {prenom, nom, email, adresse, password};
-            localStorage.setItem('forgeUser', JSON.stringify(user));
+            localStorage.setItem('vulsshieldUser', JSON.stringify(user));
             alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
             window.location.href = 'connexion.html';
         });
