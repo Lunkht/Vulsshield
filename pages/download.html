@@ -21,7 +21,6 @@
                         <div class="gradient-circle"></div>
                     </div>
                     <span class="project-name">Vulsshield Projects</span>
-                    <span class="project-tag"></span>
                 </div>
             </div>
             
@@ -168,49 +167,138 @@
         </div>
     </div>
 
-    <header class="top-nav">
+    <header class="top-nav modern-header">
         <div class="container">
             <a href="../index.html" class="logo">
                 <img src="../assets/images/logo.svg" alt="Vulsshield Logo">
             </a>
             <nav>
-                <ul>
+                <ul class="nav-links">
                     <li><a href="../index.html#home">Accueil</a></li>
                     <li><a href="../index.html#features">Fonctionnalités</a></li>
                     <li><a href="../index.html#why-us">Pourquoi nous</a></li>
                     <li><a href="produits.html">Produits</a></li>
                     <li><a href="team.html">Team</a></li>
                     <li><a href="../index.html#partners">Partenaires</a></li>
-                    <li><a href="download.html">Télécharger</a></li>
+                    <li class="active"><a href="download.html">Télécharger</a></li>
                 </ul>
             </nav>
-            <a class="inscription cta-button" href="../inscription.html">S'inscrire</a>
-
+            <div class="header-actions">
+                <a class="inscription cta-button" href="../inscription.html">S'inscrire</a>
+                <button class="mobile-menu-toggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main>
-        <section id="download-hero" class="hero page-hero">
+        <section id="download-hero" class="hero page-hero modern-hero">
             <div class="container">
-                <div class="hero-text" data-aos="fade-up">
-                    <h1>Téléchargement</h1>
-                    <p>Téléchargez notre application et profitez de toutes ses fonctionnalités.</p>
+                <div class="hero-content">
+                    <div class="hero-text" data-aos="fade-up">
+                        <h1>Téléchargez <span class="highlight">Vulsshield</span></h1>
+                        <p class="hero-subtitle">Sécurisez vos mots de passe et reprenez le contrôle de votre vie numérique</p>
+                        <div class="hero-cta">
+                            <a href="#download" class="cta-button primary-cta">
+                                <i class="fas fa-download"></i> Télécharger maintenant
+                            </a>
+                            <a href="#features" class="cta-button secondary-cta">
+                                <i class="fas fa-info-circle"></i> En savoir plus
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image" data-aos="fade-left">
+                        <img src="../assets/images/phone.png" alt="Vulsshield App" class="floating-image">
+                    </div>
                 </div>
+            </div>
+            <div class="hero-wave">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#000000" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
             </div>
         </section>
 
         <section id="download" class="section download-section">
-            <div class="container download-container" data-aos="fade-up">
-                <div class="download-text">
-                    <h2>Télécharger Vulsshield</h2>
-                    <p>Rejoignez des milliers d'utilisateurs et reprenez le contrôle de votre sécurité numérique.
-                        Disponible dès maintenant sur Android.</p>
-                    <a href="../assets/files/vulsshield.apk" class="cta-button" download>
-                        <i class="fab fa-android"></i> Télécharger l'APK
-                    </a>
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Téléchargez notre application</h2>
+                    <p>Disponible sur plusieurs plateformes pour répondre à vos besoins</p>
                 </div>
-                <div class="download-image" data-aos="fade-left" data-aos-delay="200">
-                    <img src="../assets/images/logo.svg" alt="Download Vulsshield App">
+                
+                <div class="download-platforms" data-aos="fade-up">
+                    <div class="platform-card">
+                        <div class="platform-icon">
+                            <i class="fab fa-android"></i>
+                        </div>
+                        <h3>Android</h3>
+                        <p>Application native pour une expérience optimale sur votre appareil Android</p>
+                        <a href="../assets/files/vulsshield.apk" class="cta-button" download>
+                            <i class="fas fa-download"></i> Télécharger l'APK
+                        </a>
+                    </div>
+                    
+                    <div class="platform-card coming-soon">
+                        <div class="platform-icon">
+                            <i class="fab fa-apple"></i>
+                        </div>
+                        <h3>iOS</h3>
+                        <p>Bientôt disponible sur l'App Store pour les appareils Apple</p>
+                        <span class="coming-soon-badge">Bientôt disponible</span>
+                    </div>
+                    
+                    <div class="platform-card coming-soon">
+                        <div class="platform-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <h3>Desktop</h3>
+                        <p>Version bureau pour Windows, macOS et Linux en développement</p>
+                        <span class="coming-soon-badge">Bientôt disponible</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="features" class="section features-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Fonctionnalités principales</h2>
+                    <p>Découvrez ce que Vulsshield peut faire pour vous</p>
+                </div>
+                
+                <div class="features-grid" data-aos="fade-up">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Stockage sécurisé</h3>
+                        <p>Vos mots de passe sont chiffrés avec les standards les plus élevés</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>Synchronisation</h3>
+                        <p>Accédez à vos données sur tous vos appareils</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <h3>Authentification biométrique</h3>
+                        <p>Déverrouillez l'application avec votre empreinte digitale</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Protection avancée</h3>
+                        <p>Détection des fuites de données et alertes de sécurité</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -261,8 +349,46 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 1000,
+            duration: 800,
+            easing: 'ease-in-out',
             once: true,
+            mirror: false
+        });
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('.modern-header nav');
+            
+            if (mobileMenuToggle && nav) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+                    mobileMenuToggle.classList.toggle('active');
+                });
+            }
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (nav && window.innerWidth <= 768) {
+                            nav.style.display = 'none';
+                            mobileMenuToggle.classList.remove('active');
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>
