@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - Forge</title>
+    <title>Connexion - Vulsshield</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -80,9 +80,9 @@
     <div class="auth-flex">
         <div class="auth-side">
             <a href="index.html" class="logo">
-                <img src="assets/images/logo.svg" alt="Forge Logo">
+                <img src="assets/images/logo.svg" alt="Vulsshield Logo">
             </a>
-            <h1>Bienvenue sur Forge</h1>
+            <h1>Bienvenue sur Vulsshield</h1>
             <p>Connectez-vous à votre coffre-fort numérique et gérez vos mots de passe en toute sécurité.</p>
         </div>
         <div class="auth-form-side">
@@ -109,13 +109,13 @@
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-            const user = JSON.parse(localStorage.getItem('forgeUser'));
+            const user = JSON.parse(localStorage.getItem('vulsshieldUser'));
             if (!user || user.email !== email || user.password !== password) {
                 alert('Email ou mot de passe incorrect.');
                 return;
             }
             // Connexion réussie
-            localStorage.setItem('forgeLoggedIn', 'true');
+            localStorage.setItem('vulsshieldLoggedIn', 'true');
             window.location.href = 'pages/my-password-lists.html';
         });
     </script>
