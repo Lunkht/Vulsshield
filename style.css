@@ -1812,58 +1812,93 @@ font-size: 1.5rem;
 .newsletter-section {
     width: 100%;
     margin: 0 auto;
-    padding: 60px;
+    padding: 80px 0;
+    background-color: var(--dark-bg-color);
+}
+
+.newsletter-content {
+    max-width: 800px;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
     gap: 40px;
-
 }
 
-.newsletter_texts {
-    width: 50%;
+.newsletter-text {
     text-align: center;
+    max-width: 600px;
 }
 
-.newsletter_texts h2 {
-    text-align: center;
-    font-size: 35px;
+.newsletter-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
 }
 
-.newsletter-section h2,
-p {
-    text-align: center;
+.newsletter-text p {
+    font-size: 1.1rem;
+    color: var(--text-color-secondary);
+    line-height: 1.6;
 }
 
 .newsletter-form {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    gap: 0px;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.newsletter-form input {
-    min-width: 400px;
-    height: 35px;
-    padding: 15px;
-    border-radius: 0px;
+.form-group {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 4px 0 0 4px;
     border: 1px solid #444;
     background-color: #333;
     color: #fff;
     font-size: 1rem;
 }
 
-
 .newsletter-section .cta-button {
+    height: 50px;
+    padding: 0 25px;
+    border-radius: 0 4px 4px 0;
     color: #fff;
     text-decoration: none;
     transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
 }
 
 .newsletter-section .cta-button:hover {
     background-color: var(--primary-red);
+}
+
+.form-consent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.form-consent input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.form-consent label {
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
 }
 
 
