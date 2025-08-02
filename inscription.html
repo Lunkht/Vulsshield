@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vulsshield - Inscription</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .auth-flex {
@@ -88,26 +89,19 @@
         <div class="auth-form-side">
             <div class="auth-form-container">
                 <h2>Créer un compte</h2>
-                <form id="registerForm" autocomplete="off">
+                <form id="signup-form" autocomplete="off">
                     <div class="form-group">
-                        <label for="prenom">Prénom</label>
-                        <input type="text" id="prenom" name="prenom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nom">Nom</label>
-                        <input type="text" id="nom" name="nom" required>
+                        <label for="displayName">Nom complet</label>
+                        <input type="text" id="displayName" name="displayName" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="adresse">Adresse</label>
-                        <input type="text" id="adresse" name="adresse" required>
-                    </div>
-                    <div class="form-group">
                         <label for="password">Mot de passe</label>
                         <input type="password" id="password" name="password" minlength="8" required>
+                        <small style="color: #aaa; font-size: 0.8rem;">Le mot de passe doit contenir au moins 8 caractères</small>
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Confirmer le mot de passe</label>
@@ -117,9 +111,10 @@
                         <label class="checkbox-label">
                             <input type="checkbox" id="terms" required>
                             <span class="checkmark"></span>
-                            J'accepte les <a href="#" target="_blank">termes et conditions d’utilisation</a>
+                            J'accepte les <a href="#" target="_blank">termes et conditions d'utilisation</a>
                         </label>
                     </div>
+                    <div id="signup-error" class="error-message" style="color: #ff4d4d; margin-bottom: 15px; display: none;"></div>
                     <button type="submit" class="btn-primary">S'inscrire</button>
                     <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Retour</button>
                     <p>Déjà un compte ? <a href="connexion.html">Se connecter</a></p>
@@ -127,38 +122,97 @@
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC96G3sw6K9gSjWfhjstIyeOr4Wvsd9cN8",
+            authDomain: "vulsshield-9f0ec.firebaseapp.com",
+            projectId: "vulsshield-9f0ec",
+            storageBucket: "vulsshield-9f0ec.firebasestorage.app",
+            messagingSenderId: "746089630426",
+            appId: "1:746089630426:web:532d935628d5e988cf73e3",
+            measurementId: "G-HGJG72PGY2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Signup form
+        const signupForm = document.getElementById('signup-form');
+        const signupError = document.getElementById('signup-error');
+
+        signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const prenom = document.getElementById('prenom').value.trim();
-            const nom = document.getElementById('nom').value.trim();
+            const displayName = document.getElementById('displayName').value.trim();
             const email = document.getElementById('email').value.trim();
-            const adresse = document.getElementById('adresse').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const terms = document.getElementById('terms').checked;
 
-            if (!prenom || !nom || !email || !adresse || !password || !confirmPassword) {
-                alert('Veuillez remplir tous les champs.');
+            // Reset error message
+            signupError.style.display = 'none';
+            signupError.textContent = '';
+
+            // Validation
+            if (!displayName || !email || !password || !confirmPassword) {
+                signupError.style.display = 'block';
+                signupError.textContent = 'Veuillez remplir tous les champs.';
                 return;
             }
             if (password.length < 8) {
-                alert('Le mot de passe doit contenir au moins 8 caractères.');
+                signupError.style.display = 'block';
+                signupError.textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
                 return;
             }
             if (password !== confirmPassword) {
-                alert('Les mots de passe ne correspondent pas.');
+                signupError.style.display = 'block';
+                signupError.textContent = 'Les mots de passe ne correspondent pas.';
                 return;
             }
             if (!terms) {
-                alert('Vous devez accepter les termes et conditions d’utilisation.');
+                signupError.style.display = 'block';
+                signupError.textContent = 'Vous devez accepter les termes et conditions d\'utilisation.';
                 return;
             }
-            // Enregistrement local (pour démo, à remplacer par un backend sécurisé en prod)
-            const user = {prenom, nom, email, adresse, password};
-            localStorage.setItem('vulsshieldUser', JSON.stringify(user));
-            alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
-            window.location.href = 'connexion.html';
+
+            // Create user with Firebase
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed up
+                    const user = userCredential.user;
+                    
+                    // Update profile with display name
+                    return updateProfile(user, {
+                        displayName: displayName
+                    }).then(() => {
+                        console.log('User created with profile:', user);
+                        window.location.href = 'connexion.html';
+                    });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error('Error signing up:', errorCode, errorMessage);
+                    
+                    // Display error message
+                    signupError.style.display = 'block';
+                    
+                    if (errorCode === 'auth/email-already-in-use') {
+                        signupError.textContent = 'Cet email est déjà utilisé par un autre compte.';
+                    } else if (errorCode === 'auth/invalid-email') {
+                        signupError.textContent = 'Format d\'email invalide.';
+                    } else if (errorCode === 'auth/weak-password') {
+                        signupError.textContent = 'Le mot de passe est trop faible.';
+                    } else {
+                        signupError.textContent = errorMessage;
+                    }
+                });
         });
     </script>
 </body>

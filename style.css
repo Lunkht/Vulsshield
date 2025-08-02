@@ -1875,12 +1875,13 @@ font-size: 1.5rem;
     color: #fff;
     text-decoration: none;
     transition: background-color 0.3s;
+    border: 1px solid white;
     border: none;
     cursor: pointer;
 }
 
 .newsletter-section .cta-button:hover {
-    background-color: var(--primary-red);
+    border:1px solid var(--primary-green);
 }
 
 .form-consent {
@@ -2463,21 +2464,15 @@ footer {
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    /* Espace les colonnes équitablement */
-    flex-wrap: wrap;
-    /* Permet aux colonnes de passer à la ligne sur mobile */
-    gap: 30px;
-    /* Espace entre les colonnes */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
     padding-bottom: 40px;
 }
 
 .footer-section {
-    flex: 1;
-    /* Permet aux colonnes de prendre une taille égale */
-    min-width: 250px;
-    /* Largeur minimale avant de passer à la ligne */
+    display: flex;
+    flex-direction: column;
 }
 
 .footer-section h3 {
@@ -2486,6 +2481,7 @@ footer {
     margin-bottom: 20px;
     font-size: 18px;
     position: relative;
+    display: inline-block;
 }
 
 /* Petite ligne décorative sous les titres du footer */
@@ -2505,11 +2501,12 @@ footer {
 .footer-about .logo img {
     width: 120px;
     /* Taille du logo */
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .footer-about p {
     line-height: 1.6;
+    margin-top: 10px;
 }
 
 
@@ -2518,6 +2515,9 @@ footer {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
 }
 
 .footer-links ul li {
@@ -2527,26 +2527,30 @@ footer {
 .footer-links a {
     color: #ccc;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
 }
 
 .footer-links a:hover {
     color: #fff;
     /* Le lien devient blanc au survol */
-    padding-left: 5px;
-    /* Petit effet de décalage */
+    transform: translateX(5px);
 }
 
 
 /* --- Colonne "Contact" --- */
 .footer-contact p {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .footer-contact a {
     color: #ccc;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .footer-contact a:hover {
@@ -2554,19 +2558,22 @@ footer {
 }
 
 .footer-contact .fas {
-    margin-right: 10px;
+    margin-right: 12px;
     /* Espace entre l'icône et le texte */
     color: var(--primary-white);
     /* Couleur des icônes */
+    width: 16px;
+    text-align: center;
 }
 
 
 /* --- Liens Réseaux Sociaux --- */
 .social-links {
-    margin-top: 20px;
+    margin-top: 25px;
     display: flex;
     gap: 15px;
     /* Espace entre les icônes */
+    flex-wrap: wrap;
 }
 
 .social-links a {
@@ -2581,7 +2588,8 @@ footer {
     color: #fff;
     font-size: 16px;
     text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .social-links a:hover {
@@ -2589,6 +2597,7 @@ footer {
     /* Changement de couleur au survol */
     transform: translateY(-3px);
     /* Petit effet de lévitation */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -2597,7 +2606,7 @@ footer {
     background-color: #000;
     /* Fond noir pour la dernière ligne */
     text-align: center;
-    padding: 20px 0;
+    padding: 25px 0;
     font-size: 14px;
     border-top: 1px solid #333;
     /* Ligne de séparation fine */
@@ -2605,6 +2614,17 @@ footer {
 
 .copyright p {
     margin: 0;
+}
+
+.copyright a {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.copyright a:hover {
+    text-decoration: underline;
 }
 
 
