@@ -37,7 +37,6 @@ body {
 /* Top Bar Styles */
 .top-bar {
     background-color: #000000;
-    border-bottom: 1px solid #333;
     padding: 12px 0;
     position: fixed;
     width: 100%;
@@ -1906,9 +1905,7 @@ font-size: 1.5rem;
 
 /* Modern Header Styles */
 .modern-header {
-    background-color: rgba(26, 26, 26, 0.95);
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .modern-header .container {
