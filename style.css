@@ -1684,7 +1684,7 @@ main {
 #why-us {
    padding: 4px;
 }
-#why-us h2{
+#why-us .container h2{
    font-size: 1.7rem;
 }
 .whyus-grid {
