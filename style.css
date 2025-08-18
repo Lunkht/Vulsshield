@@ -1840,7 +1840,7 @@ font-size: 1.5rem;
 
 .newsletter-text h2 {
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     color: var(--text-color);
 }
 
@@ -1899,8 +1899,10 @@ font-size: 1.5rem;
 .form-consent {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin: 0 auto;
+    font-size: 0.7rem;
+    color: var(--primary-gray);
     max-width: 600px;
 }
 
