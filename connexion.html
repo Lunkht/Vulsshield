@@ -149,7 +149,7 @@
                     </div>
                     <div id="login-error" class="error-message" style="display: none;"></div>
                     <button type="submit" class="btn-primary">Se connecter</button>
-                    <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Retour</button>
+                    <button type="button" class="btn-secondary" onclick="window.location.href = 'pages/dashboard.html';">Retour</button>
                     <p>Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
                 </form>
             </div>
@@ -194,7 +194,7 @@
                     // Signed in
                     const user = userCredential.user;
                     console.log('User logged in:', user);
-                    window.location.href = 'pages/my-password-lists.html';
+                    window.location.href = 'pages/dashboard.html';
                 })
                 .catch((error) => {
                     const errorCode = error.code;
