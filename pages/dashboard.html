@@ -159,7 +159,7 @@
     <main>
         <section class="page-hero">
             <div class="container">
-                <h1>Mes Mots de Passe</h1>
+                <h1>Mon Tableau de bord</h1>
                 <p>Gérez et synchronisez tous vos mots de passe en toute sécurité</p>
             </div>
         </section>
@@ -173,7 +173,7 @@
                             <div class="avatar-gradient-large"></div>
                         </div>
                         <div class="user-info-large">
-                            <h2>John Doe</h2>
+                            <h2 id="user_name">John Doe</h2>
                             <p class="user-email-large">john.doe@example.com</p>
                             <div class="user-stats">
                                 <div class="stat-item">
@@ -440,6 +440,7 @@
         </div>
     </footer>
 
+    <script src="../firebase-auth.js?v=2" type="module"></script>
     <script src="password-manager.js" type="module"></script>
     <script src="../script.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
