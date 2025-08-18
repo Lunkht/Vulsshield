@@ -549,6 +549,7 @@ body {
 .password-action-btn {
     background-color: var(--primary-green);
     border-color: var(--primary-green);
+    display: none; /* Masqué par défaut, affiché seulement si l'utilisateur est connecté */
 }
 
 .password-action-btn:hover {
