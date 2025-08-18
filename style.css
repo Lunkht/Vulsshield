@@ -1888,6 +1888,10 @@ font-size: 1.5rem;
     cursor: pointer;
 }
 
+.newsletter-section .cta-button {
+    border:1px solid var(--primary-green);
+}
+
 .newsletter-section .cta-button:hover {
     border:1px solid var(--primary-green);
 }
