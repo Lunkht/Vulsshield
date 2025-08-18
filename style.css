@@ -2701,7 +2701,7 @@ footer {
     }
 }
 
-/* Pixel Background */
+/* Grid Background (replaces pixel background) */
 .pixel-background {
     position: absolute;
     top: 0;
@@ -2711,24 +2711,25 @@ footer {
     background-color: #000;
     z-index: -1;
     overflow: hidden;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: gridMove 20s linear infinite;
 }
 
-.pixel {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: #fff;
-    animation: move 5s linear infinite;
-}
-
-@keyframes move {
+@keyframes gridMove {
     0% {
-        transform: translateY(0) rotate(0deg);
+        background-position: 0 0;
     }
-
     100% {
-        transform: translateY(100vh) rotate(360deg);
+        background-position: 30px 30px;
     }
+}
+
+/* Remove pixel styles as they're no longer needed */
+.pixel {
+    display: none;
 }
 
 .hero {

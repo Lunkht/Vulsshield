@@ -10,13 +10,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 const pixelBackground = document.querySelector('.pixel-background');
 
+// Pixels replaced by a CSS grid background; no need to generate pixel elements
 if (pixelBackground) {
-    for (let i = 0; i < 100; i++) {
-        const pixel = document.createElement('div');
-        pixel.classList.add('pixel');
-        pixel.style.left = `${Math.random() * 100}vw`;
-        pixel.style.top = `${Math.random() * 100}vh`;
-        pixel.style.animationDelay = `${Math.random() * 5}s`;
-        pixelBackground.appendChild(pixel);
-    }
+    // Intentionally left empty to avoid creating pixel nodes
 }
