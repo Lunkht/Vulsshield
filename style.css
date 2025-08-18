@@ -1575,7 +1575,7 @@ main {
 .hero h1 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #ccc;
+    color: #aaa;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -1954,7 +1954,6 @@ font-size: 1.5rem;
 
 .inscription.cta-button {
     padding: 10px 20px;
-    border-radius: 30px;
     background: #2a2a2a;
     color: white;
     font-weight: 600;
@@ -1964,7 +1963,6 @@ font-size: 1.5rem;
 
 .inscription.cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 59, 48, 0.3);
 }
 
 .mobile-menu-toggle {
