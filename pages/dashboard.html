@@ -265,7 +265,7 @@
                         <i class="fas fa-plus"></i>
                         Nouveau
                     </button>
-                    <button class="btn-secondary compact">
+                    <button class="btn-secondary compact" onclick="performSync()">
                         <i class="fas fa-sync-alt"></i>
                         Sync
                     </button>
@@ -1056,13 +1056,71 @@
             const avgStrength = savedPasswords.length > 0 ? 
                 Math.round(savedPasswords.reduce((sum, p) => sum + p.strength, 0) / savedPasswords.length) : 0;
             
-            // Mettre à jour les statistiques affichées
-            const statNumbers = document.querySelectorAll('.stat-number');
-            if (statNumbers.length >= 3) {
-                statNumbers[0].textContent = passwordCount;
-                statNumbers[1].textContent = categories.length;
-                statNumbers[2].textContent = avgStrength + '%';
+            // Mettre à jour les cartes de stat par leurs IDs
+            const elPw = document.getElementById('stat_passwords');
+            const elCat = document.getElementById('stat_categories');
+            const elSec = document.getElementById('stat_security');
+            const elSync = document.getElementById('stat_last_sync');
+
+            if (elPw) elPw.textContent = String(passwordCount);
+            if (elCat) elCat.textContent = String(categories.length);
+            if (elSec) elSec.textContent = avgStrength + '%';
+
+            if (elSync) {
+                const lastSyncIso = localStorage.getItem('lastSync');
+                elSync.textContent = lastSyncIso ? formatRelativeTime(lastSyncIso) : 'Jamais';
             }
+        }
+
+        // Formater un temps relatif (ex: "il y a 5 min", "il y a 2h")
+        function formatRelativeTime(isoString) {
+            const then = new Date(isoString);
+            const now = new Date();
+            const diffMs = now - then;
+            const diffSec = Math.floor(diffMs / 1000);
+            const diffMin = Math.floor(diffSec / 60);
+            const diffHour = Math.floor(diffMin / 60);
+            const diffDay = Math.floor(diffHour / 24);
+
+            if (diffMin < 1) return "à l'instant";
+            if (diffMin < 60) return `il y a ${diffMin} min`;
+            if (diffHour < 24) return `il y a ${diffHour}h`;
+            if (diffDay === 1) return 'hier';
+            return `il y a ${diffDay} jours`;
+        }
+
+        // Lancer une synchronisation (démo locale)
+        function performSync() {
+            localStorage.setItem('lastSync', new Date().toISOString());
+            updateUserStats();
+            showNotification('Synchronisation effectuée', 'success');
+        }
+
+        // Obtenir le label de la catégorie
+        function getCategoryLabel(category) {
+            const labels = {
+                'social': 'Réseaux sociaux',
+                'email': 'Email',
+                'banking': 'Banque',
+                'shopping': 'Shopping',
+                'work': 'Travail',
+                'other': 'Autre'
+            };
+            return labels[category] || 'Autre';
+        }
+
+        // Formater la date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'aujourd\'hui';
+            if (diffDays === 2) return 'hier';
+            if (diffDays <= 7) return `il y a ${diffDays - 1} jours`;
+            if (diffDays <= 30) return `il y a ${Math.floor(diffDays / 7)} semaines`;
+            return `il y a ${Math.floor(diffDays / 30)} mois`;
         }
 
         // Créer une carte de mot de passe
@@ -1119,33 +1177,6 @@
             `;
             
             return card;
-        }
-
-        // Obtenir le label de la catégorie
-        function getCategoryLabel(category) {
-            const labels = {
-                'social': 'Réseaux sociaux',
-                'email': 'Email',
-                'banking': 'Banque',
-                'shopping': 'Shopping',
-                'work': 'Travail',
-                'other': 'Autre'
-            };
-            return labels[category] || 'Autre';
-        }
-
-        // Formater la date
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const now = new Date();
-            const diffTime = Math.abs(now - date);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            if (diffDays === 1) return 'aujourd\'hui';
-            if (diffDays === 2) return 'hier';
-            if (diffDays <= 7) return `il y a ${diffDays - 1} jours`;
-            if (diffDays <= 30) return `il y a ${Math.floor(diffDays / 7)} semaines`;
-            return `il y a ${Math.floor(diffDays / 30)} mois`;
         }
 
         // Copier un mot de passe
