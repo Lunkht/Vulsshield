@@ -2808,3 +2808,81 @@ footer {
 .password-dashboard {
     padding-top: 10px;
 }
+
+/* Admin Layout */
+.admin-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+    width: 100%;
+    margin-top: 72px; /* sous la top-bar fixe */
+}
+
+.admin-sidebar {
+    position: sticky;
+    top: 72px; /* aligné sous la top-bar */
+    height: calc(100vh - 84px);
+    background: #0c0c0c;
+    border-right: 1px solid #191919;
+    padding: 16px 12px;
+}
+.sidebar-header {
+    padding: 0 8px 12px;
+    border-bottom: 1px solid #151515;
+    margin-bottom: 12px;
+}
+.admin-brand { display: flex; align-items: center; gap: 8px; color: #eaeaea; font-weight: 600; }
+.admin-brand i { color: var(--primary-green); }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 14px; }
+.nav-section { display: flex; flex-direction: column; gap: 6px; }
+.nav-title { font-size: 12px; color: #777; text-transform: uppercase; letter-spacing: .06em; padding: 6px 10px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 10px; border-radius: 8px; color: #cfcfcf; border: 1px solid transparent; transition: all .2s ease; text-decoration: none; }
+.nav-item i { width: 18px; color: #9a9a9a; }
+.nav-item:hover { background: #111; border-color: #1e1e1e; color: #fff; }
+.nav-item.active { background: #101010; border-color: var(--primary-green); color: #fff; }
+.nav-badge { margin-left: auto; font-size: 12px; background: #1a1a1a; color: #bdbdbd; border: 1px solid #2a2a2a; border-radius: 999px; padding: 2px 8px; }
+.nav-badge.danger { background: #2a1111; color: #ff9b9b; border-color: #402020; }
+
+.sidebar-footer { margin-top: auto; padding: 10px; border-top: 1px solid #151515; }
+.user-quick-info { display: flex; align-items: center; gap: 10px; }
+.user-avatar-mini { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; }
+.user-mini-name { font-size: 13px; color: #eee; }
+.user-mini-role { font-size: 11px; color: #888; }
+
+.admin-main { padding: 0 16px 40px 0; }
+
+/* Profil compact */
+.user-profile-compact { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 12px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 4px 0 16px; }
+.profile-left { display: flex; align-items: center; gap: 10px; }
+.user-avatar-compact { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+.user-info-compact h3 { font-size: 16px; margin: 0; }
+.user-email-compact { color: #9a9a9a; font-size: 12px; }
+.btn-primary.compact, .btn-secondary.compact { padding: 8px 10px; font-size: 12px; height: 32px; }
+
+/* Widgets */
+.admin-widgets { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 10px 0 16px; }
+.widget { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 12px; padding: 14px; }
+.widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.widget-header h4 { margin: 0; font-size: 14px; }
+.widget-action { background: transparent; border: 0; color: #888; cursor: pointer; }
+.activity-item { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px dashed #1a1a1a; }
+.activity-item:last-child { border-bottom: 0; }
+.activity-icon { width: 28px; height: 28px; border-radius: 6px; background: #121212; display: flex; align-items: center; justify-content: center; color: #bdbdbd; }
+.activity-time { font-size: 12px; color: #777; }
+.security-metric { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #1a1a1a; }
+.security-metric:last-child { border-bottom: 0; }
+.metric-label { color: #bdbdbd; font-size: 13px; }
+.metric-value { font-weight: 700; font-size: 13px; }
+.metric-value.good { color: #84e1b0; }
+.metric-value.warning { color: #ffd479; }
+.metric-value.danger { color: #ff9b9b; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .admin-layout { grid-template-columns: 200px 1fr; }
+}
+@media (max-width: 768px) {
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid #191919; }
+}

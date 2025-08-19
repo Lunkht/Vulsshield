@@ -20,7 +20,7 @@
                     <div class="project-icon">
                         <div class="gradient-circle"></div>
                     </div>
-                    <span class="project-name">Vulsshield Projects</span>
+                    <span class="project-name">Vulsshield Admin</span>
                     <i class="fas fa-sort"></i>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 </button>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Rechercher un mot de passe..." class="search-input">
+                    <input type="text" placeholder="Rechercher..." class="search-input">
                 </div>
                 <button class="action-btn password-action-btn" onclick="window.location.href='dashboard.html'">
                     <i class="fas fa-key"></i>
@@ -139,153 +139,248 @@
         </div>
     </div>
 
-    <!-- Suppression de l'ancien bouton Retour (déplacé dans la top-bar) -->
-    <!-- <div class="container" style="margin-top: 80px;">
-        <button class="action-btn" onclick="window.location.href='../index.html'" aria-label="Retour à l'accueil">
-            <i class="fas fa-arrow-left"></i>
-            <span style="margin-left:8px;">Retour à l'accueil</span>
-        </button>
-    </div> -->
+    <!-- Layout administrateur avec sidebar -->
+    <div class="admin-layout">
+        <!-- Sidebar de navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="admin-brand">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Vulsshield</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">Principal</div>
+                    <a href="#" class="nav-item active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-key"></i>
+                        <span>Mots de passe</span>
+                        <span class="nav-badge">24</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Catégories</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Sécurité</div>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Analyse sécurité</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alertes</span>
+                        <span class="nav-badge danger">3</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-history"></i>
+                        <span>Activité</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Configuration</div>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Synchronisation</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profil</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-quick-info">
+                    <div class="user-avatar-mini">
+                        <div class="avatar-gradient"></div>
+                    </div>
+                    <div class="user-mini-details">
+                        <div class="user-mini-name">John Doe</div>
+                        <div class="user-mini-role">Administrateur</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
-    <main>
-        <!-- En-tête simplifié pour un look administrateur moderne -->
-        <section class="admin-dashboard" style="padding-top: 80px;">
-            <div class="container">
-                <!-- Cartes de statistiques globales -->
-                <div class="dashboard-stats" data-aos="fade-up">
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-key"></i></div>
-                        <div class="stat-info">
-                            <div class="stat-value" id="stat_passwords">24</div>
-                            <div class="stat-label">Mots de passe</div>
+        <!-- Contenu principal -->
+        <main class="admin-main">
+            <!-- Cartes de statistiques globales -->
+            <div class="dashboard-stats" data-aos="fade-up">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-key"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="stat_passwords">24</div>
+                        <div class="stat-label">Mots de passe</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="stat_categories">8</div>
+                        <div class="stat-label">Catégories</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="stat_security">95%</div>
+                        <div class="stat-label">Sécurité moyenne</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-sync-alt"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="stat_last_sync">Il y a 2h</div>
+                        <div class="stat-label">Dernière sync</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section compacte du profil utilisateur -->
+            <div class="user-profile-compact" data-aos="fade-up" data-aos-delay="100">
+                <div class="profile-left">
+                    <div class="user-avatar-compact">
+                        <div class="avatar-gradient"></div>
+                    </div>
+                    <div class="user-info-compact">
+                        <h3 id="user_name">John Doe</h3>
+                        <p class="user-email-compact">john.doe@example.com</p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn-primary compact" onclick="openPasswordGenerator()">
+                        <i class="fas fa-plus"></i>
+                        Nouveau
+                    </button>
+                    <button class="btn-secondary compact">
+                        <i class="fas fa-sync-alt"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Widgets administratifs -->
+            <div class="admin-widgets" data-aos="fade-up" data-aos-delay="200">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h4>Activité récente</h4>
+                        <button class="widget-action"><i class="fas fa-ellipsis-v"></i></button>
+                    </div>
+                    <div class="widget-content">
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-plus"></i></div>
+                            <div class="activity-text">Nouveau mot de passe ajouté pour Gmail</div>
+                            <div class="activity-time">Il y a 1h</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-edit"></i></div>
+                            <div class="activity-text">Mot de passe Facebook modifié</div>
+                            <div class="activity-time">Il y a 3h</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-sync-alt"></i></div>
+                            <div class="activity-text">Synchronisation automatique</div>
+                            <div class="activity-time">Il y a 5h</div>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
-                        <div class="stat-info">
-                            <div class="stat-value" id="stat_categories">8</div>
-                            <div class="stat-label">Catégories</div>
-                        </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <h4>Analyse de sécurité</h4>
+                        <button class="widget-action"><i class="fas fa-external-link-alt"></i></button>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
-                        <div class="stat-info">
-                            <div class="stat-value" id="stat_security">95%</div>
-                            <div class="stat-label">Sécurité moyenne</div>
+                    <div class="widget-content">
+                        <div class="security-metric">
+                            <div class="metric-label">Mots de passe forts</div>
+                            <div class="metric-value good">18/24</div>
                         </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-sync-alt"></i></div>
-                        <div class="stat-info">
-                            <div class="stat-value" id="stat_last_sync">Il y a 2h</div>
-                            <div class="stat-label">Dernière sync</div>
+                        <div class="security-metric">
+                            <div class="metric-label">Mots de passe faibles</div>
+                            <div class="metric-value warning">4/24</div>
+                        </div>
+                        <div class="security-metric">
+                            <div class="metric-label">Doublons détectés</div>
+                            <div class="metric-value danger">2/24</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="password-dashboard">
-            <div class="container">
-                <!-- Profil utilisateur -->
-                <div class="user-profile-section" data-aos="fade-up">
-                    <div class="user-profile-card">
-                        <div class="user-avatar-large">
-                            <div class="avatar-gradient-large"></div>
-                        </div>
-                        <div class="user-info-large">
-                            <h2 id="user_name">John Doe</h2>
-                            <p class="user-email-large">john.doe@example.com</p>
-                            <div class="user-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number">24</span>
-                                    <span class="stat-label">Mots de passe</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number">8</span>
-                                    <span class="stat-label">Catégories</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number">95%</span>
-                                    <span class="stat-label">Sécurité</span>
-                                </div>
-                            </div>
-                        </div>
-                                        <div class="user-actions">
+            <!-- Filtres et recherche -->
+            <div class="password-filters" data-aos="fade-up" data-aos-delay="300">
+                <div class="filter-group">
+                    <select class="filter-select">
+                        <option value="all">Toutes les catégories</option>
+                        <option value="social">Réseaux sociaux</option>
+                        <option value="banking">Banque</option>
+                        <option value="email">Email</option>
+                        <option value="work">Travail</option>
+                        <option value="shopping">Shopping</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="all">Tous les statuts</option>
+                        <option value="strong">Fort</option>
+                        <option value="medium">Moyen</option>
+                        <option value="weak">Faible</option>
+                        <option value="expired">Expiré</option>
+                    </select>
+                </div>
+                <div class="view-options">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Liste des mots de passe -->
+            <div class="passwords-grid" id="passwordsGrid" data-aos="fade-up" data-aos-delay="400">
+                <!-- État vide - sera affiché quand aucun mot de passe n'est présent -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Aucun mot de passe sauvegardé</h3>
+                    <p>Commencez par générer et sauvegarder votre premier mot de passe sécurisé.</p>
                     <button class="btn-primary" onclick="openPasswordGenerator()">
                         <i class="fas fa-plus"></i>
-                        Nouveau mot de passe
-                    </button>
-                    <button class="btn-secondary">
-                        <i class="fas fa-sync-alt"></i>
-                        Synchroniser
-                    </button>
-                </div>
-                    </div>
-                </div>
-
-                <!-- Filtres et recherche -->
-                <div class="password-filters" data-aos="fade-up" data-aos-delay="100">
-                    <div class="filter-group">
-                        <select class="filter-select">
-                            <option value="all">Toutes les catégories</option>
-                            <option value="social">Réseaux sociaux</option>
-                            <option value="banking">Banque</option>
-                            <option value="email">Email</option>
-                            <option value="work">Travail</option>
-                            <option value="shopping">Shopping</option>
-                        </select>
-                        <select class="filter-select">
-                            <option value="all">Tous les statuts</option>
-                            <option value="strong">Fort</option>
-                            <option value="medium">Moyen</option>
-                            <option value="weak">Faible</option>
-                            <option value="expired">Expiré</option>
-                        </select>
-                    </div>
-                    <div class="view-options">
-                        <button class="view-btn active" data-view="grid">
-                            <i class="fas fa-th"></i>
-                        </button>
-                        <button class="view-btn" data-view="list">
-                            <i class="fas fa-list"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Liste des mots de passe -->
-                <div class="passwords-grid" id="passwordsGrid" data-aos="fade-up" data-aos-delay="200">
-                    <!-- État vide - sera affiché quand aucun mot de passe n'est présent -->
-                    <div class="empty-state" id="emptyState">
-                        <div class="empty-icon">
-                            <i class="fas fa-key"></i>
-                        </div>
-                        <h3>Aucun mot de passe sauvegardé</h3>
-                        <p>Commencez par générer et sauvegarder votre premier mot de passe sécurisé.</p>
-                        <button class="btn-primary" onclick="openPasswordGenerator()">
-                            <i class="fas fa-plus"></i>
-                            Générer mon premier mot de passe
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination" data-aos="fade-up" data-aos-delay="300">
-                    <button class="page-btn" disabled>
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <span class="page-dots">...</span>
-                    <button class="page-btn">10</button>
-                    <button class="page-btn">
-                        <i class="fas fa-chevron-right"></i>
+                        Générer mon premier mot de passe
                     </button>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <!-- Pagination -->
+            <div class="pagination" data-aos="fade-up" data-aos-delay="500">
+                <button class="page-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-dots">...</span>
+                <button class="page-btn">10</button>
+                <button class="page-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
 
     <!-- Modal de génération de mot de passe -->
     <div class="password-generator-modal" id="passwordGeneratorModal">
