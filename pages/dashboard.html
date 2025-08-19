@@ -148,10 +148,40 @@
     </div> -->
 
     <main>
-        <section class="page-hero">
+        <!-- En-tête simplifié pour un look administrateur moderne -->
+        <section class="admin-dashboard" style="padding-top: 80px;">
             <div class="container">
-                <h1>Mon Tableau de bord</h1>
-                <p>Gérez et synchronisez tous vos mots de passe en toute sécurité</p>
+                <!-- Cartes de statistiques globales -->
+                <div class="dashboard-stats" data-aos="fade-up">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-key"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat_passwords">24</div>
+                            <div class="stat-label">Mots de passe</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat_categories">8</div>
+                            <div class="stat-label">Catégories</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat_security">95%</div>
+                            <div class="stat-label">Sécurité moyenne</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-sync-alt"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat_last_sync">Il y a 2h</div>
+                            <div class="stat-label">Dernière sync</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
