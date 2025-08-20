@@ -2185,21 +2185,24 @@ font-size: 1.5rem;
 }
 
 .download-platforms {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
-    flex-wrap: wrap;
+    align-items: stretch;
 }
 
 .platform-card {
     background-color: #1a1a1a;
     border-radius: 15px;
     padding: 30px;
-    width: 300px;
     text-align: center;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .platform-card:hover {
@@ -2221,7 +2224,7 @@ font-size: 1.5rem;
 
 .platform-card p {
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 25px;
+    margin-bottom: auto;
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -2236,6 +2239,8 @@ font-size: 1.5rem;
     border-radius: 30px;
     font-weight: 600;
     transition: all 0.3s ease;
+    align-self: center;
+    margin-top: 20px;
 }
 
 .platform-card .cta-button:hover {
@@ -2288,6 +2293,18 @@ font-size: 1.5rem;
 
 .platform-card.product-card p {
     color: rgba(255, 255, 255, 0.65);
+}
+
+/* Coming soon badge positioned at the bottom for consistent layout */
+.platform-card.product-card.coming-soon .coming-soon-badge {
+    position: static;
+    align-self: center;
+    margin-top: 20px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid #333;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* Features Section */
@@ -2351,7 +2368,7 @@ font-size: 1.5rem;
     }
     
     .platform-card {
-        width: calc(50% - 20px);
+        width: 100%;
     }
 }
 
@@ -2393,7 +2410,6 @@ font-size: 1.5rem;
     
     .platform-card {
         width: 100%;
-        max-width: 350px;
     }
     
     .features-grid {
