@@ -2054,12 +2054,14 @@ font-size: 1.5rem;
 .hero-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 40px;
+    text-align: center;
 }
 
 .hero-text {
     max-width: 600px;
+    text-align: center;
 }
 
 .hero-text h1 {
@@ -2084,6 +2086,7 @@ font-size: 1.5rem;
     display: flex;
     gap: 15px;
     margin-top: 30px;
+    justify-content: center;
 }
 
 .primary-cta {
@@ -2254,6 +2257,37 @@ font-size: 1.5rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
+}
+
+/* Product Card Styles (applied on download products) */
+.platform-card.product-card {
+    background-color: #000;
+    border: 1px solid #333;
+    border-radius: 16px;
+}
+
+.platform-card.product-card:hover {
+    transform: translateY(-6px);
+    border-color: #444;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.platform-card.product-card .platform-icon {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    height: 70px;
+    width: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.platform-card.product-card h3 {
+    color: #eaeaea;
+}
+
+.platform-card.product-card p {
+    color: rgba(255, 255, 255, 0.65);
 }
 
 /* Features Section */
