@@ -647,6 +647,669 @@
                 localStorage.setItem('sidebarCollapsed', isCollapsed);
                 updateToggleAria();
             });
+
+            // Initialiser le gestionnaire de mots de passe après le DOM
+            loadSavedPasswords();
+        });
+
+        // Fermer les menus quand on clique en dehors
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = event.target.closest('.dropdown-menu');
+            const isClickOnTrigger = event.target.closest('.notification-icon, .user-avatar');
+            
+            if (!isClickInsideMenu && !isClickOnTrigger) {
+                closeAllMenus();
+            }
+        });
+
+        // Fermer les menus avec la touche Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeAllMenus();
+            }
+        });
+
+        // Marquer toutes les notifications comme lues
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('mark-all-read')) {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => {
+                    item.classList.remove('unread');
+                });
+                const notificationDot = document.querySelector('.notification-dot');
+                if (notificationDot) {
+                    notificationDot.style.display = 'none';
+                }
+            }
+        });
+
+        // Fonction pour basculer l'affichage du mot de passe
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById('eye' + inputId.replace('pass', ''));
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Gestion des vues (grille/liste)
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const view = this.dataset.view;
+                const grid = document.querySelector('.passwords-grid');
+                
+                if (view === 'list') {
+                    grid.classList.add('list-view');
+                } else {
+                    grid.classList.remove('list-view');
+                }
+            });
+        });
+
+        // Copier le mot de passe
+        document.querySelectorAll('.action-icon-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.querySelector('.fa-copy')) {
+                    const passwordInput = this.closest('.password-card').querySelector('input[type="password"], input[type="text"]');
+                    passwordInput.select();
+                    document.execCommand('copy');
+                    
+                    // Feedback visuel
+                    const originalIcon = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        this.innerHTML = originalIcon;
+                    }, 2000);
+                }
+            });
+        });
+
+        // ===========================================
+        // GÉNÉRATEUR DE MOT DE PASSE (Adapté du code Android)
+        // ===========================================
+
+        // Constantes pour la génération de mots de passe
+        const LOWERCASE_CHARACTERS = 'abcdefghijklmnopqrstuvwxyz';
+        const UPPERCASE_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const NUMERIC_CHARACTERS = '0123456789';
+        const SPECIAL_CHARACTERS = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+        // Variables globales
+        let currentGeneratedPassword = '';
+        let selectedIcon = 'fas fa-key';
+        let savedPasswords = []; // Array pour stocker les mots de passe sauvegardés
+        let passwordCounter = 0; // Compteur pour les IDs uniques
+
+        // Ouvrir le générateur de mot de passe
+        function openPasswordGenerator() {
+            document.getElementById('passwordGeneratorModal').classList.add('active');
+            // Générer un mot de passe par défaut
+            setTimeout(() => generatePassword(), 100);
+        }
+
+        // Fermer le générateur de mot de passe
+        function closePasswordGenerator() {
+            document.getElementById('passwordGeneratorModal').classList.remove('active');
+        }
+
+        // Mettre à jour l'affichage de la longueur
+        document.getElementById('passwordLength').addEventListener('input', function() {
+            document.getElementById('lengthValue').textContent = this.value;
+        });
+
+        // Basculer la visibilité du mot de passe généré
+        function togglePasswordVisibility() {
+            const input = document.getElementById('generatedPassword');
+            const eyeIcon = document.getElementById('passwordEye');
+            
+            if (input.type === 'text') {
+                input.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                input.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Copier le mot de passe généré
+        function copyGeneratedPassword() {
+            const password = document.getElementById('generatedPassword').value;
+            if (password) {
+                navigator.clipboard.writeText(password).then(() => {
+                    showNotification('Mot de passe copié ! Sera effacé dans 60 secondes', 'success');
+                    
+                    // Effacer le presse-papiers après 60 secondes
+                    setTimeout(() => {
+                        navigator.clipboard.writeText('[Effacé pour sécurité]');
+                        showNotification('Presse-papiers effacé pour sécurité', 'info');
+                    }, 60000);
+                }).catch(() => {
+                    // Fallback pour les navigateurs plus anciens
+                    const textArea = document.createElement('textarea');
+                    textArea.value = password;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    showNotification('Mot de passe copié !', 'success');
+                });
+            } else {
+                showNotification('Aucun mot de passe à copier.', 'error');
+            }
+        }
+
+        // Régénérer un mot de passe
+        function regeneratePassword() {
+            generatePassword();
+        }
+
+        // Générer un mot de passe (adapté du code Android)
+        function generatePassword() {
+            const generateBtn = document.querySelector('.generate-btn');
+            const btnText = generateBtn.querySelector('.btn-text');
+            const progressBar = generateBtn.querySelector('.progress-bar');
+            
+            // Afficher la progression
+            btnText.style.display = 'none';
+            progressBar.style.display = 'block';
+            
+            // Simuler la progression comme dans le code Android
+            let progress = 0;
+            const progressFill = progressBar.querySelector('.progress-fill');
+            const interval = setInterval(() => {
+                progress += 10;
+                progressFill.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    // Génération réelle du mot de passe
+                    const passwordLength = parseInt(document.getElementById('passwordLength').value);
+                    const includeSpecialChars = document.getElementById('includeSpecialChars').checked;
+                    const includeLowercase = document.getElementById('includeLowercase').checked;
+                    const includeUppercase = document.getElementById('includeUppercase').checked;
+                    const includeNumbers = document.getElementById('includeNumbers').checked;
+                    
+                    // Vérifier qu'au moins une option est sélectionnée
+                    if (!includeLowercase && !includeUppercase && !includeNumbers && !includeSpecialChars) {
+                        showNotification('Veuillez sélectionner au moins un type de caractères', 'error');
+                        resetGenerateButton();
+                        return;
+                    }
+                    
+                    const generatedPassword = generateSecurePassword(passwordLength, includeSpecialChars, includeLowercase, includeUppercase, includeNumbers);
+                    
+                    // Afficher le mot de passe
+                    document.getElementById('generatedPassword').value = generatedPassword;
+                    currentGeneratedPassword = generatedPassword;
+                    
+                    // Calculer et afficher la force
+                    const strength = calculatePasswordStrength(generatedPassword);
+                    updateStrengthIndicator(strength);
+                    
+                    // Réinitialiser le bouton
+                    resetGenerateButton();
+                }
+            }, 100);
+        }
+
+        // Réinitialiser le bouton de génération
+        function resetGenerateButton() {
+            const generateBtn = document.querySelector('.generate-btn');
+            const btnText = generateBtn.querySelector('.btn-text');
+            const progressBar = generateBtn.querySelector('.progress-bar');
+            
+            btnText.style.display = 'block';
+            progressBar.style.display = 'none';
+            progressBar.querySelector('.progress-fill').style.width = '0%';
+        }
+
+        // Générer un mot de passe sécurisé (adapté du code Android)
+        function generateSecurePassword(length, includeSpecialChars, includeLowercase, includeUppercase, includeNumbers) {
+            // Utiliser crypto.getRandomValues pour une meilleure sécurité
+            const array = new Uint8Array(length * 2);
+            crypto.getRandomValues(array);
+            
+            let charPool = '';
+            if (includeLowercase) charPool += LOWERCASE_CHARACTERS;
+            if (includeUppercase) charPool += UPPERCASE_CHARACTERS;
+            if (includeNumbers) charPool += NUMERIC_CHARACTERS;
+            if (includeSpecialChars) charPool += SPECIAL_CHARACTERS;
+            
+            const passwordChars = [];
+            
+            // Assurer au moins deux caractères de chaque type requis
+            if (includeLowercase) {
+                passwordChars.push(LOWERCASE_CHARACTERS[array[0] % LOWERCASE_CHARACTERS.length]);
+                passwordChars.push(LOWERCASE_CHARACTERS[array[1] % LOWERCASE_CHARACTERS.length]);
+            }
+            
+            if (includeUppercase) {
+                passwordChars.push(UPPERCASE_CHARACTERS[array[2] % UPPERCASE_CHARACTERS.length]);
+                passwordChars.push(UPPERCASE_CHARACTERS[array[3] % UPPERCASE_CHARACTERS.length]);
+            }
+            
+            if (includeNumbers) {
+                passwordChars.push(NUMERIC_CHARACTERS[array[4] % NUMERIC_CHARACTERS.length]);
+                passwordChars.push(NUMERIC_CHARACTERS[array[5] % NUMERIC_CHARACTERS.length]);
+            }
+            
+            if (includeSpecialChars) {
+                passwordChars.push(SPECIAL_CHARACTERS[array[6] % SPECIAL_CHARACTERS.length]);
+                passwordChars.push(SPECIAL_CHARACTERS[array[7] % SPECIAL_CHARACTERS.length]);
+            }
+            
+            // Compléter avec des caractères aléatoires
+            for (let i = passwordChars.length; i < length; i++) {
+                passwordChars.push(charPool[array[i] % charPool.length]);
+            }
+            
+            // Mélanger plusieurs fois pour une meilleure randomisation
+            for (let i = 0; i < 3; i++) {
+                shuffleArray(passwordChars);
+            }
+            
+            return passwordChars.join('');
+        }
+
+        // Mélanger un tableau (équivalent à Collections.shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Calculer la force du mot de passe (adapté du code Android)
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            
+            // Longueur (jusqu'à 30 points)
+            score += Math.min(30, password.length * 2);
+            
+            // Complexité (jusqu'à 70 points)
+            let hasLower = false, hasUpper = false, hasDigit = false, hasSpecial = false;
+            const chars = new Set();
+            
+            for (let char of password) {
+                chars.add(char);
+                if (LOWERCASE_CHARACTERS.includes(char)) hasLower = true;
+                else if (UPPERCASE_CHARACTERS.includes(char)) hasUpper = true;
+                else if (NUMERIC_CHARACTERS.includes(char)) hasDigit = true;
+                else if (SPECIAL_CHARACTERS.includes(char)) hasSpecial = true;
+            }
+            
+            const uniqueChars = chars.size;
+            
+            // Bonus pour la variété de caractères
+            if (hasLower) score += 10;
+            if (hasUpper) score += 10;
+            if (hasDigit) score += 10;
+            if (hasSpecial) score += 15;
+            
+            // Bonus pour les caractères uniques (jusqu'à 25 points)
+            score += Math.min(25, uniqueChars * 2);
+            
+            // Limiter le score à 100
+            return Math.min(100, score);
+        }
+
+        // Mettre à jour l'indicateur de force
+        function updateStrengthIndicator(strength) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            strengthFill.style.width = strength + '%';
+            
+            if (strength >= 80) {
+                strengthFill.className = 'strength-fill strong';
+                strengthText.textContent = 'Très fort';
+            } else if (strength >= 60) {
+                strengthFill.className = 'strength-fill medium';
+                strengthText.textContent = 'Fort';
+            } else if (strength >= 40) {
+                strengthFill.className = 'strength-fill weak';
+                strengthText.textContent = 'Moyen';
+            } else {
+                strengthFill.className = 'strength-fill weak';
+                strengthText.textContent = 'Faible';
+            }
+        }
+
+        // Sauvegarder le mot de passe généré
+        function saveGeneratedPassword() {
+            if (!currentGeneratedPassword) {
+                showNotification('Aucun mot de passe à sauvegarder', 'error');
+                return;
+            }
+            
+            document.getElementById('savePasswordModal').classList.add('active');
+        }
+
+        // Fermer le modal de sauvegarde
+        function closeSaveModal() {
+            document.getElementById('savePasswordModal').classList.remove('active');
+        }
+
+        // Confirmer la sauvegarde
+        function confirmSavePassword() {
+            const title = document.getElementById('passwordTitle').value.trim();
+            const email = document.getElementById('passwordEmail').value.trim();
+            
+            if (!title) {
+                showNotification('Le nom du compte ne peut pas être vide', 'error');
+                return;
+            }
+            
+            // Créer un nouvel objet mot de passe
+            const newPassword = {
+                id: ++passwordCounter,
+                title: title,
+                password: currentGeneratedPassword,
+                email: email,
+                icon: selectedIcon,
+                strength: calculatePasswordStrength(currentGeneratedPassword),
+                category: getCategoryFromIcon(selectedIcon),
+                createdAt: new Date().toISOString()
+            };
+            
+            // Ajouter à la liste
+            savedPasswords.push(newPassword);
+            
+            // Sauvegarder dans localStorage
+            localStorage.setItem('savedPasswords', JSON.stringify(savedPasswords));
+            
+            // Mettre à jour l'affichage
+            updatePasswordsDisplay();
+            
+            showNotification(`Mot de passe '${title}' sauvegardé`, 'success');
+            closeSaveModal();
+            closePasswordGenerator();
+            
+            // Réinitialiser les champs
+            document.getElementById('passwordTitle').value = '';
+            document.getElementById('passwordEmail').value = '';
+            selectedIcon = 'fas fa-key';
+        }
+
+        // Obtenir la catégorie à partir de l'icône
+        function getCategoryFromIcon(icon) {
+            const iconCategories = {
+                'fab fa-facebook': 'social',
+                'fab fa-twitter': 'social',
+                'fab fa-linkedin': 'social',
+                'fab fa-instagram': 'social',
+                'fab fa-google': 'email',
+                'fab fa-microsoft': 'email',
+                'fas fa-envelope': 'email',
+                'fas fa-university': 'banking',
+                'fas fa-credit-card': 'banking',
+                'fab fa-amazon': 'shopping',
+                'fas fa-shopping-cart': 'shopping',
+                'fas fa-briefcase': 'work',
+                'fas fa-home': 'work'
+            };
+            return iconCategories[icon] || 'other';
+        }
+
+        // Mettre à jour l'affichage des mots de passe
+        function updatePasswordsDisplay() {
+            const grid = document.getElementById('passwordsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (savedPasswords.length === 0) {
+                // Afficher l'état vide
+                emptyState.style.display = 'block';
+                updateUserStats();
+                return;
+            }
+            
+            // Masquer l'état vide
+            emptyState.style.display = 'none';
+            
+            // Supprimer tous les mots de passe existants (sauf l'état vide)
+            const existingCards = grid.querySelectorAll('.password-card');
+            existingCards.forEach(card => card.remove());
+            
+            // Ajouter tous les mots de passe sauvegardés
+            savedPasswords.forEach(password => {
+                const passwordCard = createPasswordCard(password);
+                grid.appendChild(passwordCard);
+            });
+            
+            // Mettre à jour les statistiques
+            updateUserStats();
+        }
+
+        // Mettre à jour les statistiques utilisateur
+        function updateUserStats() {
+            const passwordCount = savedPasswords.length;
+            const categories = [...new Set(savedPasswords.map(p => p.category))];
+            const avgStrength = savedPasswords.length > 0 ? 
+                Math.round(savedPasswords.reduce((sum, p) => sum + p.strength, 0) / savedPasswords.length) : 0;
+            
+            // Mettre à jour les cartes de stat par leurs IDs
+            const elPw = document.getElementById('stat_passwords');
+            const elCat = document.getElementById('stat_categories');
+            const elSec = document.getElementById('stat_security');
+            const elSync = document.getElementById('stat_last_sync');
+
+            if (elPw) elPw.textContent = String(passwordCount);
+            if (elCat) elCat.textContent = String(categories.length);
+            if (elSec) elSec.textContent = avgStrength + '%';
+
+            if (elSync) {
+                const lastSyncIso = localStorage.getItem('lastSync');
+                elSync.textContent = lastSyncIso ? formatRelativeTime(lastSyncIso) : 'Jamais';
+            }
+        }
+
+        // Formater un temps relatif (ex: "il y a 5 min", "il y a 2h")
+        function formatRelativeTime(isoString) {
+            const then = new Date(isoString);
+            const now = new Date();
+            const diffMs = now - then;
+            const diffSec = Math.floor(diffMs / 1000);
+            const diffMin = Math.floor(diffSec / 60);
+            const diffHour = Math.floor(diffMin / 60);
+            const diffDay = Math.floor(diffHour / 24);
+
+            if (diffMin < 1) return "à l'instant";
+            if (diffMin < 60) return `il y a ${diffMin} min`;
+            if (diffHour < 24) return `il y a ${diffHour}h`;
+            if (diffDay === 1) return 'hier';
+            return `il y a ${diffDay} jours`;
+        }
+
+        // Lancer une synchronisation (démo locale)
+        function performSync() {
+            localStorage.setItem('lastSync', new Date().toISOString());
+            updateUserStats();
+            showNotification('Synchronisation effectuée', 'success');
+        }
+
+        // Obtenir le label de la catégorie
+        function getCategoryLabel(category) {
+            const labels = {
+                'social': 'Réseaux sociaux',
+                'email': 'Email',
+                'banking': 'Banque',
+                'shopping': 'Shopping',
+                'work': 'Travail',
+                'other': 'Autre'
+            };
+            return labels[category] || 'Autre';
+        }
+
+        // Formater la date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'aujourd\'hui';
+            if (diffDays === 2) return 'hier';
+            if (diffDays <= 7) return `il y a ${diffDays - 1} jours`;
+            if (diffDays <= 30) return `il y a ${Math.floor(diffDays / 7)} semaines`;
+            return `il y a ${Math.floor(diffDays / 30)} mois`;
+        }
+
+        // Créer une carte de mot de passe
+        function createPasswordCard(password) {
+            const card = document.createElement('div');
+            card.className = 'password-card';
+            card.dataset.passwordId = password.id;
+            
+            const strengthClass = password.strength >= 80 ? 'strong' : 
+                                password.strength >= 60 ? 'medium' : 'weak';
+            const strengthText = password.strength >= 80 ? 'Très fort' : 
+                               password.strength >= 60 ? 'Fort' : 
+                               password.strength >= 40 ? 'Moyen' : 'Faible';
+            
+            card.innerHTML = `
+                <div class="password-header">
+                    <div class="service-icon">
+                        <i class="${password.icon}"></i>
+                    </div>
+                    <div class="password-info">
+                        <h3>${password.title}</h3>
+                        <p class="username">${password.email}</p>
+                    </div>
+                    <div class="password-actions">
+                        <button class="action-icon-btn" onclick="togglePassword('pass${password.id}')">
+                            <i class="fas fa-eye" id="eye${password.id}"></i>
+                        </button>
+                        <button class="action-icon-btn" onclick="copyPassword('${password.password}')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="action-icon-btn" onclick="editPassword(${password.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-icon-btn" onclick="deletePassword(${password.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="password-content">
+                    <div class="password-field">
+                        <input type="password" value="${password.password}" id="pass${password.id}" readonly>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill ${strengthClass}"></div>
+                        </div>
+                        <span class="strength-text">${strengthText}</span>
+                    </div>
+                </div>
+                <div class="password-footer">
+                    <span class="category-tag ${password.category}">${getCategoryLabel(password.category)}</span>
+                    <span class="last-updated">Créé ${formatDate(password.createdAt)}</span>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Copier un mot de passe
+        function copyPassword(password) {
+            navigator.clipboard.writeText(password).then(() => {
+                showNotification('Mot de passe copié !', 'success');
+            }).catch(() => {
+                // Fallback
+                const textArea = document.createElement('textarea');
+                textArea.value = password;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Mot de passe copié !', 'success');
+            });
+        }
+
+        // Supprimer un mot de passe
+        function deletePassword(passwordId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce mot de passe ?')) {
+                savedPasswords = savedPasswords.filter(p => p.id !== passwordId);
+                localStorage.setItem('savedPasswords', JSON.stringify(savedPasswords));
+                updatePasswordsDisplay();
+                showNotification('Mot de passe supprimé', 'success');
+            }
+        }
+
+        // Éditer un mot de passe (placeholder pour l'instant)
+        function editPassword(passwordId) {
+            showNotification('Fonctionnalité d\'édition à venir', 'info');
+        }
+
+        // Charger les mots de passe sauvegardés au démarrage
+        function loadSavedPasswords() {
+            const saved = localStorage.getItem('savedPasswords');
+            if (saved) {
+                savedPasswords = JSON.parse(saved);
+                // Trouver le plus grand ID pour continuer la numérotation
+                if (savedPasswords.length > 0) {
+                    passwordCounter = Math.max(...savedPasswords.map(p => p.id));
+                }
+            }
+            updatePasswordsDisplay();
+        }
+
+        // Sélectionner une icône
+        document.querySelectorAll('.icon-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedIcon = this.dataset.icon;
+            });
+        });
+
+        // Afficher une notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Fermer les modals en cliquant à l'extérieur
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('password-generator-modal') || 
+                event.target.classList.contains('save-password-modal')) {
+                event.target.classList.remove('active');
+            }
+        });
+
+        // Fermer les modals avec Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('passwordGeneratorModal').classList.remove('active');
+                document.getElementById('savePasswordModal').classList.remove('active');
+            }
         });
     </script>
     <script src="../dark-mode.js"></script>
