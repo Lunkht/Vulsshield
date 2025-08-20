@@ -2923,10 +2923,23 @@ footer {
 .security-metric { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #1a1a1a; }
 .security-metric:last-child { border-bottom: 0; }
 .metric-label { color: #bdbdbd; font-size: 13px; }
+
 .metric-value { font-weight: 700; font-size: 13px; }
 .metric-value.good { color: #84e1b0; }
 .metric-value.warning { color: #ffd479; }
 .metric-value.danger { color: #ff9b9b; }
+
+/* URL Risk Monitor */
+.url-risk-list { display: flex; flex-direction: column; gap: 12px; }
+.url-risk-item { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 10px; padding: 12px; }
+.url-risk-item .url-main { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.url-risk-item .url-host { display: flex; align-items: center; gap: 8px; color: #cfd6e1; }
+.url-risk-item .url-host .path { color: #93a1b3; margin-left: 6px; font-size: 0.9em; }
+.url-risk-item .url-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 6px; color: #93a1b3; font-size: 0.9em; }
+.risk-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; padding: 4px 10px; border-radius: 999px; font-weight: 600; border: 1px solid transparent; }
+.risk-high { background: #2a1111; color: #ff9b9b; border-color: #402020; }
+.risk-medium { background: #2b240f; color: #ffd479; border-color: #433820; }
+.risk-low { background: #0f261a; color: #84e1b0; border-color: #1d3a29; }
 
 /* Admin Layout - état replié */
 .admin-layout { transition: grid-template-columns .2s ease; }

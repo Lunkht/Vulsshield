@@ -219,6 +219,10 @@
                         <i class="fas fa-history"></i>
                         <span>Activité</span>
                     </a>
+                    <a href="#url-monitor" class="nav-item">
+                        <i class="fas fa-link"></i>
+                        <span>Sites suspects</span>
+                    </a>
                 </div>
                 
                 <div class="nav-section">
@@ -352,6 +356,17 @@
                             <div class="metric-label">Doublons détectés</div>
                             <div class="metric-value danger">2/24</div>
                         </div>
+                    </div>
+                </div>
+
+                <div id="url-monitor"></div>
+                <div class="widget">
+                    <div class="widget-header">
+                        <h4>Surveillance des URLs</h4>
+                        <button class="widget-action" id="clearUrlRiskLog" title="Effacer la liste"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="widget-content">
+                        <div id="urlRiskList"></div>
                     </div>
                 </div>
             </div>
