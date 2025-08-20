@@ -2941,6 +2941,46 @@ footer {
 .admin-layout.sidebar-collapsed .nav-badge { display: none; }
 .admin-layout.sidebar-collapsed .sidebar-footer .user-mini-details { display: none; }
 
+/* Hero - Auth-like reusable section */
+.hero-auth {
+  position: relative;
+  background: transparent;
+  min-height: 420px;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-auth::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(600px 300px at 10% -10%, rgba(0, 255, 179, 0.15), transparent 60%),
+                    radial-gradient(600px 300px at 90% 110%, rgba(0, 255, 179, 0.12), transparent 60%),
+                    linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.4) 100%),
+                    var(--hero-bg, none);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.hero-auth .container,
+.hero-auth h1,
+.hero-auth p,
+.hero-auth .hero-cta {
+  position: relative;
+  z-index: 1;
+}
+.hero-auth h1 { color: #f4f4f4; margin: 0 0 8px; font-size: 42px; line-height: 1.1; }
+.hero-auth p { color: #cfcfcf; max-width: 780px; }
+.hero-auth .hero-cta { display: flex; gap: 12px; margin-top: 18px; }
+.hero-auth .btn-primary { background: var(--primary-green); color: #0b0b0b; }
+.hero-auth .btn-secondary { background: #131313; border: 1px solid #1f1f1f; color: #e0e0e0; }
+
+@media (max-width: 768px) {
+  .hero-auth { min-height: 320px; padding: 60px 0; }
+  .hero-auth h1 { font-size: 30px; }
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .admin-layout { grid-template-columns: 200px 1fr; }

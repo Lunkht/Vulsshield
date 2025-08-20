@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulsshield - Offres et Abonnements</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon" />
+  <script src="https://kit.fontawesome.com/a2d9d5a64f.js" crossorigin="anonymous"></script>
+  <style>
+    /* Pricing styles spécifiques à la page */
+    .pricing-section { padding: 40px 0 80px; }
+    .pricing-head { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px; }
+    .billing-toggle { display:flex; align-items:center; gap:10px; background:#0f0f0f; border:1px solid #1f1f1f; border-radius:999px; padding:6px; }
+    .billing-toggle button { background:transparent; color:#cfcfcf; border:0; padding:8px 14px; border-radius:999px; cursor:pointer; font-weight:600; }
+    .billing-toggle button.active { background:#151515; color:#fff; border:1px solid #242424; }
+
+    .pricing-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+    .plan-card { background:#0f0f0f; border:1px solid #1f1f1f; border-radius:14px; padding:18px; display:flex; flex-direction:column; }
+    .plan-badge { font-size:12px; color:#9a9a9a; }
+    .plan-title { margin:4px 0 8px; font-size:20px; }
+    .plan-desc { color:#bdbdbd; min-height: 42px; }
+    .plan-price { display:flex; align-items:flex-end; gap:6px; margin:14px 0; }
+    .plan-price .amount { font-size:32px; font-weight:800; color:#fff; }
+    .plan-price .period { color:#9a9a9a; }
+    .plan-features { display:flex; flex-direction:column; gap:8px; margin:10px 0 16px; }
+    .feature { display:flex; align-items:center; gap:8px; color:#cfcfcf; }
+    .feature i { color: var(--primary-green); }
+    .plan-cta { margin-top:auto; display:flex; gap:10px; }
+    .secure-note { margin-top: 24px; color:#9a9a9a; display:flex; align-items:center; gap:8px; font-size:13px; }
+    .cards { display:flex; align-items:center; gap:6px; }
+    .cards .card { width:32px; height:22px; border-radius:4px; background:#1a1a1a; border:1px solid #222; display:flex; align-items:center; justify-content:center; color:#bdbdbd; font-size:11px; }
+
+    @media (max-width: 1024px) { .pricing-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } .pricing-head { flex-direction:column; align-items:flex-start; gap:12px; } }
+  </style>
+</head>
+<body>
+  <!-- Barre supérieure minimaliste -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <div class="breadcrumb">
+          <div class="project-icon"><div class="gradient-circle"></div></div>
+          <span class="project-name">Vulsshield Projects</span>
+        </div>
+      </div>
+      <div class="top-bar-center"></div>
+      <div class="top-bar-right">
+        <button class="action-btn" onclick="window.location.href='../connexion.html'">Connexion</button>
+        <button class="action-btn" onclick="window.location.href='download.html'">Télécharger</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Offres -->
+  <section id="pricing-hero" class="hero-auth" style="--hero-bg: url('../assets/images/phone.png')">
+    <div class="container">
+      <h1>Offres et Abonnements</h1>
+      <p>Choisissez la formule qui vous convient. Paiement sécurisé par carte VISA ou Mastercard, essai gratuit de 14 jours sur les plans Particulier et Pro.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les offres</button>
+        <button class="btn-secondary" onclick="window.location.href='../inscription.html'">Commencer l'essai</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Pricing -->
+  <section id="pricing" class="pricing-section">
+    <div class="container">
+      <div class="pricing-head">
+        <div>
+          <h2 style="margin:0">Des plans simples et transparents</h2>
+          <p style="margin:6px 0 0; color:#bdbdbd">Passez à tout moment de l'essai gratuit au plan payant. Annulable à tout moment.</p>
+        </div>
+        <div class="billing-toggle" role="tablist" aria-label="Choix de facturation">
+          <button id="billMonthly" class="active" aria-selected="true" aria-controls="pricing" role="tab">Mensuel</button>
+          <button id="billYearly" aria-selected="false" aria-controls="pricing" role="tab">Annuel (-15%)</button>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Particulier -->
+        <div class="plan-card" data-plan="particulier">
+          <div class="plan-badge">Pour particuliers</div>
+          <h3 class="plan-title">Particulier</h3>
+          <p class="plan-desc">Protection essentielle et gestion sécurisée.</p>
+          <div class="plan-price">
+            <span class="amount" data-monthly="4.99" data-yearly="4.24">4.99</span>
+            <span class="period">€/mois</span>
+          </div>
+          <div class="plan-features">
+            <div class="feature"><i class="fas fa-check"></i> Gestionnaire de mots de passe</div>
+            <div class="feature"><i class="fas fa-check"></i> Sauvegarde chiffrée</div>
+            <div class="feature"><i class="fas fa-check"></i> Assistance par email</div>
+          </div>
+          <div class="plan-cta">
+            <button class="btn-primary start-trial" data-plan="Particulier">Essai 14 jours</button>
+            <button class="btn-secondary buy-now" data-plan="Particulier" data-link="#">Acheter</button>
+          </div>
+        </div>
+
+        <!-- Pro -->
+        <div class="plan-card" data-plan="pro">
+          <div class="plan-badge">Le plus populaire</div>
+          <h3 class="plan-title">Pro</h3>
+          <p class="plan-desc">Collaboration et sécurité avancée.</p>
+          <div class="plan-price">
+            <span class="amount" data-monthly="14.99" data-yearly="12.74">14.99</span>
+            <span class="period">€/mois</span>
+          </div>
+          <div class="plan-features">
+            <div class="feature"><i class="fas fa-check"></i> Tout Particulier</div>
+            <div class="feature"><i class="fas fa-check"></i> Partage sécurisé d'éléments</div>
+            <div class="feature"><i class="fas fa-check"></i> 2FA et rapports de sécurité</div>
+            <div class="feature"><i class="fas fa-check"></i> Support prioritaire</div>
+          </div>
+          <div class="plan-cta">
+            <button class="btn-primary start-trial" data-plan="Pro">Essai 14 jours</button>
+            <button class="btn-secondary buy-now" data-plan="Pro" data-link="#">Acheter</button>
+          </div>
+        </div>
+
+        <!-- Entreprise -->
+        <div class="plan-card" data-plan="entreprise">
+          <div class="plan-badge">Pour organisations</div>
+          <h3 class="plan-title">Entreprise</h3>
+          <p class="plan-desc">Gouvernance, conformité et déploiement.</p>
+          <div class="plan-price">
+            <span class="amount" data-monthly="--" data-yearly="--">Sur devis</span>
+            <span class="period"></span>
+          </div>
+          <div class="plan-features">
+            <div class="feature"><i class="fas fa-check"></i> SSO, SCIM, contrôle d'accès</div>
+            <div class="feature"><i class="fas fa-check"></i> Journalisation avancée (SIEM)</div>
+            <div class="feature"><i class="fas fa-check"></i> SLA & support dédié</div>
+            <div class="feature"><i class="fas fa-check"></i> Déploiements personnalisés</div>
+          </div>
+          <div class="plan-cta">
+            <button class="btn-primary contact-sales">Contacter les ventes</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="secure-note">
+        <i class="fas fa-lock"></i> Paiement sécurisé par cartes VISA et Mastercard via Stripe. Aucune donnée de carte n'est stockée par Vulsshield.
+        <div class="cards">
+          <div class="card">VISA</div>
+          <div class="card">MC</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Toggle Mensuel/Annuel
+    const monthlyBtn = document.getElementById('billMonthly');
+    const yearlyBtn = document.getElementById('billYearly');
+    function updatePrices(yearly) {
+      document.querySelectorAll('.plan-card .amount').forEach(el => {
+        const monthly = el.getAttribute('data-monthly');
+        const yearlyVal = el.getAttribute('data-yearly');
+        if (monthly && yearlyVal && monthly !== '--') {
+          el.textContent = yearly ? yearlyVal : monthly;
+        }
+      });
+      monthlyBtn.classList.toggle('active', !yearly);
+      yearlyBtn.classList.toggle('active', yearly);
+    }
+    monthlyBtn.addEventListener('click', () => updatePrices(false));
+    yearlyBtn.addEventListener('click', () => updatePrices(true));
+
+    // CTA Essai 14 jours
+    document.querySelectorAll('.start-trial').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const plan = btn.dataset.plan || 'Particulier';
+        try { localStorage.setItem('trialRequested', 'true'); localStorage.setItem('trialPlan', plan); } catch(e){}
+        window.location.href = '../inscription.html?trial=1&plan=' + encodeURIComponent(plan);
+      });
+    });
+
+    // CTA Acheter -> Stripe Payment Link (à remplacer par vos liens Stripe)
+    document.querySelectorAll('.buy-now').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const link = btn.dataset.link || '#';
+        if (link && link !== '#') {
+          window.location.href = link; // Redirection vers Stripe Checkout/Payment Link
+        } else {
+          alert("Lien de paiement non configuré. Veuillez configurer un Payment Link Stripe pour ce plan.");
+        }
+      });
+    });
+
+    // Contacter ventes
+    document.querySelectorAll('.contact-sales').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.location.href = 'mailto:contact@vulsshield.com?subject=Demande%20offre%20Entreprise';
+      });
+    });
+
+    // Valeurs par défaut
+    updatePrices(false);
+  </script>
+</body>
+</html>
