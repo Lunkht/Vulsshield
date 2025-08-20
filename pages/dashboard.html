@@ -41,6 +41,39 @@
                     <i class="fas fa-key"></i>
                 </button>
                 <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <!-- Menu Feedback -->
+                <div class="dropdown-menu feedback-menu" id="feedbackMenu">
+                    <div class="menu-header">
+                        <h4>Envoyer un feedback</h4>
+                    </div>
+                    <div class="menu-content">
+                        <div class="feedback-form">
+                            <div class="form-group">
+                                <label for="feedbackType">Type de feedback</label>
+                                <select id="feedbackType" class="feedback-select">
+                                    <option value="bug">Rapport de bug</option>
+                                    <option value="feature">Demande de fonctionnalité</option>
+                                    <option value="improvement">Amélioration</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackMessage">Message</label>
+                                <textarea id="feedbackMessage" class="feedback-textarea" placeholder="Décrivez votre feedback..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackEmail">Email (optionnel)</label>
+                                <input type="email" id="feedbackEmail" class="feedback-input" placeholder="votre@email.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-footer">
+                        <button class="btn-secondary" onclick="closeFeedbackMenu()">Annuler</button>
+                        <button class="btn-primary" onclick="submitFeedback()">Envoyer</button>
+                    </div>
+                </div>
+                
                 <div class="notification-icon" onclick="toggleNotificationMenu()">
                     <i class="fas fa-bell"></i>
                     <span class="notification-dot"></span>
@@ -655,12 +688,51 @@
         // Fermer les menus quand on clique en dehors
         document.addEventListener('click', function(event) {
             const isClickInsideMenu = event.target.closest('.dropdown-menu');
-            const isClickOnTrigger = event.target.closest('.notification-icon, .user-avatar');
+            const isClickOnTrigger = event.target.closest('.notification-icon, .user-avatar, .feedback-btn');
             
             if (!isClickInsideMenu && !isClickOnTrigger) {
                 closeAllMenus();
             }
         });
+
+        // Fonction pour ouvrir/fermer le menu feedback
+        function toggleFeedbackMenu() {
+            const menu = document.getElementById('feedbackMenu');
+            
+            if (activeMenu === menu) {
+                closeAllMenus();
+            } else {
+                closeAllMenus();
+                menu.classList.add('active');
+                activeMenu = menu;
+            }
+        }
+        
+        // Fonction pour fermer le menu feedback
+        function closeFeedbackMenu() {
+            closeAllMenus();
+        }
+        
+        // Fonction pour soumettre le feedback
+        function submitFeedback() {
+            const type = document.getElementById('feedbackType').value;
+            const message = document.getElementById('feedbackMessage').value;
+            const email = document.getElementById('feedbackEmail').value;
+            
+            if (!message.trim()) {
+                alert('Veuillez saisir un message');
+                return;
+            }
+            
+            // TODO: envoyer le feedback au serveur / service
+            console.log('Feedback soumis:', { type, message, email });
+            alert('Merci pour votre feedback !');
+            
+            // Réinitialiser le formulaire
+            document.getElementById('feedbackMessage').value = '';
+            document.getElementById('feedbackEmail').value = '';
+            closeAllMenus();
+        }
 
         // Fermer les menus avec la touche Escape
         document.addEventListener('keydown', function(event) {
