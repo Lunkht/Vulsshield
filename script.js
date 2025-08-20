@@ -18,6 +18,10 @@ if (pixelBackground) {
 // URL Risk Analyzer Module
 (function () {
   const STORAGE_KEY = 'vs_url_risk_log';
+  const ALERT_THRESHOLD = 60; // score à partir duquel on avertit avant de naviguer
+
+  let currentFilter = 'all';
+  let currentSearch = '';
 
   function parseUrl(href) {
     try { return new URL(href, window.location.href); } catch (e) { return null; }
@@ -74,6 +78,18 @@ if (pixelBackground) {
     saveLog(list);
   }
 
+  function getFilteredList() {
+    let list = loadLog();
+    if (currentFilter !== 'all') {
+      list = list.filter(i => i.level === currentFilter);
+    }
+    if (currentSearch && currentSearch.trim().length > 0) {
+      const q = currentSearch.trim().toLowerCase();
+      list = list.filter(i => (i.host + i.path + i.url).toLowerCase().includes(q));
+    }
+    return list;
+  }
+
   function handleLinkClick(evt) {
     const a = evt.target && evt.target.closest ? evt.target.closest('a') : null;
     if (!a) return;
@@ -82,14 +98,25 @@ if (pixelBackground) {
     if (!href) return;
     const urlObj = parseUrl(a.href || href);
     if (!urlObj) return;
+
+    // Scorer et éventuellement avertir avant de naviguer
+    const result = scoreUrl(urlObj);
     try { logVisit(urlObj); } catch (e) { /* noop */ }
+
+    if (result.score >= ALERT_THRESHOLD) {
+      evt.preventDefault();
+      const proceed = window.confirm(`Attention: ce lien est jugé risqué (score ${result.score}).\nRaisons: ${result.reasons.join(', ')}\nVoulez-vous quand même ouvrir ce lien ?`);
+      if (proceed) {
+        window.open(urlObj.href, '_blank', 'noopener');
+      }
+    }
   }
   document.addEventListener('click', handleLinkClick, true);
 
   function renderUrlRiskList() {
     const container = document.getElementById('urlRiskList');
     if (!container) return;
-    const list = loadLog();
+    const list = getFilteredList();
     container.innerHTML = '';
     if (!list.length) {
       container.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-globe"></i></div><p>Aucune URL analysée pour le moment.</p></div>';
@@ -126,9 +153,56 @@ if (pixelBackground) {
     renderUrlRiskList();
   }
 
+  function normalizeInputToUrl(str) {
+    if (!str) return null;
+    let s = str.trim();
+    if (!/^https?:\/\//i.test(s)) {
+      s = 'http://' + s; // pour parser; l’analyse détectera HTTP non sécurisé
+    }
+    return parseUrl(s);
+  }
+
+  function analyzeAndLog(inputStr) {
+    const urlObj = normalizeInputToUrl(inputStr);
+    if (!urlObj) return { ok: false, error: 'URL invalide' };
+    logVisit(urlObj);
+    renderUrlRiskList();
+    return { ok: true };
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     renderUrlRiskList();
     const btn = document.getElementById('clearUrlRiskLog');
     if (btn) btn.addEventListener('click', clearLog);
+
+    const analyzeBtn = document.getElementById('urlAnalyzeBtn');
+    const analyzeInput = document.getElementById('urlAnalyzeInput');
+    if (analyzeBtn && analyzeInput) {
+      analyzeBtn.addEventListener('click', () => {
+        if (analyzeInput.value) analyzeAndLog(analyzeInput.value);
+      });
+      analyzeInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (analyzeInput.value) analyzeAndLog(analyzeInput.value);
+        }
+      });
+    }
+
+    const filterSelect = document.getElementById('urlRiskFilter');
+    if (filterSelect) {
+      filterSelect.addEventListener('change', () => {
+        currentFilter = filterSelect.value;
+        renderUrlRiskList();
+      });
+    }
+
+    const searchInput = document.getElementById('urlSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        currentSearch = searchInput.value || '';
+        renderUrlRiskList();
+      });
+    }
   });
 })();

@@ -366,6 +366,17 @@
                         <button class="widget-action" id="clearUrlRiskLog" title="Effacer la liste"><i class="fas fa-trash"></i></button>
                     </div>
                     <div class="widget-content">
+                        <div class="url-controls">
+                            <input type="text" id="urlAnalyzeInput" placeholder="Coller une URL à analyser (ex: https://exemple.com)" />
+                            <button class="btn-secondary compact" id="urlAnalyzeBtn" title="Analyser"><i class="fas fa-search"></i><span style="margin-left:6px;">Analyser</span></button>
+                            <select id="urlRiskFilter" class="filter-select" title="Filtrer par risque">
+                                <option value="all">Tous</option>
+                                <option value="high">Élevé</option>
+                                <option value="medium">Moyen</option>
+                                <option value="low">Faible</option>
+                            </select>
+                            <input type="text" id="urlSearchInput" placeholder="Rechercher…" />
+                        </div>
                         <div id="urlRiskList"></div>
                     </div>
                 </div>

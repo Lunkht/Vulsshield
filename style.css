@@ -2930,6 +2930,9 @@ footer {
 .metric-value.danger { color: #ff9b9b; }
 
 /* URL Risk Monitor */
+.url-controls { display: grid; grid-template-columns: 1fr auto auto auto; gap: 8px; margin-bottom: 10px; }
+.url-controls input[type="text"], .url-controls select { background: #0f0f0f; border: 1px solid #1e1e1e; color: #e0e0e0; border-radius: 8px; padding: 8px 10px; }
+.url-controls input[type="text"]::placeholder { color: #7c8a9b; }
 .url-risk-list { display: flex; flex-direction: column; gap: 12px; }
 .url-risk-item { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 10px; padding: 12px; }
 .url-risk-item .url-main { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -2940,6 +2943,7 @@ footer {
 .risk-high { background: #2a1111; color: #ff9b9b; border-color: #402020; }
 .risk-medium { background: #2b240f; color: #ffd479; border-color: #433820; }
 .risk-low { background: #0f261a; color: #84e1b0; border-color: #1d3a29; }
+@media (max-width: 680px) { .url-controls { grid-template-columns: 1fr 1fr; } }
 
 /* Admin Layout - état replié */
 .admin-layout { transition: grid-template-columns .2s ease; }
