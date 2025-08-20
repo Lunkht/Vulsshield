@@ -84,6 +84,65 @@
                 max-height: 180px;
             }
         }
+        /* Produits en cartes */
+        .products-section {
+            padding: 60px 0;
+            background: #000;
+        }
+        .products-section .container { max-width: 1200px; }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .product-card {
+            background-color: #000;
+            border: 1px solid #333;
+            border-radius: 18px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 360px;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: #444;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+        }
+        .product-card .product-media {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .product-card .product-media img {
+            width: 100%;
+            max-width: 220px;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.03);
+        }
+        .product-card h3 {
+            color: #eaeaea;
+            font-size: 1.4rem;
+            margin: 8px 0 8px;
+        }
+        .product-card h3 span { color: var(--primary-green); }
+        .product-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.98rem;
+            line-height: 1.55;
+            margin-bottom: auto;
+        }
+
+        /* Masquer l’ancienne mise en page de sections */
+        .about-section { display: none !important; }
     </style>
 </head>
 
@@ -271,6 +330,44 @@
                 <div class="hero-text" data-aos="fade-up">
                     <h1>Nos Produits</h1>
                     <p>Découvrez la gamme Vulsshield : innovation, performance et design pour un quotidien plus simple, plus sûr et plus connecté.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="container">
+                <div class="products-grid">
+                    <article class="product-card" data-aos="fade-up">
+                        <div class="product-media">
+                            <img src="../assets/images/ge1.png" alt="Drone Vulsshield GEONE">
+                        </div>
+                        <h3>Vulsshield <span>GEONE</span></h3>
+                        <p>Drone intelligent nouvelle génération avec longue autonomie, caméra HD stabilisée et navigation intelligente. Idéal pour la prise de vue aérienne, la surveillance et le loisir.</p>
+                    </article>
+
+                    <article class="product-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="product-media">
+                            <img src="../assets/images/energy-drink.png" alt="Boisson énergisante S-ENgy">
+                        </div>
+                        <h3>Vulsshield <span>S-ENgy</span></h3>
+                        <p>Boisson énergisante naturelle, riche en vitamines et extraits de plantes pour booster votre énergie et votre concentration sans effet de crash.</p>
+                    </article>
+
+                    <article class="product-card" data-aos="fade-up" data-aos-delay="150">
+                        <div class="product-media">
+                            <img src="../assets/images/casque.png" alt="Casque audio sans fil S-At1 ONE">
+                        </div>
+                        <h3>Vulsshield <span>S-At1 ONE</span></h3>
+                        <p>Casque audio sans fil premium, réduction active du bruit, confort longue durée et autonomie étendue pour une immersion totale.</p>
+                    </article>
+
+                    <article class="product-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="product-media">
+                            <img src="../assets/images/vulsshield-watch.png" alt="Montre connectée S-At1 ONE">
+                        </div>
+                        <h3>Vulsshield <span>S-At1 ONE</span></h3>
+                        <p>Montre connectée élégante et polyvalente : suivi d'activité, notifications intelligentes, cardiofréquencemètre et grande autonomie.</p>
+                    </article>
                 </div>
             </div>
         </section>
