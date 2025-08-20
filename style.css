@@ -920,8 +920,8 @@ body {
 }
 
 .category-tag.social {
-    background-color: rgba(59, 130, 246, 0.2);
-    color: #3b82f6;
+    background-color: rgba(3, 48, 46, 0.2);
+    color: var(--primary-green);
 }
 
 .category-tag.banking {
@@ -1429,7 +1429,7 @@ body {
 }
 
 .notification.info {
-    border-left: 4px solid #3b82f6;
+    border-left: 4px solid var(--primary-green);
 }
 
 /* Responsive Design for Modals */
