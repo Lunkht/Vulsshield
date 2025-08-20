@@ -2930,10 +2930,17 @@ footer {
 .metric-value.danger { color: #ff9b9b; }
 
 /* URL Risk Monitor */
-.url-controls { display: grid; grid-template-columns: 1fr auto auto auto; gap: 8px; margin-bottom: 10px; }
-.url-controls input[type="text"], .url-controls select { background: #0f0f0f; border: 1px solid #1e1e1e; color: #e0e0e0; border-radius: 8px; padding: 8px 10px; }
-.url-controls input[type="text"]::placeholder { color: #7c8a9b; }
-.url-risk-list { display: flex; flex-direction: column; gap: 12px; }
+ .url-controls { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 10px; align-items: center; }
+ .url-controls .uc-left { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; min-width: 300px; }
+ .url-controls .uc-right { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
+ .url-controls input[type="text"], .url-controls select, .url-controls button { height: 42px; }
+ .url-controls input[type="text"], .url-controls select { background: #0f0f0f; border: 1px solid #1e1e1e; color: #e0e0e0; border-radius: 8px; padding: 8px 12px; }
+ .url-controls input[type="text"]::placeholder { color: #7c8a9b; }
+ .url-controls .btn-text { margin-left: 6px; }
+ .url-controls .input-icon { position: relative; display: flex; align-items: center; }
+ .url-controls .input-icon i { position: absolute; left: 10px; color: #7c8a9b; font-size: 0.9em; pointer-events: none; }
+ .url-controls .input-icon input { padding-left: 32px; width: 100%; }
+ .url-risk-list { display: flex; flex-direction: column; gap: 12px; }
 .url-risk-item { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 10px; padding: 12px; }
 .url-risk-item .url-main { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .url-risk-item .url-host { display: flex; align-items: center; gap: 8px; color: #cfd6e1; }
@@ -2943,7 +2950,11 @@ footer {
 .risk-high { background: #2a1111; color: #ff9b9b; border-color: #402020; }
 .risk-medium { background: #2b240f; color: #ffd479; border-color: #433820; }
 .risk-low { background: #0f261a; color: #84e1b0; border-color: #1d3a29; }
-@media (max-width: 680px) { .url-controls { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 880px) {
+   .url-controls { grid-template-columns: 1fr; }
+   .url-controls .uc-left { grid-template-columns: 1fr auto; }
+   .url-controls .uc-right { grid-template-columns: 1fr 1fr; }
+ }
 
 /* Admin Layout - état replié */
 .admin-layout { transition: grid-template-columns .2s ease; }
