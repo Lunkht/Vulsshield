@@ -2930,17 +2930,24 @@ footer {
 .metric-value.danger { color: #ff9b9b; }
 
 /* URL Risk Monitor */
- .url-controls { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 10px; align-items: center; }
- .url-controls .uc-left { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; min-width: 300px; }
- .url-controls .uc-right { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
+ .url-controls { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 10px; align-items: center; width: 100%; }
+ .url-controls .uc-left { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; min-width: 0; }
+ .url-controls .uc-right { display: grid; grid-template-columns: minmax(120px, auto) minmax(0, 1fr); gap: 8px; align-items: center; }
+ .url-controls > * { min-width: 0; }
  .url-controls input[type="text"], .url-controls select, .url-controls button { height: 42px; }
  .url-controls input[type="text"], .url-controls select { background: #0f0f0f; border: 1px solid #1e1e1e; color: #e0e0e0; border-radius: 8px; padding: 8px 12px; }
+ .url-controls select { min-width: 120px; max-width: 180px; }
  .url-controls input[type="text"]::placeholder { color: #7c8a9b; }
  .url-controls .btn-text { margin-left: 6px; }
  .url-controls .input-icon { position: relative; display: flex; align-items: center; }
  .url-controls .input-icon i { position: absolute; left: 10px; color: #7c8a9b; font-size: 0.9em; pointer-events: none; }
  .url-controls .input-icon input { padding-left: 32px; width: 100%; }
  .url-risk-list { display: flex; flex-direction: column; gap: 12px; }
+ /* Antidépassement pour les éléments de liste */
+ .url-risk-item .url-main .url-host { min-width: 0; flex: 1; overflow: hidden; }
+ .url-risk-item .url-host .host, .url-risk-item .url-host .path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .url-risk-item .url-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 6px; color: #93a1b3; font-size: 0.9em; flex-wrap: wrap; }
+ .url-risk-item .url-meta .reasons { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .url-risk-item { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 10px; padding: 12px; }
 .url-risk-item .url-main { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .url-risk-item .url-host { display: flex; align-items: center; gap: 8px; color: #cfd6e1; }
