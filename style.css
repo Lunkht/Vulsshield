@@ -2876,13 +2876,15 @@ footer {
     border-right: 1px solid #191919;
     padding: 16px 12px;
 }
-.sidebar-header {
-    padding: 0 8px 12px;
-    border-bottom: 1px solid #151515;
-    margin-bottom: 12px;
-}
-.admin-brand { display: flex; align-items: center; gap: 8px; color: #eaeaea; font-weight: 600; }
+.sidebar-header { display:flex; align-items:center; justify-content: space-between; padding: 0 8px 12px; border-bottom: 1px solid #151515; margin-bottom: 12px; }
+/* Masquer la marque dans la sidebar (non nécessaire) */
+.admin-brand { display: none; }
 .admin-brand i { color: var(--primary-green); }
+
+/* Bouton de réduction de la sidebar */
+.sidebar-toggle { display:inline-flex; align-items:center; justify-content:center; width: 34px; height: 34px; border-radius: 8px; background: #111; border: 1px solid #1e1e1e; color: #cfcfcf; cursor: pointer; transition: all .2s ease; }
+.sidebar-toggle:hover { background: #151515; color: #fff; border-color: #2a2a2a; box-shadow: 0 0 0 3px rgba(0,255,179,0.08); }
+.sidebar-toggle:active { transform: translateY(1px); }
 
 .sidebar-nav { display: flex; flex-direction: column; gap: 14px; }
 .nav-section { display: flex; flex-direction: column; gap: 6px; }
@@ -2899,6 +2901,9 @@ footer {
 .user-avatar-mini { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; }
 .user-mini-name { font-size: 13px; color: #eee; }
 .user-mini-role { font-size: 11px; color: #888; }
+/* Rôle avec icône */
+.role-with-icon { display:flex; align-items:center; gap:8px; }
+.role-with-icon i { color: var(--primary-green); }
 
 .admin-main { padding: 0 16px 40px 0; }
 
