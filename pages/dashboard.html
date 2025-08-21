@@ -709,6 +709,10 @@
             // Initialiser le gestionnaire de mots de passe après le DOM
             loadSavedPasswords();
 
+            // Ajout: charger et rendre l'activité récente persistée
+            loadActivityEvents();
+            renderRecentActivity();
+
             // Rafraîchir les temps relatifs (Dernière sync) + activité récente automatiquement
             refreshRecentActivityTimes();
             setInterval(() => {
@@ -852,7 +856,9 @@
         let currentGeneratedPassword = '';
         let selectedIcon = 'fas fa-key';
         let savedPasswords = []; // Array pour stocker les mots de passe sauvegardés
-        let passwordCounter = 0; // Compteur pour les IDs uniques
+let passwordCounter = 0; // Compteur pour les IDs uniques
+// Ajout: Historique d'activités persisté
+let activityEvents = []; // { id, text, icon, timestamp }
 
         // Ouvrir le générateur de mot de passe
         function openPasswordGenerator() {
@@ -1146,6 +1152,11 @@
             document.getElementById('passwordTitle').value = '';
             document.getElementById('passwordEmail').value = '';
             selectedIcon = 'fas fa-key';
+
+            // Ajout: journaliser l'activité et mettre à jour le widget
+            addActivityEvent(`Nouveau mot de passe ajouté pour ${title}`, 'fas fa-plus');
+            renderRecentActivity();
+            refreshRecentActivityTimes();
         }
 
         // Obtenir la catégorie à partir de l'icône
@@ -1268,6 +1279,12 @@
         function performSync() {
             localStorage.setItem('lastSync', new Date().toISOString());
             updateUserStats();
+
+            // Ajout: journaliser l'activité de synchronisation
+            addActivityEvent('Synchronisation automatique', 'fas fa-sync-alt');
+            renderRecentActivity();
+            refreshRecentActivityTimes();
+
             showNotification('Synchronisation effectuée', 'success');
         }
 
@@ -1459,12 +1476,59 @@
             const container = document.getElementById('recentActivity');
             if (!container) return;
             container.querySelectorAll('.activity-item').forEach(item => {
-                const isoDur = item.getAttribute('data-time');
                 const timeEl = item.querySelector('.activity-time');
-                if (isoDur && timeEl) {
+                if (!timeEl) return;
+                const ts = item.getAttribute('data-timestamp');
+                const isoDur = item.getAttribute('data-time');
+                if (ts) {
+                    timeEl.textContent = formatRelativeTime(ts);
+                } else if (isoDur) {
                     timeEl.textContent = formatRelativeFromDuration(isoDur);
                 }
             });
+        }
+
+        // --- Activité récente: persistance et rendu ---
+        function loadActivityEvents() {
+            const saved = localStorage.getItem('activityEvents');
+            if (saved) {
+                try { activityEvents = JSON.parse(saved) || []; } catch (_) { activityEvents = []; }
+            }
+            if (!saved || activityEvents.length === 0) {
+                const now = new Date();
+                activityEvents = [
+                    { id: now.getTime() - 1, text: 'Nouveau mot de passe ajouté pour Gmail', icon: 'fas fa-plus', timestamp: new Date(now.getTime() - 1*60*60*1000).toISOString() },
+                    { id: now.getTime() - 2, text: 'Mot de passe Facebook modifié', icon: 'fas fa-edit', timestamp: new Date(now.getTime() - 3*60*60*1000).toISOString() },
+                    { id: now.getTime() - 3, text: 'Synchronisation automatique', icon: 'fas fa-sync-alt', timestamp: new Date(now.getTime() - 5*60*60*1000).toISOString() }
+                ];
+                localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
+            }
+        }
+        function saveActivityEvents() {
+            localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
+        }
+        function addActivityEvent(text, icon, timestampIso) {
+            const evt = {
+                id: Date.now() + Math.floor(Math.random() * 1000),
+                text,
+                icon,
+                timestamp: timestampIso || new Date().toISOString()
+            };
+            activityEvents.unshift(evt);
+            if (activityEvents.length > 100) activityEvents = activityEvents.slice(0, 100);
+            saveActivityEvents();
+        }
+        function renderRecentActivity(limit = 3) {
+            const container = document.getElementById('recentActivity');
+            if (!container) return;
+            const events = activityEvents.slice(0, limit);
+            container.innerHTML = events.map(evt => `
+                <div class="activity-item" data-timestamp="${evt.timestamp}">
+                    <div class="activity-icon"><i class="${evt.icon}"></i></div>
+                    <div class="activity-text">${evt.text}</div>
+                    <div class="activity-time">${formatRelativeTime(evt.timestamp)}</div>
+                </div>
+            `).join('');
         }
     </script>
     <script src="../dark-mode.js"></script>
