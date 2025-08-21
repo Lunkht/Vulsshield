@@ -318,18 +318,18 @@
                         <h4>Activité récente</h4>
                         <button class="widget-action"><i class="fas fa-ellipsis-v"></i></button>
                     </div>
-                    <div class="widget-content">
-                        <div class="activity-item">
+                    <div class="widget-content" id="recentActivity">
+                        <div class="activity-item" data-time="PT1H">
                             <div class="activity-icon"><i class="fas fa-plus"></i></div>
                             <div class="activity-text">Nouveau mot de passe ajouté pour Gmail</div>
                             <div class="activity-time">Il y a 1h</div>
                         </div>
-                        <div class="activity-item">
+                        <div class="activity-item" data-time="PT3H">
                             <div class="activity-icon"><i class="fas fa-edit"></i></div>
                             <div class="activity-text">Mot de passe Facebook modifié</div>
                             <div class="activity-time">Il y a 3h</div>
                         </div>
-                        <div class="activity-item">
+                        <div class="activity-item" data-time="PT5H">
                             <div class="activity-icon"><i class="fas fa-sync-alt"></i></div>
                             <div class="activity-text">Synchronisation automatique</div>
                             <div class="activity-time">Il y a 5h</div>
@@ -345,15 +345,15 @@
                     <div class="widget-content">
                         <div class="security-metric">
                             <div class="metric-label">Mots de passe forts</div>
-                            <div class="metric-value">&nbsp;</div>
+                            <div class="metric-value" id="metric_strong"></div>
                         </div>
                         <div class="security-metric">
                             <div class="metric-label">Mots de passe faibles</div>
-                            <div class="metric-value">&nbsp;</div>
+                            <div class="metric-value" id="metric_weak"></div>
                         </div>
                         <div class="security-metric">
                             <div class="metric-label">Doublons détectés</div>
-                            <div class="metric-value">&nbsp;</div>
+                            <div class="metric-value" id="metric_duplicates"></div>
                         </div>
                     </div>
                 </div>
@@ -708,6 +708,13 @@
 
             // Initialiser le gestionnaire de mots de passe après le DOM
             loadSavedPasswords();
+
+            // Rafraîchir les temps relatifs (Dernière sync) + activité récente automatiquement
+            refreshRecentActivityTimes();
+            setInterval(() => {
+                updateUserStats();
+                refreshRecentActivityTimes();
+            }, 60000);
         });
 
         // Fermer les menus quand on clique en dehors
@@ -1211,6 +1218,33 @@
                 const lastSyncIso = localStorage.getItem('lastSync');
                 elSync.textContent = lastSyncIso ? formatRelativeTime(lastSyncIso) : 'Jamais';
             }
+
+            // Mettre à jour le widget "Analyse de sécurité"
+            updateSecurityMetrics();
+        }
+
+        // Calculer et afficher les métriques de sécurité (fort/faible/doublons)
+        function updateSecurityMetrics() {
+            const total = savedPasswords.length;
+            let strong = 0, weak = 0;
+            const counts = new Map();
+
+            for (const p of savedPasswords) {
+                if (p.strength >= 80) strong++;
+                if (p.strength < 40) weak++;
+                const key = p.password;
+                counts.set(key, (counts.get(key) || 0) + 1);
+            }
+            let duplicates = 0;
+            counts.forEach(c => { if (c > 1) duplicates += c; });
+
+            const strongEl = document.getElementById('metric_strong');
+            const weakEl = document.getElementById('metric_weak');
+            const dupEl = document.getElementById('metric_duplicates');
+
+            if (strongEl) strongEl.textContent = total ? `${strong}/${total}` : '';
+            if (weakEl) weakEl.textContent = total ? `${weak}/${total}` : '';
+            if (dupEl) dupEl.textContent = total ? `${duplicates}/${total}` : '';
         }
 
         // Formater un temps relatif (ex: "il y a 5 min", "il y a 2h")
@@ -1408,6 +1442,30 @@
                 document.getElementById('savePasswordModal').classList.remove('active');
             }
         });
+        // Utilitaire: formater une durée ISO courte (ex: PT3H, PT45M) en relatif à maintenant
+        function formatRelativeFromDuration(isoDuration) {
+            // Support simple: PTnH, PTnM
+            const now = new Date();
+            let deltaMs = 0;
+            const matchH = isoDuration.match(/^PT(\d+)H$/);
+            const matchM = isoDuration.match(/^PT(\d+)M$/);
+            if (matchH) deltaMs = parseInt(matchH[1], 10) * 60 * 60 * 1000;
+            else if (matchM) deltaMs = parseInt(matchM[1], 10) * 60 * 1000;
+            const past = new Date(now.getTime() - deltaMs);
+            return formatRelativeTime(past.toISOString());
+        }
+
+        function refreshRecentActivityTimes() {
+            const container = document.getElementById('recentActivity');
+            if (!container) return;
+            container.querySelectorAll('.activity-item').forEach(item => {
+                const isoDur = item.getAttribute('data-time');
+                const timeEl = item.querySelector('.activity-time');
+                if (isoDur && timeEl) {
+                    timeEl.textContent = formatRelativeFromDuration(isoDur);
+                }
+            });
+        }
     </script>
     <script src="../dark-mode.js"></script>
 </body>
