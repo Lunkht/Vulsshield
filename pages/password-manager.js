@@ -50,6 +50,27 @@ onAuthStateChanged(auth, (user) => {
                 }
             }
         }
+
+        // Onboarding guard + bienvenue (une seule fois)
+        try {
+            if (typeof redirectBasedOnStatus === 'function') {
+                redirectBasedOnStatus('pages/dashboard.html');
+            }
+            if (typeof shouldShowWelcome === 'function' && shouldShowWelcome()) {
+                const attemptNotify = () => {
+                    if (typeof window.showNotification === 'function') {
+                        const name = user.displayName || (user.email ? user.email.split('@')[0] : 'Utilisateur');
+                        window.showNotification(`Bienvenue ${name} ! Votre coffre-fort est prêt.`, 'success');
+                        if (typeof setWelcomeShown === 'function') setWelcomeShown();
+                    } else {
+                        setTimeout(attemptNotify, 100);
+                    }
+                };
+                attemptNotify();
+            }
+        } catch (e) {
+            console.warn('Onboarding flow handling error:', e);
+        }
     } else {
         // No user is signed in, redirect to the login page
         if (mainContent) {

@@ -143,23 +143,25 @@ function resetUserStatus() {
 function redirectBasedOnStatus(currentPage = '') {
     const status = getUserStatus();
     const currentPageName = currentPage.split('/').pop() || '';
+    const isInPages = window.location.pathname.includes('/pages/');
+    const root = isInPages ? '..' : '.';
 
     switch (status) {
         case USER_STATUS.NEW_USER:
             if (currentPageName !== 'offres.html') {
-                window.location.href = 'pages/offres.html';
+                window.location.href = `${root}/pages/offres.html`;
             }
             break;
         case USER_STATUS.PLAN_SELECTED:
             if (currentPageName !== 'conditions.html') {
-                window.location.href = 'conditions.html';
+                window.location.href = `${root}/conditions.html`;
             }
             break;
         case USER_STATUS.TERMS_ACCEPTED:
             // Finaliser l'onboarding et rediriger vers le dashboard
             setOnboardingComplete();
             if (currentPageName !== 'dashboard.html') {
-                window.location.href = 'pages/dashboard.html';
+                window.location.href = `${root}/pages/dashboard.html`;
             }
             break;
         case USER_STATUS.ONBOARDING_COMPLETE:

@@ -30,7 +30,7 @@ if (signupForm) {
                 // Signed in 
                 const user = userCredential.user;
                 console.log('User created:', user);
-                window.location.href = 'index.html';
+                window.location.href = 'pages/offres.html';
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -54,7 +54,7 @@ if (loginForm) {
                 // Signed in
                 const user = userCredential.user;
                 console.log('User logged in:', user);
-                window.location.href = 'index.html';
+                window.location.href = 'pages/offres.html';
             })
             .catch((error) => {
                 const errorCode = error.code;
