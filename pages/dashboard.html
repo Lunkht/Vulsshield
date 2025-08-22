@@ -316,7 +316,14 @@
                 <div class="widget">
                     <div class="widget-header">
                         <h4>Activité récente</h4>
-                        <button class="widget-action"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="widget-actions">
+                            <select id="activityCardLimitSelect" class="compact">
+                                <option value="3">3</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select>
+                            <button class="btn-secondary compact" onclick="openActivityModal()">Voir tout</button>
+                        </div>
                     </div>
                     <div class="widget-content" id="recentActivity">
                         <div class="activity-item" data-time="PT1H">
@@ -611,6 +618,30 @@
         </div>
     </div>
 
+    <!-- Modal Activité récente -->
+    <div class="activity-modal" id="activityModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Activité récente</h3>
+                <button class="close-btn" onclick="closeActivityModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="filters" id="activityFilters">
+                    <button class="btn-secondary compact" data-filter="all" onclick="setActivityFilter('all')">Tout</button>
+                    <button class="btn-secondary compact" data-filter="add" onclick="setActivityFilter('add')">Ajouts</button>
+                    <button class="btn-secondary compact" data-filter="edit" onclick="setActivityFilter('edit')">Modifications</button>
+                    <button class="btn-secondary compact" data-filter="sync" onclick="setActivityFilter('sync')">Sync</button>
+                </div>
+                <div id="activityListContainer"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="loadMoreActivities()">Charger plus</button>
+                <button class="btn-secondary" onclick="clearActivityHistory()">Effacer l'historique</button>
+                <button class="btn-primary" onclick="closeActivityModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="copyright">
             <p>&copy; 2025 Vulsshield. Tous droits réservés.</p>
@@ -712,6 +743,18 @@
             // Ajout: charger et rendre l'activité récente persistée
             loadActivityEvents();
             renderRecentActivity();
+
+            // Init select nombre d'éléments sur la carte
+            const sel = document.getElementById('activityCardLimitSelect');
+            if (sel) {
+                sel.value = String(activityCardLimit);
+                sel.addEventListener('change', function(){
+                    activityCardLimit = parseInt(this.value, 10);
+                    localStorage.setItem('activityCardLimit', activityCardLimit);
+                    renderRecentActivity();
+                    refreshRecentActivityTimes();
+                });
+            }
 
             // Rafraîchir les temps relatifs (Dernière sync) + activité récente automatiquement
             refreshRecentActivityTimes();
@@ -858,7 +901,11 @@
         let savedPasswords = []; // Array pour stocker les mots de passe sauvegardés
 let passwordCounter = 0; // Compteur pour les IDs uniques
 // Ajout: Historique d'activités persisté
-let activityEvents = []; // { id, text, icon, timestamp }
+let activityEvents = []; // { id, text, icon, timestamp, type }
+let activityCardLimit = parseInt(localStorage.getItem('activityCardLimit') || '3', 10);
+let currentActivityFilter = 'all';
+let activityModalPageSize = 10;
+let activityModalShown = 0;
 
         // Ouvrir le générateur de mot de passe
         function openPasswordGenerator() {
@@ -1447,7 +1494,8 @@ let activityEvents = []; // { id, text, icon, timestamp }
         // Fermer les modals en cliquant à l'extérieur
         document.addEventListener('click', function(event) {
             if (event.target.classList.contains('password-generator-modal') || 
-                event.target.classList.contains('save-password-modal')) {
+                event.target.classList.contains('save-password-modal') ||
+                event.target.classList.contains('activity-modal')) {
                 event.target.classList.remove('active');
             }
         });
@@ -1457,6 +1505,8 @@ let activityEvents = []; // { id, text, icon, timestamp }
             if (event.key === 'Escape') {
                 document.getElementById('passwordGeneratorModal').classList.remove('active');
                 document.getElementById('savePasswordModal').classList.remove('active');
+                const am = document.getElementById('activityModal');
+                if (am) am.classList.remove('active');
             }
         });
         // Utilitaire: formater une durée ISO courte (ex: PT3H, PT45M) en relatif à maintenant
@@ -1507,21 +1557,23 @@ let activityEvents = []; // { id, text, icon, timestamp }
         function saveActivityEvents() {
             localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
         }
-        function addActivityEvent(text, icon, timestampIso) {
+        function addActivityEvent(text, icon, timestampIso, type) {
             const evt = {
                 id: Date.now() + Math.floor(Math.random() * 1000),
                 text,
                 icon,
-                timestamp: timestampIso || new Date().toISOString()
+                timestamp: timestampIso || new Date().toISOString(),
+                type: type || 'other'
             };
             activityEvents.unshift(evt);
             if (activityEvents.length > 100) activityEvents = activityEvents.slice(0, 100);
             saveActivityEvents();
         }
-        function renderRecentActivity(limit = 3) {
+        function renderRecentActivity(limit) {
             const container = document.getElementById('recentActivity');
             if (!container) return;
-            const events = activityEvents.slice(0, limit);
+            const l = (typeof limit === 'number') ? limit : activityCardLimit;
+            const events = activityEvents.slice(0, l);
             container.innerHTML = events.map(evt => `
                 <div class="activity-item" data-timestamp="${evt.timestamp}">
                     <div class="activity-icon"><i class="${evt.icon}"></i></div>
@@ -1529,6 +1581,57 @@ let activityEvents = []; // { id, text, icon, timestamp }
                     <div class="activity-time">${formatRelativeTime(evt.timestamp)}</div>
                 </div>
             `).join('');
+        }
+
+        function openActivityModal() {
+            const modal = document.getElementById('activityModal');
+            if (!modal) return;
+            modal.classList.add('active');
+            currentActivityFilter = 'all';
+            activityModalShown = 0;
+            renderActivityModal(true);
+        }
+        function closeActivityModal() {
+            const modal = document.getElementById('activityModal');
+            if (!modal) return;
+            modal.classList.remove('active');
+        }
+        function setActivityFilter(type) {
+            currentActivityFilter = type;
+            activityModalShown = 0;
+            renderActivityModal(true);
+        }
+        function getFilteredActivities() {
+            if (currentActivityFilter === 'all') return activityEvents;
+            return activityEvents.filter(e => e.type === currentActivityFilter);
+        }
+        function renderActivityModal(reset) {
+            const list = document.getElementById('activityListContainer');
+            if (!list) return;
+            if (reset) list.innerHTML = '';
+            const filtered = getFilteredActivities();
+            const slice = filtered.slice(activityModalShown, activityModalShown + activityModalPageSize);
+            const html = slice.map(evt => `
+                <div class="activity-item" data-timestamp="${evt.timestamp}">
+                    <div class="activity-icon"><i class="${evt.icon}"></i></div>
+                    <div class="activity-text">${evt.text}</div>
+                    <div class="activity-time">${formatRelativeTime(evt.timestamp)}</div>
+                </div>
+            `).join('');
+            list.insertAdjacentHTML('beforeend', html);
+            activityModalShown += slice.length;
+        }
+        function loadMoreActivities() {
+            renderActivityModal(false);
+        }
+        function clearActivityHistory() {
+            if (!confirm("Effacer tout l'historique ?")) return;
+            activityEvents = [];
+            saveActivityEvents();
+            renderRecentActivity();
+            refreshRecentActivityTimes();
+            const list = document.getElementById('activityListContainer');
+            if (list) list.innerHTML = '';
         }
     </script>
     <script src="../dark-mode.js"></script>
