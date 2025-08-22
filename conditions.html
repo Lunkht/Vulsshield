@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditions d'utilisation - Vulsshield</title>
+    <link rel="icon" type="image/x-icon" href="./pages/img/favicon.ico">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .conditions-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 50px 0;
+        }
+        
+        .conditions-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .conditions-header {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .conditions-content {
+            padding: 40px;
+            color: white;
+            max-height: 400px;
+            overflow-y: auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .conditions-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .conditions-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        .conditions-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+        
+        .conditions-footer {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .accept-checkbox {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .accept-button {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+        
+        .accept-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(40, 167, 69, 0.4);
+            background: linear-gradient(45deg, #20c997, #28a745);
+        }
+        
+        .accept-button:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .plan-info {
+            background: rgba(0, 123, 255, 0.2);
+            border: 1px solid rgba(0, 123, 255, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #87ceeb;
+        }
+    </style>
+</head>
+<body>
+    <div class="conditions-container">
+        <div class="container">
+            <div class="conditions-card">
+                <!-- Header -->
+                <div class="conditions-header">
+                    <h2><i class="fas fa-shield-alt me-2"></i>Conditions d'utilisation</h2>
+                    <p class="mb-0">Veuillez lire et accepter nos conditions d'utilisation pour continuer</p>
+                </div>
+                
+                <!-- Plan Info -->
+                <div class="conditions-footer">
+                    <div class="plan-info" id="planInfo" style="display: none;">
+                        <strong>Plan sélectionné :</strong> <span id="selectedPlan">-</span>
+                    </div>
+                </div>
+                
+                <!-- Conditions Content -->
+                <div class="conditions-content">
+                    <h4>1. Acceptation des conditions</h4>
+                    <p>En utilisant les services de Vulsshield, vous acceptez d'être lié par ces conditions d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser nos services.</p>
+                    
+                    <h4>2. Description du service</h4>
+                    <p>Vulsshield fournit une plateforme de sécurité informatique permettant de surveiller, détecter et protéger contre les menaces cybernétiques. Nos services incluent la surveillance en temps réel, l'analyse des vulnérabilités et les alertes de sécurité.</p>
+                    
+                    <h4>3. Compte utilisateur</h4>
+                    <p>Vous êtes responsable de maintenir la confidentialité de votre compte et de votre mot de passe. Vous acceptez de nous notifier immédiatement de toute utilisation non autorisée de votre compte.</p>
+                    
+                    <h4>4. Utilisation acceptable</h4>
+                    <p>Vous vous engagez à utiliser nos services uniquement à des fins légales et conformément à ces conditions. Il est interdit d'utiliser nos services pour :</p>
+                    <ul>
+                        <li>Violer les lois ou réglementations applicables</li>
+                        <li>Compromettre la sécurité de nos systèmes</li>
+                        <li>Perturber ou interférer avec nos services</li>
+                        <li>Accéder de manière non autorisée aux comptes d'autres utilisateurs</li>
+                    </ul>
+                    
+                    <h4>5. Protection des données</h4>
+                    <p>Nous nous engageons à protéger vos données conformément à notre politique de confidentialité et au RGPD. Vos données seront utilisées uniquement pour fournir nos services et améliorer votre expérience.</p>
+                    
+                    <h4>6. Limitation de responsabilité</h4>
+                    <p>Vulsshield ne pourra être tenu responsable des dommages indirects, consécutifs ou punitifs résultant de l'utilisation de nos services. Notre responsabilité totale ne dépassera pas le montant payé pour nos services.</p>
+                    
+                    <h4>7. Propriété intellectuelle</h4>
+                    <p>Tous les droits de propriété intellectuelle relatifs à nos services appartiennent à Vulsshield. Vous ne pouvez pas copier, modifier ou distribuer notre contenu sans autorisation préalable.</p>
+                    
+                    <h4>8. Résiliation</h4>
+                    <p>Nous nous réservons le droit de suspendre ou de résilier votre accès à nos services en cas de violation de ces conditions d'utilisation.</p>
+                    
+                    <h4>9. Modifications</h4>
+                    <p>Nous pouvons modifier ces conditions d'utilisation à tout moment. Les modifications entreront en vigueur dès leur publication sur notre site web.</p>
+                    
+                    <h4>10. Droit applicable</h4>
+                    <p>Ces conditions d'utilisation sont régies par le droit français. Tout litige sera soumis à la juridiction exclusive des tribunaux français.</p>
+                </div>
+                
+                <!-- Footer with acceptance -->
+                <div class="conditions-footer">
+                    <div class="accept-checkbox">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="acceptTerms" style="transform: scale(1.2);">
+                            <label class="form-check-label text-white ms-2" for="acceptTerms">
+                                J'ai lu et j'accepte les conditions d'utilisation de Vulsshield
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button id="continueBtn" class="accept-button" disabled>
+                        <i class="fas fa-check me-2"></i>Continuer vers le tableau de bord
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC9w4qJWJPZ0vDp4-wgnX2lHsqiGC1ARD8",
+            authDomain: "vulsshield-1ac44.firebaseapp.com",
+            projectId: "vulsshield-1ac44",
+            storageBucket: "vulsshield-1ac44.appspot.com",
+            messagingSenderId: "914751126433",
+            appId: "1:914751126433:web:2d0b34e3f0a1c3f8e6db8e"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Vérifier l'authentification
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                console.log('Utilisateur non connecté, redirection vers connexion');
+                window.location.href = 'connexion.html';
+            }
+        });
+    </script>
+
+    <!-- User Status Manager -->
+    <script src="user-status.js"></script>
+
+    <!-- Page Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const acceptCheckbox = document.getElementById('acceptTerms');
+            const continueBtn = document.getElementById('continueBtn');
+            const planInfo = document.getElementById('planInfo');
+            const selectedPlanSpan = document.getElementById('selectedPlan');
+
+            // Afficher le plan sélectionné si disponible
+            const urlParams = new URLSearchParams(window.location.search);
+            const planFromUrl = urlParams.get('plan');
+            const planFromStorage = typeof getChosenPlan === 'function' ? getChosenPlan() : localStorage.getItem('vuls_plan_chosen');
+            
+            const selectedPlan = planFromUrl || planFromStorage;
+            if (selectedPlan) {
+                planInfo.style.display = 'block';
+                selectedPlanSpan.textContent = selectedPlan;
+            }
+
+            // Gestion de la checkbox
+            acceptCheckbox.addEventListener('change', function() {
+                continueBtn.disabled = !this.checked;
+            });
+
+            // Gestion du bouton continuer
+            continueBtn.addEventListener('click', function() {
+                if (!acceptCheckbox.checked) {
+                    alert('Veuillez accepter les conditions d\'utilisation pour continuer.');
+                    return;
+                }
+
+                try {
+                    // Marquer les conditions comme acceptées
+                    if (typeof setTermsAccepted === 'function') {
+                        setTermsAccepted();
+                    }
+                    
+                    // Marquer l'onboarding comme terminé
+                    if (typeof setOnboardingComplete === 'function') {
+                        setOnboardingComplete();
+                    }
+
+                    console.log('Conditions acceptées, redirection vers le dashboard');
+                    window.location.href = 'pages/dashboard.html';
+                } catch (error) {
+                    console.error('Erreur lors de l\'acceptation des conditions:', error);
+                    alert('Une erreur est survenue. Veuillez réessayer.');
+                }
+            });
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

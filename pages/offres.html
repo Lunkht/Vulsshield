@@ -153,6 +153,13 @@
   </section>
 
   <script>
+    // Charger le gestionnaire de statut
+    const userStatusScript = document.createElement('script');
+    userStatusScript.src = '../user-status.js?v=1';
+    document.head.appendChild(userStatusScript);
+  </script>
+
+  <script>
     // Toggle Mensuel/Annuel
     const monthlyBtn = document.getElementById('billMonthly');
     const yearlyBtn = document.getElementById('billYearly');
@@ -170,23 +177,31 @@
     monthlyBtn.addEventListener('click', () => updatePrices(false));
     yearlyBtn.addEventListener('click', () => updatePrices(true));
 
-    // CTA Essai 14 jours
+    // CTA Essai 14 jours -> enregistre le plan et envoie vers conditions
     document.querySelectorAll('.start-trial').forEach(btn => {
       btn.addEventListener('click', () => {
         const plan = btn.dataset.plan || 'Particulier';
-        try { localStorage.setItem('trialRequested', 'true'); localStorage.setItem('trialPlan', plan); } catch(e){}
-        window.location.href = '../inscription.html?trial=1&plan=' + encodeURIComponent(plan);
+        try {
+          if (typeof setPlanChosen === 'function') setPlanChosen(plan);
+          localStorage.setItem('trialRequested', 'true');
+          localStorage.setItem('trialPlan', plan);
+        } catch(e){}
+        window.location.href = '../conditions.html?plan=' + encodeURIComponent(plan);
       });
     });
 
-    // CTA Acheter -> Stripe Payment Link (à remplacer par vos liens Stripe)
+    // CTA Acheter -> Stripe Payment Link (à remplacer par vos liens Stripe) -> enregistre le plan et envoie vers conditions
     document.querySelectorAll('.buy-now').forEach(btn => {
       btn.addEventListener('click', () => {
+        const plan = btn.dataset.plan || '';
         const link = btn.dataset.link || '#';
+        try { if (plan && typeof setPlanChosen === 'function') setPlanChosen(plan); } catch(e){}
         if (link && link !== '#') {
-          window.location.href = link; // Redirection vers Stripe Checkout/Payment Link
+          // Dans un vrai flux: redirection vers Stripe puis retour webhooks. Ici on passe par conditions
+          window.location.href = '../conditions.html?plan=' + encodeURIComponent(plan);
         } else {
-          alert("Lien de paiement non configuré. Veuillez configurer un Payment Link Stripe pour ce plan.");
+          alert("Lien de paiement non configuré. Nous allons tout de même vous demander d'accepter les conditions.");
+          window.location.href = '../conditions.html?plan=' + encodeURIComponent(plan);
         }
       });
     });

@@ -189,32 +189,16 @@
             loginError.style.display = 'none';
             loginError.textContent = '';
 
+            // Après connexion
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    // Signed in
                     const user = userCredential.user;
-                    console.log('User logged in:', user);
-                    window.location.href = 'pages/dashboard.html';
+                    console.log('Utilisateur connecté:', user.email);
+                    window.location.href = 'pages/offres.html';
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.error('Error logging in:', errorCode, errorMessage);
-                    
-                    // Display error message
-                    loginError.style.display = 'block';
-                    
-                    if (errorCode === 'auth/invalid-credential') {
-                        loginError.textContent = 'Email ou mot de passe incorrect.';
-                    } else if (errorCode === 'auth/user-not-found') {
-                        loginError.textContent = 'Aucun compte trouvé avec cet email.';
-                    } else if (errorCode === 'auth/wrong-password') {
-                        loginError.textContent = 'Mot de passe incorrect.';
-                    } else if (errorCode === 'auth/too-many-requests') {
-                        loginError.textContent = 'Trop de tentatives échouées. Veuillez réessayer plus tard.';
-                    } else {
-                        loginError.textContent = errorMessage;
-                    }
+                    alert("Erreur de connexion : " + errorMessage);
                 });
         });
     </script>
