@@ -1616,6 +1616,10 @@ let activitySyncQueue = [];
             currentActivityFilter = 'all';
             activityModalShown = 0;
             renderActivityModal(true);
+            // Si la synchronisation est activée, tenter de récupérer et fusionner les activités distantes
+            if (activitySyncEnabled) {
+                fetchActivitiesFromAPI().then(mergeRemoteActivities);
+            }
         }
         function closeActivityModal() {
             const modal = document.getElementById('activityModal');
