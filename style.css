@@ -1045,7 +1045,8 @@ body {
 
 /* Modal Styles */
 .password-generator-modal,
-.save-password-modal {
+.save-password-modal,
+.activity-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -1062,7 +1063,8 @@ body {
 }
 
 .password-generator-modal.active,
-.save-password-modal.active {
+.save-password-modal.active,
+.activity-modal.active {
     opacity: 1;
     visibility: visible;
 }
@@ -1080,7 +1082,8 @@ body {
 }
 
 .password-generator-modal.active .modal-content,
-.save-password-modal.active .modal-content {
+.save-password-modal.active .modal-content,
+.activity-modal.active .modal-content {
     transform: scale(1);
 }
 

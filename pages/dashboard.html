@@ -1201,7 +1201,7 @@ let activityModalShown = 0;
             selectedIcon = 'fas fa-key';
 
             // Ajout: journaliser l'activité et mettre à jour le widget
-            addActivityEvent(`Nouveau mot de passe ajouté pour ${title}`, 'fas fa-plus');
+            addActivityEvent(`Nouveau mot de passe ajouté pour ${title}`, 'fas fa-plus', null, 'add');
             renderRecentActivity();
             refreshRecentActivityTimes();
         }
@@ -1328,7 +1328,7 @@ let activityModalShown = 0;
             updateUserStats();
 
             // Ajout: journaliser l'activité de synchronisation
-            addActivityEvent('Synchronisation automatique', 'fas fa-sync-alt');
+            addActivityEvent('Synchronisation automatique', 'fas fa-sync-alt', null, 'sync');
             renderRecentActivity();
             refreshRecentActivityTimes();
 
@@ -1543,13 +1543,27 @@ let activityModalShown = 0;
             const saved = localStorage.getItem('activityEvents');
             if (saved) {
                 try { activityEvents = JSON.parse(saved) || []; } catch (_) { activityEvents = []; }
+                // Migration: ajouter un type si manquant
+                let migrated = false;
+                activityEvents = activityEvents.map(e => {
+                    if (!e.type) {
+                        let t = 'other';
+                        if (e.icon && e.icon.includes('fa-plus')) t = 'add';
+                        else if (e.icon && (e.icon.includes('fa-edit') || e.icon.includes('fa-pen'))) t = 'edit';
+                        else if (e.icon && e.icon.includes('fa-sync')) t = 'sync';
+                        migrated = true;
+                        return { ...e, type: t };
+                    }
+                    return e;
+                });
+                if (migrated) localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
             }
             if (!saved || activityEvents.length === 0) {
                 const now = new Date();
                 activityEvents = [
-                    { id: now.getTime() - 1, text: 'Nouveau mot de passe ajouté pour Gmail', icon: 'fas fa-plus', timestamp: new Date(now.getTime() - 1*60*60*1000).toISOString() },
-                    { id: now.getTime() - 2, text: 'Mot de passe Facebook modifié', icon: 'fas fa-edit', timestamp: new Date(now.getTime() - 3*60*60*1000).toISOString() },
-                    { id: now.getTime() - 3, text: 'Synchronisation automatique', icon: 'fas fa-sync-alt', timestamp: new Date(now.getTime() - 5*60*60*1000).toISOString() }
+                    { id: now.getTime() - 1, text: 'Nouveau mot de passe ajouté pour Gmail', icon: 'fas fa-plus', timestamp: new Date(now.getTime() - 1*60*60*1000).toISOString(), type: 'add' },
+                    { id: now.getTime() - 2, text: 'Mot de passe Facebook modifié', icon: 'fas fa-edit', timestamp: new Date(now.getTime() - 3*60*60*1000).toISOString(), type: 'edit' },
+                    { id: now.getTime() - 3, text: 'Synchronisation automatique', icon: 'fas fa-sync-alt', timestamp: new Date(now.getTime() - 5*60*60*1000).toISOString(), type: 'sync' }
                 ];
                 localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
             }
