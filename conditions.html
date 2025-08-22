@@ -126,7 +126,7 @@
                     <div class="plan-warning alert alert-warning text-white" id="planWarning" style="display: none; background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.4); border-radius: 10px; padding: 15px; margin-top: 10px;">
                         Aucun plan n'est sélectionné. Veuillez retourner à la page Offres pour choisir un plan.
                         <div style="margin-top: 10px;">
-                            <a class="btn btn-sm btn-outline-light" href="pages/offres.html">Retourner aux Offres</a>
+                            <a id="backToOffers" class="btn btn-sm btn-outline-light" href="pages/offres.html">Retourner aux Offres</a>
                         </div>
                     </div>
                 </div>
@@ -217,6 +217,20 @@
 
     <!-- User Status Manager -->
     <script src="user-status.js"></script>
+    <script>
+        // Redirection automatique si l'utilisateur est déjà onboardé
+        (function() {
+            try {
+                if (typeof getUserStatus === 'function' && typeof USER_STATUS !== 'undefined') {
+                    if (getUserStatus() === USER_STATUS.ONBOARDING_COMPLETE) {
+                        window.location.href = 'pages/dashboard.html';
+                    }
+                }
+            } catch (e) {
+                console.warn('Redirection Conditions->Dashboard ignorée:', e);
+            }
+        })();
+    </script>
 
     <!-- Page Logic -->
     <script>
@@ -226,6 +240,7 @@
             const planInfo = document.getElementById('planInfo');
             const selectedPlanSpan = document.getElementById('selectedPlan');
             const planWarning = document.getElementById('planWarning');
+            const backToOffers = document.getElementById('backToOffers');
 
             // Afficher le plan sélectionné si disponible
             const urlParams = new URLSearchParams(window.location.search);
@@ -241,6 +256,16 @@
                 planWarning.style.display = 'block';
                 continueBtn.disabled = true;
                 continueBtn.setAttribute('title', 'Veuillez d\'abord choisir un plan sur la page Offres');
+            }
+
+            // Définir dynamiquement le lien Retourner aux Offres avec conservation d'un paramètre source éventuel
+            if (backToOffers) {
+                let href = 'pages/offres.html';
+                const source = urlParams.get('source');
+                if (source) {
+                    href += `?source=${encodeURIComponent(source)}`;
+                }
+                backToOffers.href = href;
             }
 
             // Gestion de la checkbox
