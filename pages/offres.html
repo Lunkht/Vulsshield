@@ -60,8 +60,7 @@
       <p>Choisissez la formule qui vous convient. Paiement sécurisé par carte VISA ou Mastercard, essai gratuit de 14 jours sur les plans Particulier et Pro.</p>
       <div class="hero-cta">
         <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les offres</button>
--        <button class="btn-secondary" onclick="window.location.href='../inscription.html'">Commencer l'essai</button>
-+        <button class="btn-secondary" onclick="window.location.href='../conditions.html'">Commencer l'essai</button>
+        <button class="btn-secondary" onclick="window.location.href='../conditions.html'">Commencer l'essai</button>
       </div>
     </div>
   </section>
@@ -157,10 +156,20 @@
     // Charger le gestionnaire de statut
     const userStatusScript = document.createElement('script');
     userStatusScript.src = '../user-status.js?v=1';
+    userStatusScript.onload = () => {
+      try {
+        if (typeof getUserStatus === 'function' && typeof USER_STATUS !== 'undefined') {
+          if (getUserStatus() === USER_STATUS.ONBOARDING_COMPLETE) {
+            // Déjà onboardé: rediriger vers le dashboard
+            window.location.href = 'dashboard.html';
+          }
+        }
+      } catch (e) {
+        console.warn('Redirection Offres->Dashboard ignorée:', e);
+      }
+    };
     document.head.appendChild(userStatusScript);
-  </script>
 
-  <script>
     // Toggle Mensuel/Annuel
     const monthlyBtn = document.getElementById('billMonthly');
     const yearlyBtn = document.getElementById('billYearly');

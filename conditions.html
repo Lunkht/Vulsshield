@@ -123,6 +123,12 @@
                     <div class="plan-info" id="planInfo" style="display: none;">
                         <strong>Plan sélectionné :</strong> <span id="selectedPlan">-</span>
                     </div>
+                    <div class="plan-warning alert alert-warning text-white" id="planWarning" style="display: none; background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.4); border-radius: 10px; padding: 15px; margin-top: 10px;">
+                        Aucun plan n'est sélectionné. Veuillez retourner à la page Offres pour choisir un plan.
+                        <div style="margin-top: 10px;">
+                            <a class="btn btn-sm btn-outline-light" href="pages/offres.html">Retourner aux Offres</a>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Conditions Content -->
@@ -219,6 +225,7 @@
             const continueBtn = document.getElementById('continueBtn');
             const planInfo = document.getElementById('planInfo');
             const selectedPlanSpan = document.getElementById('selectedPlan');
+            const planWarning = document.getElementById('planWarning');
 
             // Afficher le plan sélectionné si disponible
             const urlParams = new URLSearchParams(window.location.search);
@@ -229,17 +236,30 @@
             if (selectedPlan) {
                 planInfo.style.display = 'block';
                 selectedPlanSpan.textContent = selectedPlan;
+            } else {
+                // Aucun plan défini: afficher un avertissement et empêcher la progression
+                planWarning.style.display = 'block';
+                continueBtn.disabled = true;
+                continueBtn.setAttribute('title', 'Veuillez d\'abord choisir un plan sur la page Offres');
             }
 
             // Gestion de la checkbox
             acceptCheckbox.addEventListener('change', function() {
-                continueBtn.disabled = !this.checked;
+                // Le bouton reste désactivé s'il n'y a pas de plan
+                const canEnable = this.checked && !!selectedPlan;
+                continueBtn.disabled = !canEnable;
             });
 
             // Gestion du bouton continuer
             continueBtn.addEventListener('click', function() {
                 if (!acceptCheckbox.checked) {
                     alert('Veuillez accepter les conditions d\'utilisation pour continuer.');
+                    return;
+                }
+
+                if (!selectedPlan) {
+                    alert('Veuillez choisir un plan sur la page Offres avant de continuer.');
+                    window.location.href = 'pages/offres.html';
                     return;
                 }
 
@@ -258,7 +278,6 @@
                     window.location.href = 'pages/dashboard.html';
                 } catch (error) {
                     console.error('Erreur lors de l\'acceptation des conditions:', error);
-                    alert('Une erreur est survenue. Veuillez réessayer.');
                 }
             });
         });
