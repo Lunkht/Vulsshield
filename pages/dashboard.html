@@ -743,6 +743,11 @@
             // Ajout: charger et rendre l'activité récente persistée
             loadActivityEvents();
             renderRecentActivity();
+            // Préparer la file de sync API
+            loadActivitySyncQueue();
+            if (activitySyncEnabled) {
+                flushActivitySyncQueue();
+            }
 
             // Init select nombre d'éléments sur la carte
             const sel = document.getElementById('activityCardLimitSelect');
@@ -906,6 +911,10 @@ let activityCardLimit = parseInt(localStorage.getItem('activityCardLimit') || '3
 let currentActivityFilter = 'all';
 let activityModalPageSize = 10;
 let activityModalShown = 0;
+// Préparation sync API (désactivée par défaut)
+let activitySyncEnabled = false; // activez quand l’API sera prête
+let activitySyncEndpoint = '';
+let activitySyncQueue = [];
 
         // Ouvrir le générateur de mot de passe
         function openPasswordGenerator() {
@@ -1581,6 +1590,9 @@ let activityModalShown = 0;
             };
             activityEvents.unshift(evt);
             if (activityEvents.length > 100) activityEvents = activityEvents.slice(0, 100);
+            if (activitySyncEnabled) {
+                enqueueActivityForSync(evt);
+            }
             saveActivityEvents();
         }
         function renderRecentActivity(limit) {
@@ -1646,6 +1658,59 @@ let activityModalShown = 0;
             refreshRecentActivityTimes();
             const list = document.getElementById('activityListContainer');
             if (list) list.innerHTML = '';
+        }
+
+        // ==== Préparation synchronisation API (placeholders sûrs) ====
+        function loadActivitySyncQueue() {
+            const saved = localStorage.getItem('activitySyncQueue');
+            try { activitySyncQueue = saved ? JSON.parse(saved) : []; } catch (_) { activitySyncQueue = []; }
+            if (!Array.isArray(activitySyncQueue)) activitySyncQueue = [];
+        }
+        function enqueueActivityForSync(evt) {
+            if (!evt) return;
+            activitySyncQueue.push(evt);
+            localStorage.setItem('activitySyncQueue', JSON.stringify(activitySyncQueue));
+        }
+        async function flushActivitySyncQueue() {
+            if (!activitySyncEnabled || !activitySyncEndpoint || activitySyncQueue.length === 0) return;
+            try {
+                const res = await fetch(activitySyncEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ events: activitySyncQueue })
+                });
+                if (res.ok) {
+                    activitySyncQueue = [];
+                    localStorage.setItem('activitySyncQueue', JSON.stringify(activitySyncQueue));
+                    localStorage.setItem('lastActivitySync', new Date().toISOString());
+                }
+            } catch (e) {
+                // En cas d'erreur réseau, garder la queue pour une tentative ultérieure
+            }
+        }
+        async function fetchActivitiesFromAPI() {
+            if (!activitySyncEnabled || !activitySyncEndpoint) return [];
+            try {
+                const res = await fetch(activitySyncEndpoint, { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) return [];
+                const data = await res.json();
+                if (data && Array.isArray(data.events)) return data.events;
+            } catch (_) {}
+            return [];
+        }
+        function mergeRemoteActivities(remoteEvents) {
+            if (!Array.isArray(remoteEvents) || remoteEvents.length === 0) return;
+            const byId = new Map(activityEvents.map(e => [String(e.id), e]));
+            for (const ev of remoteEvents) {
+                const key = String(ev.id || `${ev.timestamp}-${ev.text}`);
+                if (!byId.has(key)) byId.set(key, ev);
+            }
+            activityEvents = Array.from(byId.values())
+                .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, 100);
+            saveActivityEvents();
+            renderRecentActivity();
+            refreshRecentActivityTimes();
         }
     </script>
     <script src="../dark-mode.js"></script>
