@@ -258,28 +258,28 @@
         <main class="admin-main">
             <!-- Cartes de statistiques globales -->
             <div class="dashboard-stats" data-aos="fade-up">
-                <div class="stat-card">
+                <div class="stat-card shimmer-hover">
                     <div class="stat-icon"><i class="fas fa-key"></i></div>
                     <div class="stat-info">
                         <div class="stat-value" id="stat_passwords"></div>
                         <div class="stat-label">Mots de passe</div>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card shimmer-hover">
                     <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
                     <div class="stat-info">
                         <div class="stat-value" id="stat_categories"></div>
                         <div class="stat-label">Catégories</div>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card shimmer-hover">
                     <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
                     <div class="stat-info">
                         <div class="stat-value" id="stat_security">95%</div>
                         <div class="stat-label">Sécurité moyenne</div>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card shimmer-hover">
                     <div class="stat-icon"><i class="fas fa-sync-alt"></i></div>
                     <div class="stat-info">
                         <div class="stat-value" id="stat_last_sync">Il y a 2h</div>
@@ -297,11 +297,11 @@
                     <!-- user info hidden: name/email not required here -->
                 </div>
                 <div class="profile-actions">
-                    <button class="btn-primary compact" onclick="openPasswordGenerator()">
+                    <button class="btn-primary compact shimmer-button" onclick="openPasswordGenerator()">
                         <i class="fas fa-plus"></i>
                         Nouveau
                     </button>
-                    <button class="btn-secondary compact" onclick="performSync()">
+                    <button class="btn-secondary compact shimmer-button" onclick="performSync()">
                         <i class="fas fa-sync-alt"></i>
                         Sync
                     </button>
@@ -310,7 +310,7 @@
 
             <!-- Widgets administratifs -->
             <div class="admin-widgets" data-aos="fade-up" data-aos-delay="200">
-                <div class="widget">
+                <div class="widget shimmer-hover">
                     <div class="widget-header">
                         <h4>Activité récente</h4>
                         <div class="widget-actions">
@@ -319,7 +319,7 @@
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                             </select>
-                            <button class="btn-secondary compact" onclick="openActivityModal()">Voir tout</button>
+                            <button class="btn-secondary compact shimmer-button" onclick="openActivityModal()">Voir tout</button>
                         </div>
                     </div>
                     <div class="widget-content" id="recentActivity">
@@ -341,10 +341,10 @@
                     </div>
                 </div>
 
-                <div class="widget">
+                <div class="widget shimmer-hover">
                     <div class="widget-header">
                         <h4>Analyse de sécurité</h4>
-                        <button class="widget-action"><i class="fas fa-external-link-alt"></i></button>
+                        <button class="widget-action shimmer-button"><i class="fas fa-external-link-alt"></i></button>
                     </div>
                     <div class="widget-content">
                         <div class="security-metric">
@@ -363,10 +363,10 @@
                 </div>
 
                 <div id="url-monitor"></div>
-                <div class="widget">
+                <div class="widget shimmer-hover">
                     <div class="widget-header">
                         <h4>Surveillance des URLs</h4>
-                        <button class="widget-action" id="clearUrlRiskLog" title="Effacer la liste"><i class="fas fa-trash"></i></button>
+                        <button class="widget-action shimmer-button" id="clearUrlRiskLog" title="Effacer la liste"><i class="fas fa-trash"></i></button>
                     </div>
                     <div class="widget-content">
                         <div class="url-controls">
@@ -375,7 +375,7 @@
                                     <i class="fas fa-link"></i>
                                     <input type="text" id="urlAnalyzeInput" placeholder="Coller une URL à analyser (ex: https://exemple.com)" />
                                 </div>
-                                <button class="btn-secondary compact" id="urlAnalyzeBtn" title="Analyser"><i class="fas fa-search"></i><span class="btn-text">Analyser</span></button>
+                                <button class="btn-secondary compact shimmer-button" id="urlAnalyzeBtn" title="Analyser"><i class="fas fa-search"></i><span class="btn-text">Analyser</span></button>
                             </div>
                             <div class="uc-right">
                                 <select id="urlRiskFilter" class="filter-select" title="Filtrer par risque">
@@ -415,10 +415,10 @@
                     </select>
                 </div>
                 <div class="view-options">
-                    <button class="view-btn active" data-view="grid">
+                    <button class="view-btn active shimmer-hover" data-view="grid">
                         <i class="fas fa-th"></i>
                     </button>
-                    <button class="view-btn" data-view="list">
+                    <button class="view-btn shimmer-hover" data-view="list">
                         <i class="fas fa-list"></i>
                     </button>
                 </div>
@@ -433,7 +433,7 @@
                     </div>
                     <h3>Aucun mot de passe sauvegardé</h3>
                     <p>Commencez par générer et sauvegarder votre premier mot de passe sécurisé.</p>
-                    <button class="btn-primary" onclick="openPasswordGenerator()">
+                    <button class="btn-primary shimmer-button" onclick="openPasswordGenerator()">
                         <i class="fas fa-plus"></i>
                         Générer mon premier mot de passe
                     </button>
@@ -535,13 +535,13 @@
                 </div>
 
                 <div class="generator-actions">
-                    <button class="btn-primary generate-btn" onclick="generatePassword()">
+                    <button class="btn-primary generate-btn shimmer-button" onclick="generatePassword()">
                         <span class="btn-text">Générer un mot de passe</span>
                         <div class="progress-bar" id="generateProgress">
                             <div class="progress-fill"></div>
                         </div>
                     </button>
-                    <button class="btn-secondary" onclick="saveGeneratedPassword()">
+                    <button class="btn-secondary shimmer-button" onclick="saveGeneratedPassword()">
                         <i class="fas fa-save"></i>
                         Sauvegarder
                     </button>
@@ -608,8 +608,8 @@
                 </div>
                 
                 <div class="modal-actions">
-                    <button class="btn-secondary" onclick="closeSaveModal()">Annuler</button>
-                    <button class="btn-primary" onclick="confirmSavePassword()">Sauvegarder</button>
+                    <button class="btn-secondary shimmer-button" onclick="closeSaveModal()">Annuler</button>
+                    <button class="btn-primary shimmer-button" onclick="confirmSavePassword()">Sauvegarder</button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <title>Vulsshield - Démonstration Effets Shimmer</title>
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #000;
+            color: #fff;
+        }
+        
+        .demo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #111;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        
+        .demo-title {
+            color: #ed0505;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .demo-subtitle {
+            color: #fff;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+            font-weight: 500;
+        }
+        
+        .demo-description {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .demo-item {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        
+        .demo-card {
+            background: #222;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #444;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .demo-button {
+            background: #ed0505;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 10px;
+        }
+        
+        .demo-text-block {
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .demo-image-placeholder {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .demo-skeleton-container {
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .demo-avatar-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .code-example {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #00ff00;
+            overflow-x: auto;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .control-btn:hover {
+            background: #444;
+        }
+        
+        .control-btn.active {
+            background: #ed0505;
+            border-color: #ed0505;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 style="text-align: center; color: #ed0505; font-size: 36px; margin-bottom: 20px;">🌟 Effets Shimmer Vulsshield</h1>
+        <p style="text-align: center; color: #ccc; font-size: 18px; margin-bottom: 40px;">Collection complète d'effets shimmer pour améliorer l'expérience utilisateur</p>
+        
+        <!-- Shimmer de base -->
+        <div class="demo-section">
+            <h2 class="demo-title">1. Effets Shimmer de Base</h2>
+            <p class="demo-description">Les effets shimmer fondamentaux pour différents thèmes et contextes.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Shimmer Clair</h3>
+                    <div class="demo-card shimmer">Shimmer Standard</div>
+                    <div class="code-example">&lt;div class="shimmer"&gt;Contenu&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Shimmer Sombre</h3>
+                    <div class="demo-card shimmer-dark">Shimmer Sombre</div>
+                    <div class="code-example">&lt;div class="shimmer-dark"&gt;Contenu&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Shimmer Vulsshield</h3>
+                    <div class="demo-card vuls-shimmer">Shimmer Vuls</div>
+                    <div class="code-example">&lt;div class="vuls-shimmer"&gt;Contenu&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Shimmer Rouge</h3>
+                    <div class="demo-card vuls-shimmer-red">Shimmer Rouge</div>
+                    <div class="code-example">&lt;div class="vuls-shimmer-red"&gt;Contenu&lt;/div&gt;</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Effets Wave -->
+        <div class="demo-section">
+            <h2 class="demo-title">2. Effets Wave (Vague)</h2>
+            <p class="demo-description">Effets de vague qui traversent l'élément de gauche à droite.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Wave Standard</h3>
+                    <div class="demo-card shimmer-wave">Effet Wave</div>
+                    <div class="code-example">&lt;div class="shimmer-wave"&gt;Contenu&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Wave Sombre</h3>
+                    <div class="demo-card shimmer-wave-dark">Wave Sombre</div>
+                    <div class="code-example">&lt;div class="shimmer-wave-dark"&gt;Contenu&lt;/div&gt;</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Effet Pulse -->
+        <div class="demo-section">
+            <h2 class="demo-title">3. Effet Pulse</h2>
+            <p class="demo-description">Effet de pulsation qui change l'opacité de l'élément.</p>
+            
+            <div class="demo-item">
+                <h3 class="demo-subtitle">Pulse</h3>
+                <div class="demo-card shimmer-pulse">Effet Pulse</div>
+                <div class="code-example">&lt;div class="shimmer-pulse"&gt;Contenu&lt;/div&gt;</div>
+            </div>
+        </div>
+        
+        <!-- Shimmer pour éléments spécifiques -->
+        <div class="demo-section">
+            <h2 class="demo-title">4. Shimmer pour Éléments Spécifiques</h2>
+            <p class="demo-description">Effets optimisés pour différents types d'éléments UI.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Cartes</h3>
+                    <div class="demo-card shimmer-card">Carte avec Shimmer</div>
+                    <div class="code-example">&lt;div class="shimmer-card"&gt;Carte&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Boutons</h3>
+                    <button class="demo-button shimmer-button">Bouton Shimmer</button>
+                    <div class="code-example">&lt;button class="shimmer-button"&gt;Bouton&lt;/button&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Images</h3>
+                    <div class="demo-image-placeholder shimmer-image">Image Loading...</div>
+                    <div class="code-example">&lt;div class="shimmer-image"&gt;Image&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Texte Loading</h3>
+                    <div class="demo-text-block">
+                        <div class="shimmer-text"></div>
+                        <div class="shimmer-text" style="width: 80%;"></div>
+                        <div class="shimmer-text" style="width: 60%;"></div>
+                    </div>
+                    <div class="code-example">&lt;div class="shimmer-text"&gt;&lt;/div&gt;</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skeleton Loading -->
+        <div class="demo-section">
+            <h2 class="demo-title">5. Skeleton Loading</h2>
+            <p class="demo-description">Effets skeleton pour simuler le chargement de contenu.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Lignes de Texte</h3>
+                    <div class="demo-skeleton-container">
+                        <div class="shimmer-skeleton line long"></div>
+                        <div class="shimmer-skeleton line medium"></div>
+                        <div class="shimmer-skeleton line short"></div>
+                    </div>
+                    <div class="code-example">&lt;div class="shimmer-skeleton line long"&gt;&lt;/div&gt;<br>&lt;div class="shimmer-skeleton line medium"&gt;&lt;/div&gt;<br>&lt;div class="shimmer-skeleton line short"&gt;&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Avatar + Texte</h3>
+                    <div class="demo-avatar-container">
+                        <div class="shimmer-skeleton avatar"></div>
+                        <div style="flex: 1;">
+                            <div class="shimmer-skeleton line medium"></div>
+                            <div class="shimmer-skeleton line short"></div>
+                        </div>
+                    </div>
+                    <div class="code-example">&lt;div class="shimmer-skeleton avatar"&gt;&lt;/div&gt;<br>&lt;div class="shimmer-skeleton line"&gt;&lt;/div&gt;</div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="demo-subtitle">Cercles</h3>
+                    <div class="demo-skeleton-container" style="display: flex; gap: 15px; align-items: center;">
+                        <div class="shimmer-skeleton circle"></div>
+                        <div class="shimmer-skeleton circle"></div>
+                        <div class="shimmer-skeleton circle"></div>
+                    </div>
+                    <div class="code-example">&lt;div class="shimmer-skeleton circle"&gt;&lt;/div&gt;</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Effet Hover -->
+        <div class="demo-section">
+            <h2 class="demo-title">6. Effet Hover</h2>
+            <p class="demo-description">Effet shimmer qui se déclenche au survol de la souris.</p>
+            
+            <div class="demo-item">
+                <h3 class="demo-subtitle">Hover Shimmer</h3>
+                <div class="demo-card shimmer-hover">Survolez-moi !</div>
+                <div class="code-example">&lt;div class="shimmer-hover"&gt;Contenu&lt;/div&gt;</div>
+            </div>
+        </div>
+        
+        <!-- Contrôles de vitesse -->
+        <div class="demo-section">
+            <h2 class="demo-title">7. Contrôles de Vitesse</h2>
+            <p class="demo-description">Différentes vitesses d'animation pour s'adapter à vos besoins.</p>
+            
+            <div class="controls">
+                <button class="control-btn" onclick="changeSpeed('shimmer-fast')">Rapide (1s)</button>
+                <button class="control-btn active" onclick="changeSpeed('')">Normal (2s)</button>
+                <button class="control-btn" onclick="changeSpeed('shimmer-slow')">Lent (3s)</button>
+                <button class="control-btn" onclick="toggleAnimation()">Pause/Play</button>
+            </div>
+            
+            <div class="demo-card shimmer-dark" id="speedDemo">Démo Vitesse</div>
+            
+            <div class="code-example">
+&lt;!-- Classes utilitaires --&gt;<br>
+&lt;div class="shimmer-dark shimmer-fast"&gt;Rapide&lt;/div&gt;<br>
+&lt;div class="shimmer-dark"&gt;Normal&lt;/div&gt;<br>
+&lt;div class="shimmer-dark shimmer-slow"&gt;Lent&lt;/div&gt;<br>
+&lt;div class="shimmer-dark shimmer-pause"&gt;En pause&lt;/div&gt;
+            </div>
+        </div>
+        
+        <!-- Guide d'utilisation -->
+        <div class="demo-section">
+            <h2 class="demo-title">8. Guide d'Utilisation</h2>
+            <p class="demo-description">Comment utiliser efficacement les effets shimmer dans vos projets.</p>
+            
+            <div style="background: #0a0a0a; padding: 20px; border-radius: 8px; border: 1px solid #333;">
+                <h3 style="color: #00ff00; margin-bottom: 15px;">💡 Conseils d'utilisation :</h3>
+                <ul style="color: #ccc; line-height: 1.8;">
+                    <li><strong>États de chargement :</strong> Utilisez <code>shimmer-skeleton</code> pour simuler le contenu en cours de chargement</li>
+                    <li><strong>Cartes et conteneurs :</strong> <code>shimmer-card</code> ou <code>vuls-shimmer</code> pour les éléments principaux</li>
+                    <li><strong>Boutons interactifs :</strong> <code>shimmer-button</code> ou <code>shimmer-hover</code> pour les interactions</li>
+                    <li><strong>Images :</strong> <code>shimmer-image</code> pendant le chargement des images</li>
+                    <li><strong>Thème sombre :</strong> Privilégiez <code>shimmer-dark</code> ou <code>vuls-shimmer</code></li>
+                    <li><strong>Performance :</strong> Utilisez <code>shimmer-pause</code> pour arrêter les animations non visibles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let isPaused = false;
+        
+        function changeSpeed(speedClass) {
+            const demo = document.getElementById('speedDemo');
+            demo.className = 'demo-card shimmer-dark ' + speedClass;
+            
+            // Update active button
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function toggleAnimation() {
+            const demo = document.getElementById('speedDemo');
+            isPaused = !isPaused;
+            
+            if (isPaused) {
+                demo.classList.add('shimmer-pause');
+                event.target.textContent = 'Play';
+            } else {
+                demo.classList.remove('shimmer-pause');
+                event.target.textContent = 'Pause';
+            }
+        }
+        
+        // Démonstration interactive
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🌟 Effets Shimmer Vulsshield chargés avec succès!');
+            console.log('Toutes les classes shimmer sont maintenant disponibles dans votre projet.');
+        });
+    </script>
+</body>
+</html>
