@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démonstration Shimmer Loading - Vulsshield</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .demo-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #1a1a1a;
+        }
+        
+        .demo-title {
+            color: #ed0505;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .demo-description {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .demo-controls {
+            margin: 20px 0;
+        }
+        
+        .demo-btn {
+            background: #ed0505;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .demo-btn:hover {
+            background: #ff3333;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .demo-card {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-loading {
+            background: #ffa500;
+            animation: pulse 1s infinite;
+        }
+        
+        .status-loaded {
+            background: #00ff00;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .code-block {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            color: #ed0505;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 style="color: #ed0505; text-align: center; margin-bottom: 30px;">🎨 Démonstration des Effets Shimmer de Chargement</h1>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">📖 Comment ça fonctionne</h2>
+            <div class="demo-description">
+                <p>Les effets shimmer ne sont maintenant visibles que pendant les états de chargement :</p>
+                <ul style="color: #ccc; margin-left: 20px;">
+                    <li><strong>Avant :</strong> Les effets shimmer étaient toujours actifs</li>
+                    <li><strong>Maintenant :</strong> Les effets ne s'activent que avec la classe <code class="highlight">.loading</code></li>
+                    <li><strong>Utilisation :</strong> Ajoutez <code class="highlight">.loading</code> à un élément ou son conteneur parent</li>
+                </ul>
+            </div>
+            
+            <div class="code-block">
+/* CSS - Les effets shimmer ne s'activent qu'avec .loading */
+<span class="highlight">.loading .shimmer-button::after</span> {
+    /* Animation shimmer active */
+}
+
+<span class="highlight">.loading .shimmer-hover::before</span> {
+    /* Animation shimmer active */
+}
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">🔄 Démonstration Interactive</h2>
+            <div class="demo-description">
+                Cliquez sur les boutons ci-dessous pour voir les effets shimmer en action pendant le chargement.
+            </div>
+            
+            <div class="demo-controls">
+                <button class="demo-btn" onclick="demoPageLoading()">🌐 Simuler Chargement de Page (3s)</button>
+                <button class="demo-btn" onclick="demoButtonLoading()">🔘 Tester Boutons Shimmer</button>
+                <button class="demo-btn" onclick="demoCardLoading()">📋 Tester Cartes Shimmer</button>
+                <button class="demo-btn" onclick="demoAllElements()">✨ Tester Tous les Éléments</button>
+            </div>
+            
+            <div id="status-display" style="margin: 20px 0; color: #ccc;">
+                <span class="status-indicator status-loaded"></span>Prêt - Aucun chargement en cours
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">🔘 Boutons avec Shimmer</h2>
+            <div class="demo-description">
+                Ces boutons montrent l'effet shimmer uniquement pendant le chargement.
+            </div>
+            
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin: 20px 0;">
+                <button class="btn-primary shimmer-button" id="demo-btn-1">Bouton Principal</button>
+                <button class="btn-secondary shimmer-button" id="demo-btn-2">Bouton Secondaire</button>
+                <button class="cta-button shimmer-button" id="demo-btn-3">Call to Action</button>
+                <button class="action-btn shimmer-button" id="demo-btn-4">Action</button>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">📋 Cartes avec Shimmer</h2>
+            <div class="demo-description">
+                Ces cartes montrent l'effet shimmer au survol et pendant le chargement.
+            </div>
+            
+            <div class="demo-grid">
+                <div class="demo-card shimmer-hover" id="demo-card-1">
+                    <h3 style="color: #ed0505;">Carte Produit</h3>
+                    <p style="color: #ccc;">Survolez pour voir l'effet shimmer normal, ou utilisez les boutons de test pour voir l'effet de chargement.</p>
+                </div>
+                
+                <div class="demo-card shimmer-hover" id="demo-card-2">
+                    <h3 style="color: #ed0505;">Carte Équipe</h3>
+                    <p style="color: #ccc;">Cette carte simule une carte de membre d'équipe avec effet shimmer.</p>
+                </div>
+                
+                <div class="demo-card shimmer-hover" id="demo-card-3">
+                    <h3 style="color: #ed0505;">Carte Solution</h3>
+                    <p style="color: #ccc;">Exemple de carte de solution avec animation shimmer pendant le chargement.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">💻 Code d'Utilisation</h2>
+            <div class="demo-description">
+                Voici comment utiliser les effets shimmer dans votre code :
+            </div>
+            
+            <div class="code-block">
+// JavaScript - Activer le shimmer pendant le chargement
+<span class="highlight">element.classList.add('loading');</span>  // Démarre l'effet shimmer
+
+// Simuler une opération asynchrone
+setTimeout(() => {
+    <span class="highlight">element.classList.remove('loading');</span>  // Arrête l'effet shimmer
+}, 2000);
+
+// Ou pour un conteneur entier
+<span class="highlight">document.body.classList.add('loading');</span>  // Tous les éléments shimmer s'activent
+            </div>
+            
+            <div class="code-block">
+&lt;!-- HTML - Structure des éléments --&gt;
+&lt;button class="<span class="highlight">shimmer-button</span>"&gt;Mon Bouton&lt;/button&gt;
+&lt;div class="<span class="highlight">shimmer-hover</span>"&gt;Ma Carte&lt;/div&gt;
+
+&lt;!-- Pendant le chargement --&gt;
+&lt;button class="shimmer-button <span class="highlight">loading</span>"&gt;Chargement...&lt;/button&gt;
+&lt;div class="shimmer-hover <span class="highlight">loading</span>"&gt;Chargement...&lt;/div&gt;
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">🎯 Avantages de cette Approche</h2>
+            <div class="demo-description">
+                <ul style="color: #ccc; margin-left: 20px;">
+                    <li><strong>Performance :</strong> Les animations ne tournent que quand nécessaire</li>
+                    <li><strong>UX Améliorée :</strong> Feedback visuel clair pendant les chargements</li>
+                    <li><strong>Contrôle Précis :</strong> Activation/désactivation programmatique</li>
+                    <li><strong>Compatibilité :</strong> Fonctionne avec tous les éléments existants</li>
+                    <li><strong>Accessibilité :</strong> Respect des préférences de mouvement réduit</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../assets/js/shimmer-loader.js"></script>
+    <script>
+        function updateStatus(message, isLoading = false) {
+            const statusDisplay = document.getElementById('status-display');
+            const indicator = statusDisplay.querySelector('.status-indicator');
+            
+            indicator.className = `status-indicator ${isLoading ? 'status-loading' : 'status-loaded'}`;
+            statusDisplay.innerHTML = `<span class="status-indicator ${isLoading ? 'status-loading' : 'status-loaded'}"></span>${message}`;
+        }
+        
+        function demoPageLoading() {
+            updateStatus('Chargement de la page en cours...', true);
+            document.body.classList.add('loading');
+            
+            setTimeout(() => {
+                document.body.classList.remove('loading');
+                updateStatus('Chargement de la page terminé', false);
+            }, 3000);
+        }
+        
+        function demoButtonLoading() {
+            updateStatus('Test des boutons en cours...', true);
+            const buttons = document.querySelectorAll('.shimmer-button');
+            
+            buttons.forEach((btn, index) => {
+                setTimeout(() => {
+                    btn.classList.add('loading');
+                    setTimeout(() => {
+                        btn.classList.remove('loading');
+                        if (index === buttons.length - 1) {
+                            updateStatus('Test des boutons terminé', false);
+                        }
+                    }, 1500);
+                }, index * 200);
+            });
+        }
+        
+        function demoCardLoading() {
+            updateStatus('Test des cartes en cours...', true);
+            const cards = document.querySelectorAll('.shimmer-hover');
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('loading');
+                    setTimeout(() => {
+                        card.classList.remove('loading');
+                        if (index === cards.length - 1) {
+                            updateStatus('Test des cartes terminé', false);
+                        }
+                    }, 2000);
+                }, index * 300);
+            });
+        }
+        
+        function demoAllElements() {
+            updateStatus('Test de tous les éléments en cours...', true);
+            
+            // Activer tous les éléments
+            document.body.classList.add('loading');
+            
+            setTimeout(() => {
+                document.body.classList.remove('loading');
+                updateStatus('Test de tous les éléments terminé', false);
+            }, 4000);
+        }
+        
+        // Message d'accueil
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🎨 Démonstration Shimmer Loading chargée!');
+            console.log('💡 Utilisez les boutons pour tester les différents effets');
+        });
+    </script>
+</body>
+</html>

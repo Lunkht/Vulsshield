@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemples Avancés d'Effets Shimmer - Vulsshield</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .demo-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .demo-description {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Shimmer pour skeleton de carte de profil */
+        .profile-skeleton {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .profile-skeleton.loading .avatar-skeleton,
+        .profile-skeleton.loading .text-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        .avatar-skeleton {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background: #f8f8f8;
+        }
+
+        .text-skeleton {
+            flex: 1;
+        }
+
+        .text-skeleton .line {
+            height: 16px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .text-skeleton .line:nth-child(1) { width: 60%; }
+        .text-skeleton .line:nth-child(2) { width: 80%; }
+        .text-skeleton .line:nth-child(3) { width: 40%; }
+
+        /* Shimmer pour tableau de données */
+        .table-skeleton {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-skeleton.loading .cell-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        .table-skeleton td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cell-skeleton {
+            height: 20px;
+            background: #f8f8f8;
+            border-radius: 4px;
+        }
+
+        /* Shimmer pour grille d'images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .image-skeleton {
+            aspect-ratio: 16/9;
+            background: #f8f8f8;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-skeleton.loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shimmer-wave 2s infinite;
+        }
+
+        /* Shimmer pour formulaire */
+        .form-skeleton {
+            max-width: 400px;
+        }
+
+        .form-skeleton.loading .input-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        .input-skeleton {
+            height: 40px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .input-skeleton.large {
+            height: 80px;
+        }
+
+        /* Shimmer pour graphique */
+        .chart-skeleton {
+            height: 300px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-skeleton.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%);
+            animation: shimmer-diagonal 2.5s infinite;
+        }
+
+        /* Animations */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @keyframes shimmer-wave {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes shimmer-diagonal {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        /* Contenu réel */
+        .real-profile {
+            display: none;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .real-profile.show {
+            display: flex;
+        }
+
+        .real-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .real-info h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .real-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #dee2e6;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .status {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status.loaded {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Exemples Avancés d'Effets Shimmer</h1>
+        <p>Voici différents exemples d'effets shimmer utilisés comme placeholders avant l'affichage du contenu réel.</p>
+
+        <!-- Exemple 1: Profil utilisateur -->
+        <div class="demo-section">
+            <h2 class="demo-title">1. Shimmer pour Profil Utilisateur</h2>
+            <p class="demo-description">
+                Cet exemple montre un effet shimmer pour un profil utilisateur avec avatar et informations textuelles.
+            </p>
+            
+            <div id="profile-container">
+                <div class="profile-skeleton loading" id="profile-skeleton">
+                    <div class="avatar-skeleton"></div>
+                    <div class="text-skeleton">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                
+                <div class="real-profile" id="real-profile">
+                    <div class="real-avatar">JD</div>
+                    <div class="real-info">
+                        <h3>Jean Dupont</h3>
+                        <p>Développeur Full Stack</p>
+                        <p>Membre depuis 2023</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="loadProfile()">Charger Profil</button>
+                <button class="btn btn-secondary" onclick="resetProfile()">Reset</button>
+            </div>
+            <div id="profile-status" class="status loading">État: Chargement en cours...</div>
+        </div>
+
+        <!-- Exemple 2: Tableau de données -->
+        <div class="demo-section">
+            <h2 class="demo-title">2. Shimmer pour Tableau de Données</h2>
+            <p class="demo-description">
+                Effet shimmer appliqué aux cellules d'un tableau pendant le chargement des données.
+            </p>
+            
+            <table class="table-skeleton loading" id="data-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Statut</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="loadTableData()">Charger Données</button>
+                <button class="btn btn-secondary" onclick="resetTable()">Reset</button>
+            </div>
+            <div id="table-status" class="status loading">État: Chargement des données...</div>
+        </div>
+
+        <!-- Exemple 3: Grille d'images -->
+        <div class="demo-section">
+            <h2 class="demo-title">3. Shimmer pour Grille d'Images</h2>
+            <p class="demo-description">
+                Effet shimmer en vague pour simuler le chargement d'images dans une grille.
+            </p>
+            
+            <div class="image-grid" id="image-grid">
+                <div class="image-skeleton loading"></div>
+                <div class="image-skeleton loading"></div>
+                <div class="image-skeleton loading"></div>
+                <div class="image-skeleton loading"></div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="loadImages()">Charger Images</button>
+                <button class="btn btn-secondary" onclick="resetImages()">Reset</button>
+            </div>
+            <div id="images-status" class="status loading">État: Chargement des images...</div>
+        </div>
+
+        <!-- Exemple 4: Formulaire -->
+        <div class="demo-section">
+            <h2 class="demo-title">4. Shimmer pour Formulaire</h2>
+            <p class="demo-description">
+                Effet shimmer pour les champs de formulaire pendant le chargement de la configuration.
+            </p>
+            
+            <div class="form-skeleton loading" id="form-skeleton">
+                <div class="input-skeleton"></div>
+                <div class="input-skeleton"></div>
+                <div class="input-skeleton"></div>
+                <div class="input-skeleton large"></div>
+                <div class="input-skeleton"></div>
+            </div>
+            
+            <form id="real-form" style="display: none; max-width: 400px;">
+                <input type="text" placeholder="Nom complet" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
+                <input type="email" placeholder="Email" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
+                <input type="tel" placeholder="Téléphone" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
+                <textarea placeholder="Message" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; height: 80px; resize: vertical;"></textarea>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Envoyer</button>
+            </form>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="loadForm()">Charger Formulaire</button>
+                <button class="btn btn-secondary" onclick="resetForm()">Reset</button>
+            </div>
+            <div id="form-status" class="status loading">État: Configuration du formulaire...</div>
+        </div>
+
+        <!-- Exemple 5: Graphique -->
+        <div class="demo-section">
+            <h2 class="demo-title">5. Shimmer pour Graphique</h2>
+            <p class="demo-description">
+                Effet shimmer diagonal pour simuler le chargement d'un graphique ou d'un dashboard.
+            </p>
+            
+            <div class="chart-skeleton loading" id="chart-skeleton"></div>
+            
+            <div id="real-chart" style="display: none; height: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                📊 Graphique des Ventes - Données Chargées
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="loadChart()">Charger Graphique</button>
+                <button class="btn btn-secondary" onclick="resetChart()">Reset</button>
+            </div>
+            <div id="chart-status" class="status loading">État: Génération du graphique...</div>
+        </div>
+
+        <!-- Code d'exemple -->
+        <div class="demo-section">
+            <h2 class="demo-title">Code d'Exemple</h2>
+            <p class="demo-description">
+                Voici comment implémenter ces effets shimmer dans votre code :
+            </p>
+            
+            <pre style="background: #f8f9fa; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9rem;"><code>/* CSS pour l'effet shimmer */
+.skeleton.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* JavaScript pour contrôler l'état */
+function showContent() {
+    // Masquer le skeleton
+    document.querySelector('.skeleton').classList.remove('loading');
+    document.querySelector('.skeleton').style.display = 'none';
+    
+    // Afficher le contenu réel
+    document.querySelector('.real-content').style.display = 'block';
+}</code></pre>
+        </div>
+    </div>
+
+    <script>
+        // Fonctions pour gérer les exemples
+        
+        function loadProfile() {
+            updateStatus('profile-status', 'Chargement du profil...', 'loading');
+            
+            setTimeout(() => {
+                document.getElementById('profile-skeleton').style.display = 'none';
+                document.getElementById('real-profile').classList.add('show');
+                updateStatus('profile-status', 'Profil chargé avec succès!', 'loaded');
+            }, 2000);
+        }
+        
+        function resetProfile() {
+            document.getElementById('profile-skeleton').style.display = 'flex';
+            document.getElementById('real-profile').classList.remove('show');
+            updateStatus('profile-status', 'Chargement en cours...', 'loading');
+        }
+        
+        function loadTableData() {
+            updateStatus('table-status', 'Récupération des données...', 'loading');
+            
+            setTimeout(() => {
+                const table = document.getElementById('data-table');
+                table.classList.remove('loading');
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Statut</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Marie Martin</td>
+                            <td>marie@example.com</td>
+                            <td>✅ Actif</td>
+                            <td>2024-01-15</td>
+                        </tr>
+                        <tr>
+                            <td>Pierre Durand</td>
+                            <td>pierre@example.com</td>
+                            <td>⏸️ Suspendu</td>
+                            <td>2024-01-10</td>
+                        </tr>
+                        <tr>
+                            <td>Sophie Leroy</td>
+                            <td>sophie@example.com</td>
+                            <td>✅ Actif</td>
+                            <td>2024-01-20</td>
+                        </tr>
+                    </tbody>
+                `;
+                updateStatus('table-status', 'Données chargées avec succès!', 'loaded');
+            }, 2500);
+        }
+        
+        function resetTable() {
+            const table = document.getElementById('data-table');
+            table.classList.add('loading');
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Statut</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                        <td><div class="cell-skeleton"></div></td>
+                    </tr>
+                </tbody>
+            `;
+            updateStatus('table-status', 'Chargement des données...', 'loading');
+        }
+        
+        function loadImages() {
+            updateStatus('images-status', 'Téléchargement des images...', 'loading');
+            
+            setTimeout(() => {
+                const grid = document.getElementById('image-grid');
+                grid.innerHTML = `
+                    <div style="aspect-ratio: 16/9; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Image 1</div>
+                    <div style="aspect-ratio: 16/9; background: linear-gradient(45deg, #4834d4, #686de0); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Image 2</div>
+                    <div style="aspect-ratio: 16/9; background: linear-gradient(45deg, #00d2d3, #54a0ff); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Image 3</div>
+                    <div style="aspect-ratio: 16/9; background: linear-gradient(45deg, #5f27cd, #a55eea); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Image 4</div>
+                `;
+                updateStatus('images-status', 'Images chargées avec succès!', 'loaded');
+            }, 3000);
+        }
+        
+        function resetImages() {
+            const grid = document.getElementById('image-grid');
+            grid.innerHTML = `
+                <div class="image-skeleton loading"></div>
+                <div class="image-skeleton loading"></div>
+                <div class="image-skeleton loading"></div>
+                <div class="image-skeleton loading"></div>
+            `;
+            updateStatus('images-status', 'Chargement des images...', 'loading');
+        }
+        
+        function loadForm() {
+            updateStatus('form-status', 'Initialisation du formulaire...', 'loading');
+            
+            setTimeout(() => {
+                document.getElementById('form-skeleton').style.display = 'none';
+                document.getElementById('real-form').style.display = 'block';
+                updateStatus('form-status', 'Formulaire prêt!', 'loaded');
+            }, 1800);
+        }
+        
+        function resetForm() {
+            document.getElementById('form-skeleton').style.display = 'block';
+            document.getElementById('real-form').style.display = 'none';
+            updateStatus('form-status', 'Configuration du formulaire...', 'loading');
+        }
+        
+        function loadChart() {
+            updateStatus('chart-status', 'Calcul des données...', 'loading');
+            
+            setTimeout(() => {
+                document.getElementById('chart-skeleton').style.display = 'none';
+                document.getElementById('real-chart').style.display = 'flex';
+                updateStatus('chart-status', 'Graphique généré!', 'loaded');
+            }, 2200);
+        }
+        
+        function resetChart() {
+            document.getElementById('chart-skeleton').style.display = 'block';
+            document.getElementById('chart-skeleton').classList.add('loading');
+            document.getElementById('real-chart').style.display = 'none';
+            updateStatus('chart-status', 'Génération du graphique...', 'loading');
+        }
+        
+        function updateStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = `État: ${message}`;
+            element.className = `status ${type}`;
+        }
+    </script>
+</body>
+</html>
