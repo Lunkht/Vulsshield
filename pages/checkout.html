@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informations et Paiement | Vulsshield</title>
+  <link rel="icon" href="../assets/images/favicon.svg">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .checkout-hero { padding: 40px 0 10px; background: radial-gradient(80% 120% at 50% 0%, #0a0a0a 0%, #070707 100%); border-bottom: 1px solid #151515; }
+    .checkout { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+    .card { background:#0f0f0f; border:1px solid #1f1f1f; border-radius:14px; padding:20px; }
+    .two-col { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    @media (max-width: 768px){ .two-col { grid-template-columns: 1fr; } }
+    .section-title { margin:0 0 10px; font-size: 20px; }
+    .muted { color:#bdbdbd; font-size: 0.95rem; }
+    .form-row { display:flex; gap:12px; }
+    .form-row > * { flex:1; }
+    .feedback-input { background:#0a0a0a; border:1px solid #222; color:#fff; border-radius:10px; padding:12px; width:100%; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 18px; border-radius:10px; cursor:pointer; border:1px solid transparent; font-weight:600; }
+    .btn-primary { background:#3b82f6; border-color:#2f6fe0; color:#fff; }
+    .btn-secondary { background:transparent; border-color:#2a2a2a; color:#e5e5e5; }
+    .price-summary { display:flex; flex-direction:column; gap:8px; }
+    .alert { padding:12px; border-radius:10px; }
+    .alert-warning { background: rgba(255, 193, 7, 0.14); border: 1px solid rgba(255, 193, 7, 0.3); color:#ffd777; }
+    .label-inline { display:flex; align-items:center; gap:8px; }
+    .brand-badges { display:flex; gap:10px; }
+    .badge { border:1px solid #2a2a2a; border-radius:8px; padding:6px 10px; color:#eaeaea; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header class="checkout-hero">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <div>
+        <h1 style="margin:0;">Finaliser votre essai / abonnement</h1>
+        <p class="muted" id="planSubtitle">Vérifiez vos informations et choisissez votre mode de paiement.</p>
+      </div>
+      <a href="../pages/offres.html" class="btn btn-secondary">Retour aux Offres</a>
+    </div>
+  </header>
+
+  <main class="checkout">
+    <div class="two-col">
+      <div class="card">
+        <h2 class="section-title">Informations personnelles</h2>
+        <p class="muted">Ces informations peuvent être modifiées plus tard dans Paramètres.</p>
+        <form id="checkoutForm" style="display:grid; gap:12px;">
+          <div class="form-row">
+            <input id="firstName" class="feedback-input" type="text" placeholder="Prénom">
+            <input id="lastName" class="feedback-input" type="text" placeholder="Nom">
+          </div>
+          <input id="email" class="feedback-input" type="email" placeholder="Email">
+          <input id="phone" class="feedback-input" type="tel" placeholder="Téléphone">
+          <input id="address" class="feedback-input" type="text" placeholder="Adresse">
+          <div class="form-row">
+            <input id="country" class="feedback-input" type="text" placeholder="Pays">
+            <input id="city" class="feedback-input" type="text" placeholder="Ville">
+          </div>
+
+          <h3 class="section-title" style="margin-top:6px;">Paiement</h3>
+          <div class="brand-badges" role="group" aria-label="Type de carte">
+            <label class="badge"><input type="radio" name="cardBrand" value="VISA" checked> VISA</label>
+            <label class="badge"><input type="radio" name="cardBrand" value="Mastercard"> Mastercard</label>
+          </div>
+          <input id="cardName" class="feedback-input" type="text" placeholder="Nom du titulaire">
+          <input id="cardNumber" class="feedback-input" type="text" placeholder="Numéro de carte (ex: 4242 4242 4242 4242)">
+          <div class="form-row">
+            <input id="cardExpiry" class="feedback-input" type="text" placeholder="MM/AA">
+            <input id="cardCvc" class="feedback-input" type="text" placeholder="CVC">
+          </div>
+
+          <div class="alert alert-warning" id="paymentNote" style="display:none;">Paiement réel non configuré dans cet environnement. Une simulation sera utilisée.</div>
+
+          <div style="display:flex; gap:10px; margin-top:6px;">
+            <button type="submit" class="btn btn-primary" id="confirmBtn">Continuer</button>
+            <a href="../conditions.html" class="btn btn-secondary">Conditions</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Résumé</h2>
+        <div class="price-summary">
+          <div><strong>Plan:</strong> <span id="summaryPlan">-</span></div>
+          <div id="summaryTrial" class="muted">Essai gratuit de 14 jours si disponible pour ce plan.</div>
+          <div id="summaryPrice" class="muted">Tarif: —</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../user-status.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC9w4qJWJPZ0vDp4-wgnX2lHsqiGC1ARD8",
+      authDomain: "vulsshield-1ac44.firebaseapp.com",
+      projectId: "vulsshield-1ac44",
+      storageBucket: "vulsshield-1ac44.appspot.com",
+      messagingSenderId: "914751126433",
+      appId: "1:914751126433:web:2d0b34e3f0a1c3f8e6db8e"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      // Pas de redirection automatique: l'utilisateur peut compléter les infos puis se connecter si nécessaire au moment du paiement
+      if (!user) {
+        console.log('Checkout: utilisateur non connecté (autorisé).');
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const KEYS = {
+        phone: 'vuls_user_phone', address: 'vuls_user_address', country: 'vuls_user_country', city: 'vuls_user_city'
+      };
+      const els = {
+        firstName: document.getElementById('firstName'),
+        lastName: document.getElementById('lastName'),
+        email: document.getElementById('email'),
+        phone: document.getElementById('phone'),
+        address: document.getElementById('address'),
+        country: document.getElementById('country'),
+        city: document.getElementById('city'),
+        summaryPlan: document.getElementById('summaryPlan'),
+        summaryTrial: document.getElementById('summaryTrial'),
+        summaryPrice: document.getElementById('summaryPrice'),
+        planSubtitle: document.getElementById('planSubtitle'),
+        paymentNote: document.getElementById('paymentNote'),
+        confirmBtn: document.getElementById('confirmBtn'),
+        form: document.getElementById('checkoutForm')
+      };
+
+      const url = new URL(window.location.href);
+      const planFromUrl = url.searchParams.get('plan');
+      const planFromStorage = (typeof getChosenPlan === 'function') ? getChosenPlan() : localStorage.getItem('vuls_plan_chosen');
+      const plan = planFromUrl || planFromStorage || '';
+      const trialRequested = localStorage.getItem('trialRequested') === 'true';
+
+      // Affichage plan
+      els.summaryPlan.textContent = plan || '-';
+      els.planSubtitle.textContent = plan ? `Finalisez votre ${trialRequested ? 'essai' : 'abonnement'} pour le plan ${plan}.` : 'Veuillez choisir un plan.';
+      els.summaryPrice.textContent = plan ? (plan === 'Entreprise' ? 'Tarif: Sur devis' : (trialRequested ? 'Tarif: 0€ pendant l\'essai' : 'Tarif: Voir Offres')) : 'Tarif: —';
+      if (!plan) {
+        els.summaryTrial.textContent = 'Aucun plan détecté. Retournez aux Offres pour choisir.';
+      }
+
+      // Préremplir depuis Paramètres
+      els.phone.value = localStorage.getItem(KEYS.phone) || '';
+      els.address.value = localStorage.getItem(KEYS.address) || '';
+      els.country.value = localStorage.getItem(KEYS.country) || '';
+      els.city.value = localStorage.getItem(KEYS.city) || '';
+
+      // Validation simple
+      function validate(){
+        if (!plan) return { ok:false, msg:'Veuillez choisir un plan sur la page Offres.' };
+        if (!els.phone.value.trim()) return { ok:false, msg:'Veuillez renseigner votre téléphone.' };
+        if (!els.address.value.trim()) return { ok:false, msg:'Veuillez renseigner votre adresse.' };
+        if (!els.country.value.trim()) return { ok:false, msg:'Veuillez renseigner votre pays.' };
+        if (!els.city.value.trim()) return { ok:false, msg:'Veuillez renseigner votre ville.' };
+        return { ok:true };
+      }
+
+      els.form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const v = validate();
+        if (!v.ok) { alert(v.msg); return; }
+        // Sauvegarder les infos basiques
+        localStorage.setItem(KEYS.phone, els.phone.value.trim());
+        localStorage.setItem(KEYS.address, els.address.value.trim());
+        localStorage.setItem(KEYS.country, els.country.value.trim());
+        localStorage.setItem(KEYS.city, els.city.value.trim());
+
+        if (trialRequested) {
+          // Démarrage d\'essai: finaliser onboarding directement
+          try { if (typeof setOnboardingComplete === 'function') setOnboardingComplete(); } catch(e){}
+          localStorage.removeItem('trialRequested');
+          window.location.href = 'dashboard.html';
+        } else {
+          // Paiement non intégré: afficher note et simuler succès
+          els.paymentNote.style.display = 'block';
+          setTimeout(() => {
+            try { if (typeof setOnboardingComplete === 'function') setOnboardingComplete(); } catch(e){}
+            window.location.href = 'dashboard.html';
+          }, 800);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

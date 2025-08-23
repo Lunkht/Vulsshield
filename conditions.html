@@ -209,8 +209,7 @@
         // Vérifier l'authentification
         onAuthStateChanged(auth, (user) => {
             if (!user) {
-                console.log('Utilisateur non connecté, redirection vers connexion');
-                window.location.href = 'connexion.html';
+                console.log('Utilisateur non connecté. Aucun blocage: l’étape de paiement/essai gérera la connexion si nécessaire.');
             }
         });
     </script>
@@ -293,14 +292,10 @@
                     if (typeof setTermsAccepted === 'function') {
                         setTermsAccepted();
                     }
-                    
-                    // Marquer l'onboarding comme terminé
-                    if (typeof setOnboardingComplete === 'function') {
-                        setOnboardingComplete();
-                    }
-
-                    console.log('Conditions acceptées, redirection vers le dashboard');
-                    window.location.href = 'pages/dashboard.html';
+                    // Rediriger vers l'étape de paiement / informations
+                    const nextUrl = 'pages/checkout.html' + (selectedPlan ? ('?plan=' + encodeURIComponent(selectedPlan)) : '');
+                    console.log('Conditions acceptées, redirection vers la page de paiement/essai');
+                    window.location.href = nextUrl;
                 } catch (error) {
                     console.error('Erreur lors de l\'acceptation des conditions:', error);
                 }
