@@ -183,6 +183,42 @@
         </div>
     </header>
 
+    <main class="settings-page">
+        <div class="container">
+            <section class="user-profile-section" data-aos="fade-up" data-aos-delay="100">
+                <div class="user-profile-card">
+                    <h2>Informations du profil</h2>
+                    <p class="muted">Ajoutez ou mettez à jour vos coordonnées. Ces informations restent locales sur votre navigateur tant qu'aucune synchronisation n'est activée.</p>
+
+                    <form id="userProfileForm" class="profile-form" style="margin-top:16px; display:grid; gap:14px;">
+                        <div class="form-group">
+                            <label for="userPhone">Numéro de téléphone</label>
+                            <input type="tel" id="userPhone" class="feedback-input" placeholder="+33 6 12 34 56 78">
+                        </div>
+                        <div class="form-group">
+                            <label for="userAddress">Adresse</label>
+                            <input type="text" id="userAddress" class="feedback-input" placeholder="12 rue Exemple, Bât A">
+                        </div>
+                        <div class="form-group">
+                            <label for="userCountry">Pays</label>
+                            <input type="text" id="userCountry" class="feedback-input" placeholder="France">
+                        </div>
+                        <div class="form-group">
+                            <label for="userCity">Ville</label>
+                            <input type="text" id="userCity" class="feedback-input" placeholder="Paris">
+                        </div>
+
+                        <div style="display:flex; gap:10px; margin-top:8px;">
+                            <button type="submit" class="btn-primary">Enregistrer</button>
+                            <button type="button" id="clearProfileBtn" class="btn-secondary">Effacer</button>
+                        </div>
+
+                        <div id="profileSaveStatus" style="display:none; margin-top:8px; padding:10px; border-radius:8px; font-size:0.95rem;"></div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
 <footer>
         <div class="container footer-container">
             <div class="footer-section footer-about">
@@ -233,5 +269,91 @@
         });
     </script>
     <script src="../firebase-auth.js?v=2" type="module"></script>
+    <script>
+        // Gestion du formulaire de profil utilisateur (localStorage)
+        document.addEventListener('DOMContentLoaded', function() {
+            const KEYS = {
+                phone: 'vuls_user_phone',
+                address: 'vuls_user_address',
+                country: 'vuls_user_country',
+                city: 'vuls_user_city'
+            };
+
+            const form = document.getElementById('userProfileForm');
+            const phoneInput = document.getElementById('userPhone');
+            const addressInput = document.getElementById('userAddress');
+            const countryInput = document.getElementById('userCountry');
+            const cityInput = document.getElementById('userCity');
+            const statusBox = document.getElementById('profileSaveStatus');
+            const clearBtn = document.getElementById('clearProfileBtn');
+
+            function showStatus(message, type = 'success') {
+                if (!statusBox) return;
+                statusBox.textContent = message;
+                statusBox.style.display = 'block';
+                if (type === 'success') {
+                    statusBox.style.background = 'rgba(40, 167, 69, 0.15)';
+                    statusBox.style.border = '1px solid rgba(40, 167, 69, 0.35)';
+                    statusBox.style.color = '#9be7ac';
+                } else {
+                    statusBox.style.background = 'rgba(220, 53, 69, 0.15)';
+                    statusBox.style.border = '1px solid rgba(220, 53, 69, 0.35)';
+                    statusBox.style.color = '#f5a3a9';
+                }
+                setTimeout(() => { statusBox.style.display = 'none'; }, 2000);
+            }
+
+            function loadProfile() {
+                if (!form) return;
+                phoneInput.value = localStorage.getItem(KEYS.phone) || '';
+                addressInput.value = localStorage.getItem(KEYS.address) || '';
+                countryInput.value = localStorage.getItem(KEYS.country) || '';
+                cityInput.value = localStorage.getItem(KEYS.city) || '';
+            }
+
+            function saveProfile() {
+                const phone = (phoneInput.value || '').trim();
+                const address = (addressInput.value || '').trim();
+                const country = (countryInput.value || '').trim();
+                const city = (cityInput.value || '').trim();
+
+                // Validation simple du téléphone (optionnel)
+                if (phone && phone.replace(/\D/g, '').length < 6) {
+                    showStatus('Numéro de téléphone invalide (trop court).', 'error');
+                    return false;
+                }
+
+                localStorage.setItem(KEYS.phone, phone);
+                localStorage.setItem(KEYS.address, address);
+                localStorage.setItem(KEYS.country, country);
+                localStorage.setItem(KEYS.city, city);
+                return true;
+            }
+
+            if (form) {
+                loadProfile();
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (saveProfile()) {
+                        showStatus('Profil enregistré avec succès.');
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    phoneInput.value = '';
+                    addressInput.value = '';
+                    countryInput.value = '';
+                    cityInput.value = '';
+                    localStorage.removeItem(KEYS.phone);
+                    localStorage.removeItem(KEYS.address);
+                    localStorage.removeItem(KEYS.country);
+                    localStorage.removeItem(KEYS.city);
+                    showStatus('Informations effacées.');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
