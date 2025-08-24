@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activités - Vulsshield</title>
+    <title>Activité</title>
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="common-styles.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -21,7 +20,7 @@
                     <div class="project-icon">
                         <div class="gradient-circle"></div>
                     </div>
-                    <span class="project-name">Activités</span>
+                    <span class="project-name">Vulsshield Admin</span>
                     <i class="fas fa-sort"></i>
                 </div>
             </div>
@@ -31,24 +30,141 @@
             </div>
             
             <div class="top-bar-right">
-                <button class="action-btn back-btn" onclick="window.location.href='dashboard.html'" title="Retour au dashboard" aria-label="Retour au dashboard">
+                <button class="action-btn back-btn" onclick="window.location.href='../index.html'" title="Retour à l'accueil" aria-label="Retour à l'accueil">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Rechercher une activité..." class="search-input" onkeyup="filterActivities()">
+                    <input type="text" placeholder="Rechercher..." class="search-input">
                 </div>
+                <button class="action-btn password-action-btn" onclick="window.location.href='dashboard.html'">
+                    <i class="fas fa-key"></i>
+                </button>
                 <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <!-- Menu Feedback -->
+                <div class="dropdown-menu feedback-menu" id="feedbackMenu">
+                    <div class="menu-header">
+                        <h4>Envoyer un feedback</h4>
+                    </div>
+                    <div class="menu-content">
+                        <div class="feedback-form">
+                            <div class="form-group">
+                                <label for="feedbackType">Type de feedback</label>
+                                <select id="feedbackType" class="feedback-select">
+                                    <option value="bug">Rapport de bug</option>
+                                    <option value="feature">Demande de fonctionnalité</option>
+                                    <option value="improvement">Amélioration</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackMessage">Message</label>
+                                <textarea id="feedbackMessage" class="feedback-textarea" placeholder="Décrivez votre feedback..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackEmail">Email (optionnel)</label>
+                                <input type="email" id="feedbackEmail" class="feedback-input" placeholder="votre@email.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-footer">
+                        <button class="btn-secondary" onclick="closeFeedbackMenu()">Annuler</button>
+                        <button class="btn-primary" onclick="submitFeedback()">Envoyer</button>
+                    </div>
+                </div>
                 
                 <div class="notification-icon" onclick="toggleNotificationMenu()">
                     <i class="fas fa-bell"></i>
                     <span class="notification-dot"></span>
+                    
+                    <!-- Menu des notifications -->
+                    <div class="dropdown-menu notification-menu" id="notificationMenu">
+                        <div class="menu-header">
+                            <h4>Notifications</h4>
+                            <button class="mark-all-read">Marquer comme lu</button>
+                        </div>
+                        <div class="menu-content">
+                            <div class="notification-item unread">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Sécurité renforcée</p>
+                                    <p class="notification-text">Votre mot de passe a été mis à jour avec succès.</p>
+                                    <span class="notification-time">Il y a 2h</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Synchronisation</p>
+                                    <p class="notification-text">Nouvelles données synchronisées sur le cloud.</p>
+                                    <span class="notification-time">Il y a 4h</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Rappel</p>
+                                    <p class="notification-text">Pensez à changer vos mots de passe régulièrement.</p>
+                                    <span class="notification-time">Hier</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-footer">
+                            <a href="#" class="view-all">Voir toutes les notifications</a>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="user-menu" onclick="toggleUserMenu()">
-                    <div class="user-avatar">
-                        <div class="avatar-gradient">
-                            <i class="fas fa-user-shield"></i>
+                <div class="action-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                
+                <div class="user-avatar" onclick="toggleUserMenu()">
+                    <div class="avatar-gradient"></div>
+                    
+                    <!-- Menu utilisateur -->
+                    <div class="dropdown-menu user-menu" id="userMenu">
+                        <div class="menu-header">
+                            <div class="user-info">
+                                <div class="user-avatar-small">
+                                    <div class="avatar-gradient"></div>
+                                </div>
+                                <div class="user-details">
+                                    <p class="user-name">John Doe</p>
+                                    <p class="user-email">john.doe@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-content">
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profil</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Paramètres</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Sécurité</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Aide</span>
+                            </a>
+                        </div>
+                        <div class="menu-footer">
+                            <a href="#" class="menu-item logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Déconnexion</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -61,6 +177,7 @@
         <!-- Sidebar de navigation -->
         <aside class="admin-sidebar">
             <div class="sidebar-header">
+                
                 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
                     <i class="fas fa-angle-left"></i>
                 </button>
@@ -98,6 +215,10 @@
                     <a href="activites.html" class="nav-item active">
                         <i class="fas fa-history"></i>
                         <span>Activité</span>
+                    </a>
+                    <a href="#url-monitor" class="nav-item">
+                        <i class="fas fa-link"></i>
+                        <span>Sites suspects</span>
                     </a>
                 </div>
                 
@@ -139,735 +260,196 @@
                     </div>
                     <div class="user-mini-details">
                         <div class="user-mini-name role-with-icon">
-                           <span>Administrateur</span>
-                        </div>
+                           <span>Administrateur</span></div>
                     </div>
                 </div>
             </div>
         </aside>
 
-        <!-- Contenu principal -->
         <main class="admin-main">
-            <!-- En-tête de la page -->
-            <div class="page-header" data-aos="fade-up">
-                <div class="page-title">
-                    <h1><i class="fas fa-history"></i> Journal d'activités</h1>
-                    <p>Surveillez toutes les activités et événements de votre système</p>
-                </div>
-                <div class="page-actions">
-                    <button class="btn-secondary" onclick="refreshActivities()">
-                        <i class="fas fa-refresh"></i>
-                        Actualiser
-                    </button>
-                    <button class="btn-secondary" onclick="exportActivities()">
-                        <i class="fas fa-download"></i>
-                        Exporter
-                    </button>
-                    <button class="btn-primary" onclick="clearOldActivities()">
-                        <i class="fas fa-trash-alt"></i>
-                        Nettoyer
-                    </button>
-                </div>
+            <div class="page-header">
+                <h1 class="page-title">Activité du compte</h1>
+                <p class="page-subtitle">Suivez les actions et les connexions récentes.</p>
             </div>
 
-            <!-- Statistiques d'activité -->
-            <div class="activity-stats" data-aos="fade-up" data-aos-delay="100">
-                <div class="stats-cards">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Activités aujourd'hui</h3>
-                            <div class="stat-value">247</div>
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                +15% vs hier
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Alertes critiques</h3>
-                            <div class="stat-value">3</div>
-                            <div class="stat-trend down">
-                                <i class="fas fa-arrow-down"></i>
-                                -2 vs hier
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Utilisateurs actifs</h3>
-                            <div class="stat-value">12</div>
-                            <div class="stat-trend neutral">
-                                <i class="fas fa-minus"></i>
-                                Stable
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Événements sécurité</h3>
-                            <div class="stat-value">8</div>
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                +3 vs hier
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Filtres et options -->
-            <div class="activity-filters" data-aos="fade-up" data-aos-delay="200">
-                <div class="filter-section">
-                    <div class="filter-group">
-                        <label>Période :</label>
-                        <select class="filter-select" onchange="filterByPeriod()">
-                            <option value="today">Aujourd'hui</option>
-                            <option value="week" selected>Cette semaine</option>
-                            <option value="month">Ce mois</option>
-                            <option value="custom">Personnalisée</option>
+            <div class="admin-card">
+                <div class="card-header">
+                    <h3 class="card-title">Historique des connexions</h3>
+                    <div class="card-actions">
+                        <select class="form-select" style="width: auto;">
+                            <option>Filtrer par période</option>
+                            <option>7 derniers jours</option>
+                            <option>30 derniers jours</option>
+                            <option>90 derniers jours</option>
                         </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Type :</label>
-                        <select class="filter-select" onchange="filterByType()">
-                            <option value="all">Tous les types</option>
-                            <option value="security">Sécurité</option>
-                            <option value="login">Connexions</option>
-                            <option value="password">Mots de passe</option>
-                            <option value="sync">Synchronisation</option>
-                            <option value="system">Système</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Niveau :</label>
-                        <select class="filter-select" onchange="filterByLevel()">
-                            <option value="all">Tous les niveaux</option>
-                            <option value="info">Information</option>
-                            <option value="warning">Avertissement</option>
-                            <option value="error">Erreur</option>
-                            <option value="critical">Critique</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Utilisateur :</label>
-                        <select class="filter-select" onchange="filterByUser()">
-                            <option value="all">Tous les utilisateurs</option>
-                            <option value="admin">Administrateur</option>
-                            <option value="user1">Jean Dupont</option>
-                            <option value="user2">Marie Martin</option>
-                            <option value="system">Système</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="view-options">
-                    <div class="view-toggle">
-                        <button class="view-btn active" onclick="switchView('list')" data-view="list">
-                            <i class="fas fa-list"></i>
-                            Liste
-                        </button>
-                        <button class="view-btn" onclick="switchView('timeline')" data-view="timeline">
-                            <i class="fas fa-clock"></i>
-                            Timeline
-                        </button>
-                        <button class="view-btn" onclick="switchView('chart')" data-view="chart">
-                            <i class="fas fa-chart-bar"></i>
-                            Graphique
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-download"></i>
+                            Exporter
                         </button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Vue liste des activités -->
-            <div class="activity-content" data-aos="fade-up" data-aos-delay="300">
-                <div class="activity-view active" id="list-view">
-                    <div class="activity-table">
-                        <div class="table-header">
-                            <div class="header-cell time">Heure</div>
-                            <div class="header-cell type">Type</div>
-                            <div class="header-cell user">Utilisateur</div>
-                            <div class="header-cell description">Description</div>
-                            <div class="header-cell level">Niveau</div>
-                            <div class="header-cell actions">Actions</div>
-                        </div>
-                        
-                        <div class="table-body" id="activities-list">
-                            <!-- Les activités seront générées par JavaScript -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Vue timeline -->
-                <div class="activity-view" id="timeline-view">
-                    <div class="timeline-container">
-                        <div class="timeline-line"></div>
-                        <div class="timeline-events" id="timeline-events">
-                            <!-- Les événements timeline seront générés par JavaScript -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Vue graphique -->
-                <div class="activity-view" id="chart-view">
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3>Répartition des activités par type</h3>
-                            <div class="chart-period">
-                                <select onchange="updateChart()">
-                                    <option value="day">Dernières 24h</option>
-                                    <option value="week" selected>7 derniers jours</option>
-                                    <option value="month">30 derniers jours</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="chart-content">
-                            <div class="chart-bars" id="activity-chart">
-                                <!-- Le graphique sera généré par JavaScript -->
-                            </div>
-                            <div class="chart-legend">
-                                <div class="legend-item">
-                                    <div class="legend-color security"></div>
-                                    <span>Sécurité</span>
-                                </div>
-                                <div class="legend-item">
-                                    <div class="legend-color login"></div>
-                                    <span>Connexions</span>
-                                </div>
-                                <div class="legend-item">
-                                    <div class="legend-color password"></div>
-                                    <span>Mots de passe</span>
-                                </div>
-                                <div class="legend-item">
-                                    <div class="legend-color sync"></div>
-                                    <span>Synchronisation</span>
-                                </div>
-                                <div class="legend-item">
-                                    <div class="legend-color system"></div>
-                                    <span>Système</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Adresse IP</th>
+                                <th>Localisation</th>
+                                <th>Appareil</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2023-10-26 10:30:00</td>
+                                <td>192.168.1.10</td>
+                                <td>Paris, France</td>
+                                <td>Chrome sur Windows</td>
+                                <td><span class="badge success">Réussie</span></td>
+                            </tr>
+                            <tr>
+                                <td>2023-10-25 18:45:12</td>
+                                <td>8.8.8.8</td>
+                                <td>Mountain View, USA</td>
+                                <td>Firefox sur macOS</td>
+                                <td><span class="badge success">Réussie</span></td>
+                            </tr>
+                            <tr>
+                                <td>2023-10-24 09:12:05</td>
+                                <td>208.67.222.222</td>
+                                <td>San Francisco, USA</td>
+                                <td>Application mobile Android</td>
+                                <td><span class="badge danger">Échouée</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Pagination -->
-            <div class="pagination-container" data-aos="fade-up" data-aos-delay="400">
-                <div class="pagination-info">
-                    <span>Affichage de <strong>1-50</strong> sur <strong>1,247</strong> activités</span>
+            <div class="admin-card">
+                <div class="card-header">
+                    <h3 class="card-title">Actions récentes</h3>
                 </div>
-                <div class="pagination-controls">
-                    <button class="pagination-btn" onclick="previousPage()" disabled>
-                        <i class="fas fa-chevron-left"></i>
-                        Précédent
-                    </button>
-                    <div class="pagination-numbers">
-                        <button class="page-number active">1</button>
-                        <button class="page-number">2</button>
-                        <button class="page-number">3</button>
-                        <span class="pagination-dots">...</span>
-                        <button class="page-number">25</button>
-                    </div>
-                    <button class="pagination-btn" onclick="nextPage()">
-                        Suivant
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+                <ul class="activity-list">
+                    <li class="activity-item">
+                        <div class="activity-icon"><i class="fas fa-key"></i></div>
+                        <div class="activity-details">
+                            <p>Mot de passe pour <strong>Gmail</strong> mis à jour.</p>
+                            <small class="text-muted">Il y a 2 heures</small>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="activity-details">
+                            <p>Nouvel appareil <strong>iPhone 15 Pro</strong> ajouté.</p>
+                            <small class="text-muted">Hier à 14:30</small>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="activity-details">
+                            <p>Analyse de sécurité effectuée. Score : <strong>95%</strong>.</p>
+                            <small class="text-muted">Le 24 octobre 2023</small>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </main>
     </div>
 
-    <!-- Modal de détails d'activité -->
-    <div class="modal-overlay" id="activityModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Détails de l'activité</h3>
-                <button class="modal-close" onclick="closeActivityModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body" id="activityDetails">
-                <!-- Les détails seront chargés dynamiquement -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeActivityModal()">Fermer</button>
-                <button class="btn-primary" onclick="exportActivity()">Exporter</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../user-status.js?v=1"></script>
+    <script src="../firebase-auth.js?v=2" type="module"></script>
+    <script src="password-manager.js" type="module"></script>
     <script src="../script.js"></script>
-    <script src="common-scripts.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialisation AOS
         AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
+            duration: 1000,
+            once: true,
         });
-
-        // Variables globales
-        let currentView = 'list';
-        let currentPage = 1;
-        let activitiesData = [];
-        let filteredActivities = [];
-
-        // Données d'exemple pour les activités
-        const sampleActivities = [
-            {
-                id: 1,
-                timestamp: new Date(Date.now() - 1000 * 60 * 5),
-                type: 'security',
-                user: 'Administrateur',
-                description: 'Tentative de connexion suspecte détectée',
-                level: 'warning',
-                ip: '192.168.1.100',
-                details: 'Plusieurs tentatives de connexion échouées depuis cette adresse IP'
-            },
-            {
-                id: 2,
-                timestamp: new Date(Date.now() - 1000 * 60 * 15),
-                type: 'login',
-                user: 'Jean Dupont',
-                description: 'Connexion réussie',
-                level: 'info',
-                ip: '192.168.1.50',
-                details: 'Connexion depuis l\'application mobile'
-            },
-            {
-                id: 3,
-                timestamp: new Date(Date.now() - 1000 * 60 * 30),
-                type: 'password',
-                user: 'Marie Martin',
-                description: 'Mot de passe modifié pour le compte Gmail',
-                level: 'info',
-                details: 'Changement de mot de passe effectué avec succès'
-            },
-            {
-                id: 4,
-                timestamp: new Date(Date.now() - 1000 * 60 * 45),
-                type: 'sync',
-                user: 'Système',
-                description: 'Synchronisation automatique terminée',
-                level: 'info',
-                details: '247 éléments synchronisés avec succès'
-            },
-            {
-                id: 5,
-                timestamp: new Date(Date.now() - 1000 * 60 * 60),
-                type: 'security',
-                user: 'Système',
-                description: 'Analyse de sécurité programmée',
-                level: 'info',
-                details: 'Scan de sécurité hebdomadaire effectué'
-            },
-            {
-                id: 6,
-                timestamp: new Date(Date.now() - 1000 * 60 * 90),
-                type: 'system',
-                user: 'Système',
-                description: 'Mise à jour de sécurité installée',
-                level: 'info',
-                details: 'Version 2.1.3 installée avec succès'
-            },
-            {
-                id: 7,
-                timestamp: new Date(Date.now() - 1000 * 60 * 120),
-                type: 'security',
-                user: 'Administrateur',
-                description: 'Violation de politique de mot de passe',
-                level: 'error',
-                details: 'Mot de passe trop faible détecté pour le compte utilisateur'
-            },
-            {
-                id: 8,
-                timestamp: new Date(Date.now() - 1000 * 60 * 180),
-                type: 'login',
-                user: 'Pierre Durand',
-                description: 'Déconnexion automatique',
-                level: 'info',
-                details: 'Session expirée après 30 minutes d\'inactivité'
-            }
-        ];
-
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            activitiesData = sampleActivities;
-            filteredActivities = [...activitiesData];
-            renderActivities();
-            generateTimelineEvents();
-            generateChart();
-        });
-
-        // Gestion des vues
-        function switchView(viewType) {
-            // Mettre à jour les boutons
-            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-view="${viewType}"]`).classList.add('active');
-            
-            // Mettre à jour les vues
-            document.querySelectorAll('.activity-view').forEach(view => view.classList.remove('active'));
-            document.getElementById(`${viewType}-view`).classList.add('active');
-            
-            currentView = viewType;
-            
-            if (viewType === 'chart') {
-                generateChart();
-            }
-        }
-
-        // Rendu de la liste des activités
-        function renderActivities() {
-            const container = document.getElementById('activities-list');
-            container.innerHTML = '';
-            
-            filteredActivities.forEach(activity => {
-                const row = document.createElement('div');
-                row.className = 'table-row';
-                row.innerHTML = `
-                    <div class="table-cell time">
-                        <div class="time-info">
-                            <div class="time-main">${formatTime(activity.timestamp)}</div>
-                            <div class="time-date">${formatDate(activity.timestamp)}</div>
-                        </div>
-                    </div>
-                    <div class="table-cell type">
-                        <div class="type-badge ${activity.type}">
-                            <i class="fas fa-${getTypeIcon(activity.type)}"></i>
-                            ${getTypeLabel(activity.type)}
-                        </div>
-                    </div>
-                    <div class="table-cell user">
-                        <div class="user-info">
-                            <div class="user-avatar-small">
-                                <i class="fas fa-${getUserIcon(activity.user)}"></i>
-                            </div>
-                            <span>${activity.user}</span>
-                        </div>
-                    </div>
-                    <div class="table-cell description">
-                        <div class="description-text">${activity.description}</div>
-                        ${activity.ip ? `<div class="description-meta">IP: ${activity.ip}</div>` : ''}
-                    </div>
-                    <div class="table-cell level">
-                        <div class="level-badge ${activity.level}">
-                            <i class="fas fa-${getLevelIcon(activity.level)}"></i>
-                            ${getLevelLabel(activity.level)}
-                        </div>
-                    </div>
-                    <div class="table-cell actions">
-                        <button class="action-btn-small" onclick="viewActivityDetails(${activity.id})" title="Voir les détails">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="action-btn-small" onclick="exportSingleActivity(${activity.id})" title="Exporter">
-                            <i class="fas fa-download"></i>
-                        </button>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        // Génération des événements timeline
-        function generateTimelineEvents() {
-            const container = document.getElementById('timeline-events');
-            container.innerHTML = '';
-            
-            filteredActivities.forEach((activity, index) => {
-                const event = document.createElement('div');
-                event.className = `timeline-event ${activity.level}`;
-                event.innerHTML = `
-                    <div class="timeline-marker">
-                        <i class="fas fa-${getTypeIcon(activity.type)}"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">${formatTime(activity.timestamp)}</div>
-                        <div class="timeline-title">${activity.description}</div>
-                        <div class="timeline-meta">
-                            <span class="timeline-user">${activity.user}</span>
-                            <span class="timeline-type">${getTypeLabel(activity.type)}</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(event);
-            });
-        }
-
-        // Génération du graphique
-        function generateChart() {
-            const container = document.getElementById('activity-chart');
-            container.innerHTML = '';
-            
-            // Compter les activités par type
-            const typeCounts = {};
-            filteredActivities.forEach(activity => {
-                typeCounts[activity.type] = (typeCounts[activity.type] || 0) + 1;
-            });
-            
-            const maxCount = Math.max(...Object.values(typeCounts));
-            
-            Object.entries(typeCounts).forEach(([type, count]) => {
-                const bar = document.createElement('div');
-                bar.className = 'chart-bar';
-                const percentage = (count / maxCount) * 100;
-                bar.innerHTML = `
-                    <div class="bar-fill ${type}" style="height: ${percentage}%"></div>
-                    <div class="bar-label">${getTypeLabel(type)}</div>
-                    <div class="bar-value">${count}</div>
-                `;
-                container.appendChild(bar);
-            });
-        }
-
-        // Fonctions utilitaires
-        function formatTime(date) {
-            return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function formatDate(date) {
-            return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
-        }
-
-        function getTypeIcon(type) {
-            const icons = {
-                security: 'shield-alt',
-                login: 'sign-in-alt',
-                password: 'key',
-                sync: 'sync-alt',
-                system: 'cog'
-            };
-            return icons[type] || 'info-circle';
-        }
-
-        function getTypeLabel(type) {
-            const labels = {
-                security: 'Sécurité',
-                login: 'Connexion',
-                password: 'Mot de passe',
-                sync: 'Synchronisation',
-                system: 'Système'
-            };
-            return labels[type] || type;
-        }
-
-        function getUserIcon(user) {
-            if (user === 'Système') return 'cog';
-            if (user === 'Administrateur') return 'user-shield';
-            return 'user';
-        }
-
-        function getLevelIcon(level) {
-            const icons = {
-                info: 'info-circle',
-                warning: 'exclamation-triangle',
-                error: 'times-circle',
-                critical: 'exclamation-circle'
-            };
-            return icons[level] || 'info-circle';
-        }
-
-        function getLevelLabel(level) {
-            const labels = {
-                info: 'Info',
-                warning: 'Attention',
-                error: 'Erreur',
-                critical: 'Critique'
-            };
-            return labels[level] || level;
-        }
-
-        // Fonctions de filtrage
-        function filterActivities() {
-            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
-            filteredActivities = activitiesData.filter(activity => 
-                activity.description.toLowerCase().includes(searchTerm) ||
-                activity.user.toLowerCase().includes(searchTerm)
-            );
-            renderActivities();
-            generateTimelineEvents();
-            generateChart();
-        }
-
-        function filterByPeriod() {
-            // Implémentation du filtrage par période
-            renderActivities();
-        }
-
-        function filterByType() {
-            // Implémentation du filtrage par type
-            renderActivities();
-        }
-
-        function filterByLevel() {
-            // Implémentation du filtrage par niveau
-            renderActivities();
-        }
-
-        function filterByUser() {
-            // Implémentation du filtrage par utilisateur
-            renderActivities();
-        }
-
-        // Actions
-        function refreshActivities() {
-            showNotification('Actualisation des activités...', 'info');
-            setTimeout(() => {
-                showNotification('Activités actualisées', 'success');
-                renderActivities();
-            }, 1500);
-        }
-
-        function exportActivities() {
-            showNotification('Export en cours...', 'info');
-            setTimeout(() => {
-                showNotification('Export terminé', 'success');
-            }, 2000);
-        }
-
-        function clearOldActivities() {
-            if (confirm('Supprimer les activités de plus de 30 jours ?')) {
-                showNotification('Nettoyage effectué', 'success');
-            }
-        }
-
-        function viewActivityDetails(activityId) {
-            const activity = activitiesData.find(a => a.id === activityId);
-            if (activity) {
-                document.getElementById('activityDetails').innerHTML = `
-                    <div class="detail-section">
-                        <h4>Informations générales</h4>
-                        <div class="detail-grid">
-                            <div class="detail-item">
-                                <label>Horodatage :</label>
-                                <span>${activity.timestamp.toLocaleString('fr-FR')}</span>
-                            </div>
-                            <div class="detail-item">
-                                <label>Type :</label>
-                                <span>${getTypeLabel(activity.type)}</span>
-                            </div>
-                            <div class="detail-item">
-                                <label>Utilisateur :</label>
-                                <span>${activity.user}</span>
-                            </div>
-                            <div class="detail-item">
-                                <label>Niveau :</label>
-                                <span>${getLevelLabel(activity.level)}</span>
-                            </div>
-                            ${activity.ip ? `
-                            <div class="detail-item">
-                                <label>Adresse IP :</label>
-                                <span>${activity.ip}</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                    <div class="detail-section">
-                        <h4>Description</h4>
-                        <p>${activity.description}</p>
-                    </div>
-                    <div class="detail-section">
-                        <h4>Détails techniques</h4>
-                        <p>${activity.details}</p>
-                    </div>
-                `;
-                document.getElementById('activityModal').classList.add('active');
-            }
-        }
-
-        function closeActivityModal() {
-            document.getElementById('activityModal').classList.remove('active');
-        }
-
-        function exportActivity() {
-            showNotification('Activité exportée', 'success');
-            closeActivityModal();
-        }
-
-        function exportSingleActivity(activityId) {
-            showNotification(`Activité ${activityId} exportée`, 'success');
-        }
-
-        function updateChart() {
-            generateChart();
-        }
-
-        // Pagination
-        function previousPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                renderActivities();
-            }
-        }
-
-        function nextPage() {
-            currentPage++;
-            renderActivities();
-        }
-
-        // Fonction d'affichage des notifications
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times' : 'info'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => notification.classList.add('show'), 100);
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // Simulation de nouvelles activités en temps réel
-        setInterval(() => {
-            const newActivity = {
-                id: Date.now(),
-                timestamp: new Date(),
-                type: ['security', 'login', 'password', 'sync', 'system'][Math.floor(Math.random() * 5)],
-                user: ['Administrateur', 'Jean Dupont', 'Marie Martin', 'Système'][Math.floor(Math.random() * 4)],
-                description: 'Nouvelle activité détectée',
-                level: ['info', 'warning', 'error'][Math.floor(Math.random() * 3)],
-                details: 'Activité générée automatiquement'
-            };
-            
-            activitiesData.unshift(newActivity);
-            filteredActivities = [...activitiesData];
-            
-            if (currentView === 'list') {
-                renderActivities();
-            } else if (currentView === 'timeline') {
-                generateTimelineEvents();
-            } else if (currentView === 'chart') {
-                generateChart();
-            }
-        }, 60000); // Nouvelle activité toutes les minutes
     </script>
+    <!-- JavaScript pour les menus déroulants -->
+    <script>
+        // Variables pour gérer les menus
+        let activeMenu = null;
+        
+        // Fonction pour fermer tous les menus
+        function closeAllMenus() {
+            const menus = document.querySelectorAll('.dropdown-menu');
+            menus.forEach(menu => {
+                menu.classList.remove('active');
+            });
+            activeMenu = null;
+        }
+        
+        // Fonction pour ouvrir/fermer le menu des notifications
+        function toggleNotificationMenu() {
+            const menu = document.getElementById('notificationMenu');
+            
+            if (activeMenu === menu) {
+                closeAllMenus();
+            } else {
+                closeAllMenus();
+                menu.classList.add('active');
+                activeMenu = menu;
+            }
+        }
+        
+        // Fonction pour ouvrir/fermer le menu utilisateur
+        function toggleUserMenu() {
+            const menu = document.getElementById('userMenu');
+            
+            if (activeMenu === menu) {
+                closeAllMenus();
+            } else {
+                closeAllMenus();
+                menu.classList.add('active');
+                activeMenu = menu;
+            }
+        }
+        
+        // Fermer les menus en cliquant à l'extérieur
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.notification-icon') && !event.target.closest('.dropdown-menu') && !event.target.closest('.user-avatar')) {
+                closeAllMenus();
+            }
+        });
+        
+        // Empêcher la propagation des clics à l'intérieur des menus
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+
+        // --- Sidebar collapse toggle ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const layout = document.querySelector('.admin-layout');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            if (!layout || !toggleBtn) return;
+
+            const saved = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (saved) layout.classList.add('sidebar-collapsed');
+
+            function updateToggleAria() {
+                const isCollapsed = layout.classList.contains('sidebar-collapsed');
+                toggleBtn.setAttribute('aria-expanded', (!isCollapsed).toString());
+                toggleBtn.title = isCollapsed ? 'Déplier la sidebar' : 'Réduire la sidebar';
+                toggleBtn.innerHTML = isCollapsed ? '<i class="fas fa-angle-right"></i>' : '<i class="fas fa-angle-left"></i>';
+            }
+
+            updateToggleAria();
+
+            toggleBtn.addEventListener('click', function() {
+                layout.classList.toggle('sidebar-collapsed');
+                const isCollapsed = layout.classList.contains('sidebar-collapsed');
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+                updateToggleAria();
+            });
+        });
+    </script>
+    <script src="../dark-mode.js"></script>
+
 </body>
 
 </html>

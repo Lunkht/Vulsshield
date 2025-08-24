@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paramètres - Vulsshield</title>
+    <title>Paramètres</title>
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="common-styles.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -21,7 +20,7 @@
                     <div class="project-icon">
                         <div class="gradient-circle"></div>
                     </div>
-                    <span class="project-name">Paramètres</span>
+                    <span class="project-name">Vulsshield Admin</span>
                     <i class="fas fa-sort"></i>
                 </div>
             </div>
@@ -31,24 +30,141 @@
             </div>
             
             <div class="top-bar-right">
-                <button class="action-btn back-btn" onclick="window.location.href='dashboard.html'" title="Retour au dashboard" aria-label="Retour au dashboard">
+                <button class="action-btn back-btn" onclick="window.location.href='../index.html'" title="Retour à l'accueil" aria-label="Retour à l'accueil">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Rechercher..." class="search-input">
                 </div>
+                <button class="action-btn password-action-btn" onclick="window.location.href='dashboard.html'">
+                    <i class="fas fa-key"></i>
+                </button>
                 <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <!-- Menu Feedback -->
+                <div class="dropdown-menu feedback-menu" id="feedbackMenu">
+                    <div class="menu-header">
+                        <h4>Envoyer un feedback</h4>
+                    </div>
+                    <div class="menu-content">
+                        <div class="feedback-form">
+                            <div class="form-group">
+                                <label for="feedbackType">Type de feedback</label>
+                                <select id="feedbackType" class="feedback-select">
+                                    <option value="bug">Rapport de bug</option>
+                                    <option value="feature">Demande de fonctionnalité</option>
+                                    <option value="improvement">Amélioration</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackMessage">Message</label>
+                                <textarea id="feedbackMessage" class="feedback-textarea" placeholder="Décrivez votre feedback..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackEmail">Email (optionnel)</label>
+                                <input type="email" id="feedbackEmail" class="feedback-input" placeholder="votre@email.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-footer">
+                        <button class="btn-secondary" onclick="closeFeedbackMenu()">Annuler</button>
+                        <button class="btn-primary" onclick="submitFeedback()">Envoyer</button>
+                    </div>
+                </div>
                 
                 <div class="notification-icon" onclick="toggleNotificationMenu()">
                     <i class="fas fa-bell"></i>
                     <span class="notification-dot"></span>
+                    
+                    <!-- Menu des notifications -->
+                    <div class="dropdown-menu notification-menu" id="notificationMenu">
+                        <div class="menu-header">
+                            <h4>Notifications</h4>
+                            <button class="mark-all-read">Marquer comme lu</button>
+                        </div>
+                        <div class="menu-content">
+                            <div class="notification-item unread">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Sécurité renforcée</p>
+                                    <p class="notification-text">Votre mot de passe a été mis à jour avec succès.</p>
+                                    <span class="notification-time">Il y a 2h</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Synchronisation</p>
+                                    <p class="notification-text">Nouvelles données synchronisées sur le cloud.</p>
+                                    <span class="notification-time">Il y a 4h</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon-small">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-title">Rappel</p>
+                                    <p class="notification-text">Pensez à changer vos mots de passe régulièrement.</p>
+                                    <span class="notification-time">Hier</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-footer">
+                            <a href="#" class="view-all">Voir toutes les notifications</a>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="user-menu" onclick="toggleUserMenu()">
-                    <div class="user-avatar">
-                        <div class="avatar-gradient">
-                            <i class="fas fa-user-shield"></i>
+                <div class="action-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                
+                <div class="user-avatar" onclick="toggleUserMenu()">
+                    <div class="avatar-gradient"></div>
+                    
+                    <!-- Menu utilisateur -->
+                    <div class="dropdown-menu user-menu" id="userMenu">
+                        <div class="menu-header">
+                            <div class="user-info">
+                                <div class="user-avatar-small">
+                                    <div class="avatar-gradient"></div>
+                                </div>
+                                <div class="user-details">
+                                    <p class="user-name">John Doe</p>
+                                    <p class="user-email">john.doe@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-content">
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profil</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Paramètres</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Sécurité</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Aide</span>
+                            </a>
+                        </div>
+                        <div class="menu-footer">
+                            <a href="#" class="menu-item logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Déconnexion</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -61,6 +177,7 @@
         <!-- Sidebar de navigation -->
         <aside class="admin-sidebar">
             <div class="sidebar-header">
+                
                 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
                     <i class="fas fa-angle-left"></i>
                 </button>
@@ -98,6 +215,10 @@
                     <a href="activites.html" class="nav-item">
                         <i class="fas fa-history"></i>
                         <span>Activité</span>
+                    </a>
+                    <a href="#url-monitor" class="nav-item">
+                        <i class="fas fa-link"></i>
+                        <span>Sites suspects</span>
                     </a>
                 </div>
                 
@@ -139,14 +260,12 @@
                     </div>
                     <div class="user-mini-details">
                         <div class="user-mini-name role-with-icon">
-                           <span>Administrateur</span>
-                        </div>
+                           <span>Administrateur</span></div>
                     </div>
                 </div>
             </div>
         </aside>
 
-        <!-- Contenu principal -->
         <main class="admin-content">
             <div class="page-header">
                 <h1 class="page-title">Paramètres</h1>
@@ -565,109 +684,99 @@
         </main>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../user-status.js?v=1"></script>
+    <script src="../firebase-auth.js?v=2" type="module"></script>
+    <script src="password-manager.js" type="module"></script>
     <script src="../script.js"></script>
-    <script src="common-scripts.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Configuration spécifique à la page des paramètres
-        document.addEventListener('DOMContentLoaded', function() {
-            // Charger les paramètres sauvegardés
-            loadSavedSettings();
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    </script>
+    <!-- JavaScript pour les menus déroulants -->
+    <script>
+        // Variables pour gérer les menus
+        let activeMenu = null;
+        
+        // Fonction pour fermer tous les menus
+        function closeAllMenus() {
+            const menus = document.querySelectorAll('.dropdown-menu');
+            menus.forEach(menu => {
+                menu.classList.remove('active');
+            });
+            activeMenu = null;
+        }
+        
+        // Fonction pour ouvrir/fermer le menu des notifications
+        function toggleNotificationMenu() {
+            const menu = document.getElementById('notificationMenu');
+            
+            if (activeMenu === menu) {
+                closeAllMenus();
+            } else {
+                closeAllMenus();
+                menu.classList.add('active');
+                activeMenu = menu;
+            }
+        }
+        
+        // Fonction pour ouvrir/fermer le menu utilisateur
+        function toggleUserMenu() {
+            const menu = document.getElementById('userMenu');
+            
+            if (activeMenu === menu) {
+                closeAllMenus();
+            } else {
+                closeAllMenus();
+                menu.classList.add('active');
+                activeMenu = menu;
+            }
+        }
+        
+        // Fermer les menus en cliquant à l'extérieur
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.notification-icon') && !event.target.closest('.dropdown-menu') && !event.target.closest('.user-avatar')) {
+                closeAllMenus();
+            }
+        });
+        
+        // Empêcher la propagation des clics à l'intérieur des menus
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
         });
 
-        function loadSavedSettings() {
-            const settings = JSON.parse(localStorage.getItem('adminSettings') || '{}');
-            
-            // Appliquer les paramètres sauvegardés
-            Object.keys(settings).forEach(key => {
-                const element = document.querySelector(`[data-setting="${key}"]`);
-                if (element) {
-                    if (element.type === 'checkbox') {
-                        element.checked = settings[key];
-                    } else {
-                        element.value = settings[key];
-                    }
-                }
+        // --- Sidebar collapse toggle ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const layout = document.querySelector('.admin-layout');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            if (!layout || !toggleBtn) return;
+
+            const saved = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (saved) layout.classList.add('sidebar-collapsed');
+
+            function updateToggleAria() {
+                const isCollapsed = layout.classList.contains('sidebar-collapsed');
+                toggleBtn.setAttribute('aria-expanded', (!isCollapsed).toString());
+                toggleBtn.title = isCollapsed ? 'Déplier la sidebar' : 'Réduire la sidebar';
+                toggleBtn.innerHTML = isCollapsed ? '<i class="fas fa-angle-right"></i>' : '<i class="fas fa-angle-left"></i>';
+            }
+
+            updateToggleAria();
+
+            toggleBtn.addEventListener('click', function() {
+                layout.classList.toggle('sidebar-collapsed');
+                const isCollapsed = layout.classList.contains('sidebar-collapsed');
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+                updateToggleAria();
             });
-        }
-
-        function saveSettings() {
-            if (window.adminManager) {
-                window.adminManager.showNotification('Paramètres sauvegardés avec succès', 'success');
-            }
-        }
-
-        function resetSettings() {
-            if (confirm('Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?')) {
-                // Réinitialiser tous les toggles
-                const toggles = document.querySelectorAll('input[type="checkbox"]');
-                toggles.forEach(toggle => {
-                    toggle.checked = false;
-                });
-                
-                // Réinitialiser les selects
-                const selects = document.querySelectorAll('select');
-                selects.forEach(select => {
-                    select.selectedIndex = 0;
-                });
-                
-                // Nettoyer le localStorage
-                localStorage.removeItem('adminSettings');
-                
-                if (window.adminManager) {
-                    window.adminManager.showNotification('Paramètres réinitialisés', 'info');
-                }
-            }
-        }
-
-        function showActiveSessions() {
-            if (window.adminManager) {
-                window.adminManager.showNotification('Fonctionnalité en développement : Affichage des sessions actives', 'info');
-            }
-        }
-
-        function logoutAllDevices() {
-            if (confirm('Déconnecter tous les appareils ? Vous devrez vous reconnecter partout.')) {
-                if (window.adminManager) {
-                    window.adminManager.showNotification('Déconnexion de tous les appareils effectuée', 'success');
-                }
-            }
-        }
-
-        function exportData() {
-            if (window.adminManager) {
-                window.adminManager.showNotification('Export des données en cours...', 'info');
-                setTimeout(() => {
-                    window.adminManager.showNotification('Données exportées avec succès', 'success');
-                }, 2000);
-            }
-        }
-
-        function deleteAllData() {
-            if (confirm('ATTENTION : Cette action est irréversible. Supprimer toutes vos données ?')) {
-                if (confirm('Êtes-vous absolument certain ? Toutes vos données seront perdues.')) {
-                    if (window.adminManager) {
-                        window.adminManager.showNotification('Suppression des données en cours...', 'warning');
-                    }
-                }
-            }
-        }
-
-        function clearCache() {
-            if (window.adminManager) {
-                window.adminManager.showNotification('Cache vidé avec succès', 'success');
-            }
-        }
-
-        function resetApplication() {
-            if (confirm('Réinitialiser complètement l\'application ? Tous vos paramètres seront perdus.')) {
-                if (window.adminManager) {
-                    window.adminManager.showNotification('Application réinitialisée', 'info');
-                }
-            }
-        }
+        });
     </script>
+    <script src="../dark-mode.js"></script>
+
 </body>
 
 </html>
