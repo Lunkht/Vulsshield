@@ -47,8 +47,8 @@
       </div>
       <div class="top-bar-center"></div>
       <div class="top-bar-right">
-        <button class="action-btn shimmer-button" onclick="window.location.href='../connexion.html'">Connexion</button>
-        <button class="action-btn shimmer-button" onclick="window.location.href='download.html'">Télécharger</button>
+        <button class="action-btn" onclick="window.location.href='../connexion.html'">Connexion</button>
+        <button class="action-btn" onclick="window.location.href='download.html'">Télécharger</button>
       </div>
     </div>
   </div>
@@ -59,8 +59,8 @@
       <h1>Offres et Abonnements</h1>
       <p>Choisissez la formule qui vous convient. Paiement sécurisé par carte VISA ou Mastercard, essai gratuit de 14 jours sur les plans Particulier et Pro.</p>
       <div class="hero-cta">
-        <button class="btn-primary shimmer-button" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les offres</button>
-        <button class="btn-secondary shimmer-button" onclick="window.location.href='../conditions.html'">Commencer l'essai</button>
+        <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Voir les offres</button>
+        <button class="btn-secondary" onclick="window.location.href='../conditions.html'">Commencer l'essai</button>
       </div>
     </div>
   </section>
@@ -74,14 +74,14 @@
           <p style="margin:6px 0 0; color:#bdbdbd">Passez à tout moment de l'essai gratuit au plan payant. Annulable à tout moment.</p>
         </div>
         <div class="billing-toggle" role="tablist" aria-label="Choix de facturation">
-          <button id="billMonthly" class="active shimmer-button" aria-selected="true" aria-controls="pricing" role="tab">Mensuel</button>
-          <button id="billYearly" class="shimmer-button" aria-selected="false" aria-controls="pricing" role="tab">Annuel (-15%)</button>
+          <button id="billMonthly" class="active" aria-selected="true" aria-controls="pricing" role="tab">Mensuel</button>
+          <button id="billYearly" class="" aria-selected="false" aria-controls="pricing" role="tab">Annuel (-15%)</button>
         </div>
       </div>
 
       <div class="pricing-grid">
         <!-- Particulier -->
-        <div class="plan-card shimmer-hover" data-plan="particulier">
+        <div class="plan-card" data-plan="particulier">
           <div class="plan-badge">Pour particuliers</div>
           <h3 class="plan-title">Particulier</h3>
           <p class="plan-desc">Protection essentielle et gestion sécurisée.</p>
@@ -95,13 +95,13 @@
             <div class="feature"><i class="fas fa-check"></i> Assistance par email</div>
           </div>
           <div class="plan-cta">
-            <button class="btn-primary start-trial shimmer-button" data-plan="Particulier">Essai 14 jours</button>
-            <button class="btn-secondary buy-now shimmer-button" data-plan="Particulier" data-link="#">Acheter</button>
+            <button class="btn-primary start-trial" data-plan="Particulier">Essai 14 jours</button>
+            <button class="btn-secondary buy-now" data-plan="Particulier" data-link="#">Acheter</button>
           </div>
         </div>
 
         <!-- Pro -->
-        <div class="plan-card shimmer-hover" data-plan="pro">
+        <div class="plan-card" data-plan="pro">
           <div class="plan-badge">Le plus populaire</div>
           <h3 class="plan-title">Pro</h3>
           <p class="plan-desc">Collaboration et sécurité avancée.</p>
@@ -116,13 +116,13 @@
             <div class="feature"><i class="fas fa-check"></i> Support prioritaire</div>
           </div>
           <div class="plan-cta">
-            <button class="btn-primary start-trial shimmer-button" data-plan="Pro">Essai 14 jours</button>
-            <button class="btn-secondary buy-now shimmer-button" data-plan="Pro" data-link="#">Acheter</button>
+            <button class="btn-primary start-trial" data-plan="Pro">Essai 14 jours</button>
+            <button class="btn-secondary buy-now" data-plan="Pro" data-link="#">Acheter</button>
           </div>
         </div>
 
         <!-- Entreprise -->
-        <div class="plan-card shimmer-hover" data-plan="entreprise">
+        <div class="plan-card" data-plan="entreprise">
           <div class="plan-badge">Pour organisations</div>
           <h3 class="plan-title">Entreprise</h3>
           <p class="plan-desc">Gouvernance, conformité et déploiement.</p>
@@ -137,7 +137,7 @@
             <div class="feature"><i class="fas fa-check"></i> Déploiements personnalisés</div>
           </div>
           <div class="plan-cta">
-            <button class="btn-primary contact-sales shimmer-button">Contacter les ventes</button>
+            <button class="btn-primary contact-sales">Contacter les ventes</button>
           </div>
         </div>
       </div>
