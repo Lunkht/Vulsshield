@@ -3073,3 +3073,50 @@ footer {
 
 /* Alias pour compatibilité (certaines pages utilisent .admin-content) */
 .admin-content { padding: 0 16px 40px 0; }
+
+/* ===== UI Harmonisation: En-têtes, cartes de statut, contrôles et indicateurs ===== */
+/* En-tête de page */
+.page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin: 0 0 16px; }
+.page-title h1 { margin: 0 0 4px; font-size: 22px; color: #e5e5e5; }
+.page-title p { margin: 0; color: #b5b5b5; }
+.page-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* Grille de cartes de statut */
+.status-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.status-card { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 12px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.status-icon { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; background: #111; border: 1px solid #1e1e1e; color: #cfcfcf; }
+.status-info h3 { margin: 0; font-size: 16px; color: #e5e5e5; }
+.status-info p { margin: 2px 0 0; font-size: 13px; color: #b3b3b3; }
+.status-control { display: flex; align-items: center; gap: 8px; }
+
+/* Indicateurs d'état */
+.status-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; background: #101010; border: 1px solid #1e1e1e; color: #cfcfcf; }
+.status-indicator.active { color: #10b981; border-color: #115e59; background: rgba(16,185,129,0.08); }
+.status-indicator.secure { color: #60a5fa; border-color: #1e3a8a; background: rgba(59,130,246,0.08); }
+.status-indicator.optimal { color: #22c55e; border-color: #14532d; background: rgba(34,197,94,0.08); }
+.status-indicator.normal { color: #a3a3a3; border-color: #303030; background: rgba(163,163,163,0.08); }
+
+/* Alias des onglets par pièce */
+.room-tab { background: #111; border: 1px solid #1e1e1e; color: #cfcfcf; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: all .2s ease; }
+.room-tab:hover { background: #151515; color: #fff; }
+.room-tab.active { background: #101010; border-color: var(--primary-green); color: #fff; }
+
+/* Indicateurs techniques drône */
+.battery-indicator { position: relative; height: 10px; background: #111; border: 1px solid #1e1e1e; border-radius: 6px; overflow: hidden; min-width: 110px; }
+.battery-indicator .battery-level { position: absolute; inset: 0 auto 0 0; height: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); }
+.battery-indicator .battery-text { margin-left: 8px; font-size: 12px; color: #bdbdbd; }
+.signal-strength { display: flex; align-items: flex-end; gap: 3px; height: 14px; }
+.signal-strength .signal-bar { width: 5px; height: 6px; background: #1a1a1a; border: 1px solid #262626; border-radius: 2px; }
+.signal-strength .signal-bar.active { background: #22c55e; border-color: #198754; }
+
+/* Interface de contrôle des drônes */
+.drone-control-interface .control-layout { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 12px; }
+.control-panel { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 12px; padding: 12px; }
+.control-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; background: #111; border: 1px solid #1e1e1e; color: #e5e5e5; cursor: pointer; transition: all .2s ease; }
+.control-btn:hover { background: #151515; }
+.control-btn.emergency { background: #ef4444; border-color: #d13636; color: #fff; }
+.control-btn.emergency:hover { filter: brightness(1.05); }
+
+@media (max-width: 900px) {
+  .drone-control-interface .control-layout { grid-template-columns: 1fr; }
+}
