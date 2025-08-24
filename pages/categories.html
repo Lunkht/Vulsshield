@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catégories - Vulsshield</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Barre supérieure avec navigation et actions -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="breadcrumb">
+                    <div class="project-icon">
+                        <div class="gradient-circle"></div>
+                    </div>
+                    <span class="project-name">Catégories</span>
+                    <i class="fas fa-sort"></i>
+                </div>
+            </div>
+            
+            <div class="top-bar-center">
+                <!-- Espace central vide -->
+            </div>
+            
+            <div class="top-bar-right">
+                <button class="action-btn back-btn" onclick="window.location.href='dashboard.html'" title="Retour au dashboard" aria-label="Retour au dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher une catégorie..." class="search-input" onkeyup="filterCategories()">
+                </div>
+                <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <div class="notification-icon" onclick="toggleNotificationMenu()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </div>
+                
+                <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-avatar">
+                        <div class="avatar-gradient">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout administrateur avec sidebar -->
+    <div class="admin-layout">
+        <!-- Sidebar de navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">Principal</div>
+                    <a href="dashboard.html" class="nav-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-key"></i>
+                        <span>Mots de passe</span>
+                        <span class="nav-badge">24</span>
+                    </a>
+                    <a href="categories.html" class="nav-item active">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Catégories</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Sécurité</div>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Analyse sécurité</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alertes</span>
+                        <span class="nav-badge danger">3</span>
+                    </a>
+                    <a href="activites.html" class="nav-item">
+                        <i class="fas fa-history"></i>
+                        <span>Activité</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Configuration</div>
+                    <a href="settings.html" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="synchronisation.html" class="nav-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Synchronisation</span>
+                    </a>
+                    <a href="profil.html" class="nav-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profil</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Contrôle</div>
+                    <a href="house.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Maison connectée</span>
+                    </a>
+                    <a href="drones.html" class="nav-item">
+                        <i class="fas fa-helicopter"></i>
+                        <span>Pilotage drones</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-quick-info">
+                    <div class="user-avatar-mini">
+                        <div class="avatar-gradient">
+                             <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                    <div class="user-mini-details">
+                        <div class="user-mini-name role-with-icon">
+                           <span>Administrateur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="admin-main">
+            <!-- En-tête de la page -->
+            <div class="page-header" data-aos="fade-up">
+                <div class="page-title">
+                    <h1><i class="fas fa-folder-open"></i> Gestion des catégories</h1>
+                    <p>Organisez et classifiez vos données pour une meilleure gestion</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn-secondary" onclick="importCategories()">
+                        <i class="fas fa-upload"></i>
+                        Importer
+                    </button>
+                    <button class="btn-secondary" onclick="exportCategories()">
+                        <i class="fas fa-download"></i>
+                        Exporter
+                    </button>
+                    <button class="btn-primary" onclick="createCategory()">
+                        <i class="fas fa-plus"></i>
+                        Nouvelle catégorie
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistiques des catégories -->
+            <div class="categories-stats" data-aos="fade-up" data-aos-delay="100">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total catégories</h3>
+                            <div class="stat-value">18</div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                +3 ce mois
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Mots de passe</h3>
+                            <div class="stat-value">247</div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                +12 cette semaine
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Tags utilisés</h3>
+                            <div class="stat-value">45</div>
+                            <div class="stat-trend neutral">
+                                <i class="fas fa-minus"></i>
+                                Stable
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Favoris</h3>
+                            <div class="stat-value">8</div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                +2 récemment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtres et options -->
+            <div class="categories-filters" data-aos="fade-up" data-aos-delay="200">
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label>Trier par :</label>
+                        <select class="filter-select" onchange="sortCategories()">
+                            <option value="name">Nom</option>
+                            <option value="count">Nombre d'éléments</option>
+                            <option value="created">Date de création</option>
+                            <option value="modified">Dernière modification</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Type :</label>
+                        <select class="filter-select" onchange="filterByType()">
+                            <option value="all">Tous les types</option>
+                            <option value="personal">Personnel</option>
+                            <option value="work">Professionnel</option>
+                            <option value="social">Social</option>
+                            <option value="finance">Finance</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Statut :</label>
+                        <select class="filter-select" onchange="filterByStatus()">
+                            <option value="all">Tous les statuts</option>
+                            <option value="active">Actives</option>
+                            <option value="archived">Archivées</option>
+                            <option value="favorite">Favorites</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="view-options">
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="switchView('grid')" data-view="grid">
+                            <i class="fas fa-th"></i>
+                            Grille
+                        </button>
+                        <button class="view-btn" onclick="switchView('list')" data-view="list">
+                            <i class="fas fa-list"></i>
+                            Liste
+                        </button>
+                        <button class="view-btn" onclick="switchView('tree')" data-view="tree">
+                            <i class="fas fa-sitemap"></i>
+                            Arbre
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vue grille des catégories -->
+            <div class="categories-content" data-aos="fade-up" data-aos-delay="300">
+                <div class="categories-view active" id="grid-view">
+                    <div class="categories-grid" id="categories-grid">
+                        <!-- Les catégories seront générées par JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Vue liste -->
+                <div class="categories-view" id="list-view">
+                    <div class="categories-table">
+                        <div class="table-header">
+                            <div class="header-cell name">Nom</div>
+                            <div class="header-cell type">Type</div>
+                            <div class="header-cell count">Éléments</div>
+                            <div class="header-cell modified">Modifiée</div>
+                            <div class="header-cell actions">Actions</div>
+                        </div>
+                        <div class="table-body" id="categories-list">
+                            <!-- Les catégories seront générées par JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vue arbre -->
+                <div class="categories-view" id="tree-view">
+                    <div class="categories-tree" id="categories-tree">
+                        <!-- L'arbre sera généré par JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de création/édition de catégorie -->
+    <div class="modal-overlay" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Nouvelle catégorie</h3>
+                <button class="modal-close" onclick="closeCategoryModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm">
+                    <div class="form-group">
+                        <label for="categoryName">Nom de la catégorie *</label>
+                        <input type="text" id="categoryName" class="form-input" required placeholder="Ex: Réseaux sociaux">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoryDescription">Description</label>
+                        <textarea id="categoryDescription" class="form-textarea" placeholder="Description de la catégorie..."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="categoryType">Type</label>
+                            <select id="categoryType" class="form-select">
+                                <option value="personal">Personnel</option>
+                                <option value="work">Professionnel</option>
+                                <option value="social">Social</option>
+                                <option value="finance">Finance</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="categoryColor">Couleur</label>
+                            <input type="color" id="categoryColor" class="form-color" value="#4f46e5">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoryIcon">Icône</label>
+                        <div class="icon-selector">
+                            <input type="text" id="categoryIcon" class="form-input" value="folder" placeholder="Nom de l'icône FontAwesome">
+                            <div class="icon-preview">
+                                <i class="fas fa-folder" id="iconPreview"></i>
+                            </div>
+                        </div>
+                        <div class="icon-suggestions">
+                            <button type="button" class="icon-btn" onclick="selectIcon('folder')">
+                                <i class="fas fa-folder"></i>
+                            </button>
+                            <button type="button" class="icon-btn" onclick="selectIcon('briefcase')">
+                                <i class="fas fa-briefcase"></i>
+                            </button>
+                            <button type="button" class="icon-btn" onclick="selectIcon('home')">
+                                <i class="fas fa-home"></i>
+                            </button>
+                            <button type="button" class="icon-btn" onclick="selectIcon('heart')">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button type="button" class="icon-btn" onclick="selectIcon('star')">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button type="button" class="icon-btn" onclick="selectIcon('shield-alt')">
+                                <i class="fas fa-shield-alt"></i>
+                            </button>
+                            <button type="button" class="icon-btn" onclick="selectIcon('gamepad')">
+                                <i class="fas fa-gamepad"></i>
+                            </button>
+                            <button type="button" class="icon-btn" onclick="selectIcon('shopping-cart')">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoryTags">Tags</label>
+                        <input type="text" id="categoryTags" class="form-input" placeholder="Séparez les tags par des virgules">
+                        <small class="form-help">Ex: important, travail, urgent</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parentCategory">Catégorie parente</label>
+                        <select id="parentCategory" class="form-select">
+                            <option value="">Aucune (catégorie racine)</option>
+                            <!-- Les options seront générées dynamiquement -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="categoryFavorite">
+                            <span class="checkbox-custom"></span>
+                            Marquer comme favori
+                        </label>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="categoryPrivate">
+                            <span class="checkbox-custom"></span>
+                            Catégorie privée
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeCategoryModal()">Annuler</button>
+                <button class="btn-primary" onclick="saveCategory()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmation de suppression -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3>Confirmer la suppression</h3>
+                <button class="modal-close" onclick="closeDeleteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="delete-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Êtes-vous sûr de vouloir supprimer cette catégorie ?</p>
+                    <p class="delete-note">Cette action est irréversible. Tous les éléments de cette catégorie seront déplacés vers "Non classé".</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeDeleteModal()">Annuler</button>
+                <button class="btn-danger" onclick="confirmDelete()">Supprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Initialisation AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Variables globales
+        let currentView = 'grid';
+        let categoriesData = [];
+        let filteredCategories = [];
+        let editingCategoryId = null;
+        let categoryToDelete = null;
+
+        // Données d'exemple pour les catégories
+        const sampleCategories = [
+            {
+                id: 1,
+                name: 'Réseaux sociaux',
+                description: 'Comptes de réseaux sociaux et plateformes de communication',
+                type: 'social',
+                color: '#1da1f2',
+                icon: 'share-alt',
+                count: 12,
+                tags: ['social', 'communication'],
+                favorite: true,
+                private: false,
+                parentId: null,
+                created: new Date('2024-01-15'),
+                modified: new Date('2024-01-20')
+            },
+            {
+                id: 2,
+                name: 'Banque & Finance',
+                description: 'Comptes bancaires et services financiers',
+                type: 'finance',
+                color: '#10b981',
+                icon: 'university',
+                count: 8,
+                tags: ['finance', 'banque', 'important'],
+                favorite: true,
+                private: true,
+                parentId: null,
+                created: new Date('2024-01-10'),
+                modified: new Date('2024-01-25')
+            },
+            {
+                id: 3,
+                name: 'Travail',
+                description: 'Comptes professionnels et outils de travail',
+                type: 'work',
+                color: '#f59e0b',
+                icon: 'briefcase',
+                count: 24,
+                tags: ['travail', 'professionnel'],
+                favorite: false,
+                private: false,
+                parentId: null,
+                created: new Date('2024-01-05'),
+                modified: new Date('2024-01-22')
+            },
+            {
+                id: 4,
+                name: 'E-commerce',
+                description: 'Sites de vente en ligne et marketplaces',
+                type: 'other',
+                color: '#8b5cf6',
+                icon: 'shopping-cart',
+                count: 15,
+                tags: ['shopping', 'e-commerce'],
+                favorite: false,
+                private: false,
+                parentId: null,
+                created: new Date('2024-01-12'),
+                modified: new Date('2024-01-18')
+            },
+            {
+                id: 5,
+                name: 'Divertissement',
+                description: 'Plateformes de streaming et jeux',
+                type: 'personal',
+                color: '#ef4444',
+                icon: 'gamepad',
+                count: 9,
+                tags: ['divertissement', 'streaming'],
+                favorite: false,
+                private: false,
+                parentId: null,
+                created: new Date('2024-01-08'),
+                modified: new Date('2024-01-16')
+            },
+            {
+                id: 6,
+                name: 'Santé',
+                description: 'Applications et services de santé',
+                type: 'personal',
+                color: '#06b6d4',
+                icon: 'heartbeat',
+                count: 5,
+                tags: ['santé', 'médical'],
+                favorite: false,
+                private: true,
+                parentId: null,
+                created: new Date('2024-01-14'),
+                modified: new Date('2024-01-21')
+            }
+        ];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            categoriesData = sampleCategories;
+            filteredCategories = [...categoriesData];
+            renderCategories();
+            updateParentCategoryOptions();
+            
+            // Écouter les changements sur l'icône
+            document.getElementById('categoryIcon').addEventListener('input', updateIconPreview);
+        });
+
+        // Gestion des vues
+        function switchView(viewType) {
+            // Mettre à jour les boutons
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-view="${viewType}"]`).classList.add('active');
+            
+            // Mettre à jour les vues
+            document.querySelectorAll('.categories-view').forEach(view => view.classList.remove('active'));
+            document.getElementById(`${viewType}-view`).classList.add('active');
+            
+            currentView = viewType;
+            renderCategories();
+        }
+
+        // Rendu des catégories
+        function renderCategories() {
+            if (currentView === 'grid') {
+                renderGridView();
+            } else if (currentView === 'list') {
+                renderListView();
+            } else if (currentView === 'tree') {
+                renderTreeView();
+            }
+        }
+
+        function renderGridView() {
+            const container = document.getElementById('categories-grid');
+            container.innerHTML = '';
+            
+            filteredCategories.forEach(category => {
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.innerHTML = `
+                    <div class="category-header">
+                        <div class="category-icon" style="background-color: ${category.color}">
+                            <i class="fas fa-${category.icon}"></i>
+                        </div>
+                        <div class="category-actions">
+                            ${category.favorite ? '<i class="fas fa-star favorite-star"></i>' : ''}
+                            ${category.private ? '<i class="fas fa-lock private-lock"></i>' : ''}
+                            <div class="category-menu" onclick="toggleCategoryMenu(${category.id})">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <div class="category-dropdown" id="menu-${category.id}">
+                                    <button onclick="editCategory(${category.id})"><i class="fas fa-edit"></i> Modifier</button>
+                                    <button onclick="duplicateCategory(${category.id})"><i class="fas fa-copy"></i> Dupliquer</button>
+                                    <button onclick="toggleFavorite(${category.id})"><i class="fas fa-star"></i> ${category.favorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}</button>
+                                    <button onclick="archiveCategory(${category.id})"><i class="fas fa-archive"></i> Archiver</button>
+                                    <button onclick="deleteCategory(${category.id})" class="danger"><i class="fas fa-trash"></i> Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <h3 class="category-name">${category.name}</h3>
+                        <p class="category-description">${category.description}</p>
+                        <div class="category-meta">
+                            <div class="category-count">
+                                <i class="fas fa-key"></i>
+                                <span>${category.count} éléments</span>
+                            </div>
+                            <div class="category-type">
+                                <span class="type-badge ${category.type}">${getTypeLabel(category.type)}</span>
+                            </div>
+                        </div>
+                        <div class="category-tags">
+                            ${category.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="category-footer">
+                        <div class="category-date">
+                            <small>Modifiée le ${formatDate(category.modified)}</small>
+                        </div>
+                        <button class="btn-small" onclick="viewCategoryDetails(${category.id})">
+                            <i class="fas fa-eye"></i>
+                            Voir
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderListView() {
+            const container = document.getElementById('categories-list');
+            container.innerHTML = '';
+            
+            filteredCategories.forEach(category => {
+                const row = document.createElement('div');
+                row.className = 'table-row';
+                row.innerHTML = `
+                    <div class="table-cell name">
+                        <div class="category-name-cell">
+                            <div class="category-icon-small" style="background-color: ${category.color}">
+                                <i class="fas fa-${category.icon}"></i>
+                            </div>
+                            <div class="name-info">
+                                <div class="name-main">${category.name}</div>
+                                <div class="name-description">${category.description}</div>
+                            </div>
+                            ${category.favorite ? '<i class="fas fa-star favorite-indicator"></i>' : ''}
+                            ${category.private ? '<i class="fas fa-lock private-indicator"></i>' : ''}
+                        </div>
+                    </div>
+                    <div class="table-cell type">
+                        <span class="type-badge ${category.type}">${getTypeLabel(category.type)}</span>
+                    </div>
+                    <div class="table-cell count">
+                        <div class="count-info">
+                            <strong>${category.count}</strong>
+                            <small>éléments</small>
+                        </div>
+                    </div>
+                    <div class="table-cell modified">
+                        <div class="date-info">
+                            <div class="date-main">${formatDate(category.modified)}</div>
+                            <div class="date-time">${formatTime(category.modified)}</div>
+                        </div>
+                    </div>
+                    <div class="table-cell actions">
+                        <button class="action-btn-small" onclick="editCategory(${category.id})" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn-small" onclick="viewCategoryDetails(${category.id})" title="Voir">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn-small" onclick="deleteCategory(${category.id})" title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function renderTreeView() {
+            const container = document.getElementById('categories-tree');
+            container.innerHTML = '';
+            
+            // Créer une structure d'arbre
+            const rootCategories = filteredCategories.filter(cat => !cat.parentId);
+            
+            rootCategories.forEach(category => {
+                const treeNode = createTreeNode(category);
+                container.appendChild(treeNode);
+            });
+        }
+
+        function createTreeNode(category) {
+            const node = document.createElement('div');
+            node.className = 'tree-node';
+            
+            const children = filteredCategories.filter(cat => cat.parentId === category.id);
+            const hasChildren = children.length > 0;
+            
+            node.innerHTML = `
+                <div class="tree-item">
+                    ${hasChildren ? '<button class="tree-toggle" onclick="toggleTreeNode(this)"><i class="fas fa-chevron-right"></i></button>' : '<span class="tree-spacer"></span>'}
+                    <div class="tree-icon" style="background-color: ${category.color}">
+                        <i class="fas fa-${category.icon}"></i>
+                    </div>
+                    <div class="tree-content">
+                        <span class="tree-name">${category.name}</span>
+                        <span class="tree-count">(${category.count})</span>
+                        ${category.favorite ? '<i class="fas fa-star tree-favorite"></i>' : ''}
+                    </div>
+                    <div class="tree-actions">
+                        <button class="tree-action" onclick="editCategory(${category.id})" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="tree-action" onclick="deleteCategory(${category.id})" title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                ${hasChildren ? `<div class="tree-children">${children.map(child => createTreeNode(child).outerHTML).join('')}</div>` : ''}
+            `;
+            
+            return node;
+        }
+
+        // Fonctions utilitaires
+        function getTypeLabel(type) {
+            const labels = {
+                personal: 'Personnel',
+                work: 'Professionnel',
+                social: 'Social',
+                finance: 'Finance',
+                other: 'Autre'
+            };
+            return labels[type] || type;
+        }
+
+        function formatDate(date) {
+            return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        function formatTime(date) {
+            return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Gestion des catégories
+        function createCategory() {
+            editingCategoryId = null;
+            document.getElementById('modalTitle').textContent = 'Nouvelle catégorie';
+            document.getElementById('categoryForm').reset();
+            document.getElementById('categoryColor').value = '#4f46e5';
+            document.getElementById('categoryIcon').value = 'folder';
+            updateIconPreview();
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function editCategory(categoryId) {
+            const category = categoriesData.find(cat => cat.id === categoryId);
+            if (category) {
+                editingCategoryId = categoryId;
+                document.getElementById('modalTitle').textContent = 'Modifier la catégorie';
+                
+                document.getElementById('categoryName').value = category.name;
+                document.getElementById('categoryDescription').value = category.description;
+                document.getElementById('categoryType').value = category.type;
+                document.getElementById('categoryColor').value = category.color;
+                document.getElementById('categoryIcon').value = category.icon;
+                document.getElementById('categoryTags').value = category.tags.join(', ');
+                document.getElementById('categoryFavorite').checked = category.favorite;
+                document.getElementById('categoryPrivate').checked = category.private;
+                
+                updateIconPreview();
+                document.getElementById('categoryModal').classList.add('active');
+            }
+        }
+
+        function saveCategory() {
+            const name = document.getElementById('categoryName').value.trim();
+            if (!name) {
+                showNotification('Le nom de la catégorie est requis', 'error');
+                return;
+            }
+            
+            const categoryData = {
+                name: name,
+                description: document.getElementById('categoryDescription').value.trim(),
+                type: document.getElementById('categoryType').value,
+                color: document.getElementById('categoryColor').value,
+                icon: document.getElementById('categoryIcon').value,
+                tags: document.getElementById('categoryTags').value.split(',').map(tag => tag.trim()).filter(tag => tag),
+                favorite: document.getElementById('categoryFavorite').checked,
+                private: document.getElementById('categoryPrivate').checked,
+                parentId: document.getElementById('parentCategory').value || null
+            };
+            
+            if (editingCategoryId) {
+                // Modification
+                const categoryIndex = categoriesData.findIndex(cat => cat.id === editingCategoryId);
+                if (categoryIndex !== -1) {
+                    categoriesData[categoryIndex] = {
+                        ...categoriesData[categoryIndex],
+                        ...categoryData,
+                        modified: new Date()
+                    };
+                    showNotification('Catégorie modifiée avec succès', 'success');
+                }
+            } else {
+                // Création
+                const newCategory = {
+                    id: Date.now(),
+                    ...categoryData,
+                    count: 0,
+                    created: new Date(),
+                    modified: new Date()
+                };
+                categoriesData.push(newCategory);
+                showNotification('Catégorie créée avec succès', 'success');
+            }
+            
+            filteredCategories = [...categoriesData];
+            renderCategories();
+            updateParentCategoryOptions();
+            closeCategoryModal();
+        }
+
+        function deleteCategory(categoryId) {
+            categoryToDelete = categoryId;
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function confirmDelete() {
+            if (categoryToDelete) {
+                const categoryIndex = categoriesData.findIndex(cat => cat.id === categoryToDelete);
+                if (categoryIndex !== -1) {
+                    categoriesData.splice(categoryIndex, 1);
+                    filteredCategories = [...categoriesData];
+                    renderCategories();
+                    updateParentCategoryOptions();
+                    showNotification('Catégorie supprimée', 'success');
+                }
+            }
+            closeDeleteModal();
+        }
+
+        function duplicateCategory(categoryId) {
+            const category = categoriesData.find(cat => cat.id === categoryId);
+            if (category) {
+                const newCategory = {
+                    ...category,
+                    id: Date.now(),
+                    name: `${category.name} (copie)`,
+                    count: 0,
+                    created: new Date(),
+                    modified: new Date()
+                };
+                categoriesData.push(newCategory);
+                filteredCategories = [...categoriesData];
+                renderCategories();
+                showNotification('Catégorie dupliquée', 'success');
+            }
+        }
+
+        function toggleFavorite(categoryId) {
+            const category = categoriesData.find(cat => cat.id === categoryId);
+            if (category) {
+                category.favorite = !category.favorite;
+                category.modified = new Date();
+                filteredCategories = [...categoriesData];
+                renderCategories();
+                showNotification(`Catégorie ${category.favorite ? 'ajoutée aux' : 'retirée des'} favoris`, 'success');
+            }
+        }
+
+        function archiveCategory(categoryId) {
+            showNotification('Catégorie archivée', 'info');
+        }
+
+        function viewCategoryDetails(categoryId) {
+            const category = categoriesData.find(cat => cat.id === categoryId);
+            if (category) {
+                alert(`Détails de la catégorie "${category.name}"\n\nDescription: ${category.description}\nType: ${getTypeLabel(category.type)}\nÉléments: ${category.count}\nTags: ${category.tags.join(', ')}`);
+            }
+        }
+
+        // Fonctions de filtrage et tri
+        function filterCategories() {
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            filteredCategories = categoriesData.filter(category => 
+                category.name.toLowerCase().includes(searchTerm) ||
+                category.description.toLowerCase().includes(searchTerm) ||
+                category.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            renderCategories();
+        }
+
+        function sortCategories() {
+            const sortBy = event.target.value;
+            filteredCategories.sort((a, b) => {
+                switch (sortBy) {
+                    case 'name':
+                        return a.name.localeCompare(b.name);
+                    case 'count':
+                        return b.count - a.count;
+                    case 'created':
+                        return b.created - a.created;
+                    case 'modified':
+                        return b.modified - a.modified;
+                    default:
+                        return 0;
+                }
+            });
+            renderCategories();
+        }
+
+        function filterByType() {
+            // Implémentation du filtrage par type
+            renderCategories();
+        }
+
+        function filterByStatus() {
+            // Implémentation du filtrage par statut
+            renderCategories();
+        }
+
+        // Gestion des modales
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+            categoryToDelete = null;
+        }
+
+        // Gestion des icônes
+        function updateIconPreview() {
+            const iconName = document.getElementById('categoryIcon').value;
+            const preview = document.getElementById('iconPreview');
+            preview.className = `fas fa-${iconName}`;
+        }
+
+        function selectIcon(iconName) {
+            document.getElementById('categoryIcon').value = iconName;
+            updateIconPreview();
+        }
+
+        // Mise à jour des options de catégorie parente
+        function updateParentCategoryOptions() {
+            const select = document.getElementById('parentCategory');
+            const currentOptions = select.innerHTML;
+            select.innerHTML = '<option value="">Aucune (catégorie racine)</option>';
+            
+            categoriesData.forEach(category => {
+                if (!editingCategoryId || category.id !== editingCategoryId) {
+                    const option = document.createElement('option');
+                    option.value = category.id;
+                    option.textContent = category.name;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Actions diverses
+        function importCategories() {
+            alert('Fonctionnalité d\'import en développement');
+        }
+
+        function exportCategories() {
+            showNotification('Export des catégories en cours...', 'info');
+            setTimeout(() => {
+                showNotification('Export terminé', 'success');
+            }, 2000);
+        }
+
+        function toggleCategoryMenu(categoryId) {
+            const menu = document.getElementById(`menu-${categoryId}`);
+            // Fermer tous les autres menus
+            document.querySelectorAll('.category-dropdown').forEach(dropdown => {
+                if (dropdown.id !== `menu-${categoryId}`) {
+                    dropdown.classList.remove('active');
+                }
+            });
+            menu.classList.toggle('active');
+        }
+
+        function toggleTreeNode(button) {
+            const node = button.closest('.tree-node');
+            const children = node.querySelector('.tree-children');
+            const icon = button.querySelector('i');
+            
+            if (children) {
+                children.classList.toggle('collapsed');
+                icon.classList.toggle('fa-chevron-right');
+                icon.classList.toggle('fa-chevron-down');
+            }
+        }
+
+        // Fonction d'affichage des notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times' : 'info'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Fermer les menus en cliquant ailleurs
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.category-menu')) {
+                document.querySelectorAll('.category-dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

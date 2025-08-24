@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison connectée - Vulsshield</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Barre supérieure avec navigation et actions -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="breadcrumb">
+                    <div class="project-icon">
+                        <div class="gradient-circle"></div>
+                    </div>
+                    <span class="project-name">Maison connectée</span>
+                    <i class="fas fa-sort"></i>
+                </div>
+            </div>
+            
+            <div class="top-bar-center">
+                <!-- Espace central vide -->
+            </div>
+            
+            <div class="top-bar-right">
+                <button class="action-btn back-btn" onclick="window.location.href='dashboard.html'" title="Retour au dashboard" aria-label="Retour au dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher un appareil..." class="search-input">
+                </div>
+                <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <div class="notification-icon" onclick="toggleNotificationMenu()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </div>
+                
+                <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-avatar">
+                        <div class="avatar-gradient">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout administrateur avec sidebar -->
+    <div class="admin-layout">
+        <!-- Sidebar de navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">Principal</div>
+                    <a href="dashboard.html" class="nav-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-key"></i>
+                        <span>Mots de passe</span>
+                        <span class="nav-badge">24</span>
+                    </a>
+                    <a href="categories.html" class="nav-item">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Catégories</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Sécurité</div>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Analyse sécurité</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alertes</span>
+                        <span class="nav-badge danger">3</span>
+                    </a>
+                    <a href="activites.html" class="nav-item">
+                        <i class="fas fa-history"></i>
+                        <span>Activité</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Configuration</div>
+                    <a href="settings.html" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="synchronisation.html" class="nav-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Synchronisation</span>
+                    </a>
+                    <a href="profil.html" class="nav-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profil</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Contrôle</div>
+                    <a href="house.html" class="nav-item active">
+                        <i class="fas fa-home"></i>
+                        <span>Maison connectée</span>
+                    </a>
+                    <a href="drones.html" class="nav-item">
+                        <i class="fas fa-helicopter"></i>
+                        <span>Pilotage drones</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-quick-info">
+                    <div class="user-avatar-mini">
+                        <div class="avatar-gradient">
+                             <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                    <div class="user-mini-details">
+                        <div class="user-mini-name role-with-icon">
+                           <span>Administrateur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="admin-main">
+            <!-- En-tête de la page -->
+            <div class="page-header" data-aos="fade-up">
+                <div class="page-title">
+                    <h1><i class="fas fa-home"></i> Maison connectée</h1>
+                    <p>Contrôlez tous vos appareils connectés depuis une interface centralisée</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn-secondary" onclick="refreshDevices()">
+                        <i class="fas fa-refresh"></i>
+                        Actualiser
+                    </button>
+                    <button class="btn-secondary" onclick="addNewDevice()">
+                        <i class="fas fa-plus"></i>
+                        Ajouter appareil
+                    </button>
+                    <button class="btn-primary" onclick="toggleAllDevices()">
+                        <i class="fas fa-power-off"></i>
+                        Tout éteindre
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statut général de la maison -->
+            <div class="house-status-overview" data-aos="fade-up" data-aos-delay="100">
+                <div class="status-cards">
+                    <div class="status-card">
+                        <div class="status-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="status-info">
+                            <h3>Éclairage</h3>
+                            <p><span id="lightsOn">8</span> allumées / <span id="lightsTotal">12</span> total</p>
+                            <div class="status-indicator active">Actif</div>
+                        </div>
+                        <div class="status-control">
+                            <button class="btn-icon" onclick="toggleAllLights()" title="Tout allumer/éteindre">
+                                <i class="fas fa-power-off"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="status-info">
+                            <h3>Sécurité</h3>
+                            <p><span id="securityDevices">5</span> appareils connectés</p>
+                            <div class="status-indicator secure">Sécurisé</div>
+                        </div>
+                        <div class="status-control">
+                            <button class="btn-icon" onclick="armSecurity()" title="Armer la sécurité">
+                                <i class="fas fa-shield-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="status-info">
+                            <h3>Climat</h3>
+                            <p><span id="currentTemp">22°C</span> - Confortable</p>
+                            <div class="status-indicator optimal">Optimal</div>
+                        </div>
+                        <div class="status-control">
+                            <button class="btn-icon" onclick="adjustClimate()" title="Ajuster température">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="status-info">
+                            <h3>Énergie</h3>
+                            <p><span id="powerConsumption">2.4</span> kW en cours</p>
+                            <div class="status-indicator normal">Normal</div>
+                        </div>
+                        <div class="status-control">
+                            <button class="btn-icon" onclick="viewEnergyDetails()" title="Détails énergétiques">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contrôle par pièces -->
+            <div class="rooms-control" data-aos="fade-up" data-aos-delay="200">
+                <div class="section-header">
+                    <h3><i class="fas fa-door-open"></i> Contrôle par pièces</h3>
+                    <div class="room-tabs">
+                        <button class="room-tab active" onclick="switchRoom('salon')" data-room="salon">
+                            <i class="fas fa-couch"></i>
+                            Salon
+                        </button>
+                        <button class="room-tab" onclick="switchRoom('cuisine')" data-room="cuisine">
+                            <i class="fas fa-utensils"></i>
+                            Cuisine
+                        </button>
+                        <button class="room-tab" onclick="switchRoom('chambre')" data-room="chambre">
+                            <i class="fas fa-bed"></i>
+                            Chambre
+                        </button>
+                        <button class="room-tab" onclick="switchRoom('bureau')" data-room="bureau">
+                            <i class="fas fa-laptop"></i>
+                            Bureau
+                        </button>
+                        <button class="room-tab" onclick="switchRoom('exterieur')" data-room="exterieur">
+                            <i class="fas fa-tree"></i>
+                            Extérieur
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Salon -->
+                <div class="room-content active" id="salon-room">
+                    <div class="devices-grid">
+                        <div class="device-card light on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Plafonnier principal</h4>
+                                    <p>Luminosité: 80%</p>
+                                </div>
+                                <div class="device-status on">ON</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="brightness-control">
+                                    <input type="range" min="0" max="100" value="80" class="brightness-slider" onchange="adjustBrightness('salon-main', this.value)">
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="toggleDevice('salon-main')" title="Allumer/Éteindre">
+                                        <i class="fas fa-power-off"></i>
+                                    </button>
+                                    <button class="btn-icon" onclick="deviceSettings('salon-main')" title="Paramètres">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card light off">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Lampe d'ambiance</h4>
+                                    <p>RGB - Éteinte</p>
+                                </div>
+                                <div class="device-status off">OFF</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="color-control">
+                                    <input type="color" value="#ff6b6b" class="color-picker" onchange="changeColor('salon-ambient', this.value)">
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="toggleDevice('salon-ambient')" title="Allumer/Éteindre">
+                                        <i class="fas fa-power-off"></i>
+                                    </button>
+                                    <button class="btn-icon" onclick="deviceSettings('salon-ambient')" title="Paramètres">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card tv on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-tv"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Smart TV Samsung</h4>
+                                    <p>Netflix - Volume: 25</p>
+                                </div>
+                                <div class="device-status on">ON</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="volume-control">
+                                    <input type="range" min="0" max="100" value="25" class="volume-slider" onchange="adjustVolume('salon-tv', this.value)">
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="toggleDevice('salon-tv')" title="Allumer/Éteindre">
+                                        <i class="fas fa-power-off"></i>
+                                    </button>
+                                    <button class="btn-icon" onclick="changeChannel()" title="Changer de chaîne">
+                                        <i class="fas fa-tv"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card climate on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-fan"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Climatisation</h4>
+                                    <p>22°C - Mode Auto</p>
+                                </div>
+                                <div class="device-status on">ON</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="temperature-control">
+                                    <button class="temp-btn" onclick="adjustTemp('salon-ac', -1)">-</button>
+                                    <span class="temp-display">22°C</span>
+                                    <button class="temp-btn" onclick="adjustTemp('salon-ac', 1)">+</button>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="toggleDevice('salon-ac')" title="Allumer/Éteindre">
+                                        <i class="fas fa-power-off"></i>
+                                    </button>
+                                    <button class="btn-icon" onclick="changeACMode()" title="Changer de mode">
+                                        <i class="fas fa-snowflake"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cuisine -->
+                <div class="room-content" id="cuisine-room">
+                    <div class="devices-grid">
+                        <div class="device-card light on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Éclairage plan de travail</h4>
+                                    <p>LED - 100%</p>
+                                </div>
+                                <div class="device-status on">ON</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="brightness-control">
+                                    <input type="range" min="0" max="100" value="100" class="brightness-slider">
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="toggleDevice('cuisine-work')">
+                                        <i class="fas fa-power-off"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card appliance off">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-blender"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Four intelligent</h4>
+                                    <p>Préchauffage disponible</p>
+                                </div>
+                                <div class="device-status off">OFF</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="appliance-control">
+                                    <select class="mode-select">
+                                        <option>Préchauffage</option>
+                                        <option>Cuisson</option>
+                                        <option>Grill</option>
+                                    </select>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="toggleDevice('cuisine-oven')">
+                                        <i class="fas fa-power-off"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card sensor on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-thermometer-half"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Capteur température</h4>
+                                    <p>24°C - Humidité: 45%</p>
+                                </div>
+                                <div class="device-status on">ACTIF</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="sensor-data">
+                                    <div class="data-item">
+                                        <span>Temp:</span>
+                                        <strong>24°C</strong>
+                                    </div>
+                                    <div class="data-item">
+                                        <span>Humidité:</span>
+                                        <strong>45%</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chambre -->
+                <div class="room-content" id="chambre-room">
+                    <div class="devices-grid">
+                        <div class="device-card light off">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Plafonnier chambre</h4>
+                                    <p>Dimmable - Éteint</p>
+                                </div>
+                                <div class="device-status off">OFF</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="brightness-control">
+                                    <input type="range" min="0" max="100" value="0" class="brightness-slider">
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="toggleDevice('chambre-main')">
+                                        <i class="fas fa-power-off"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card security on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Caméra de surveillance</h4>
+                                    <p>Mode nuit activé</p>
+                                </div>
+                                <div class="device-status on">ACTIF</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="security-modes">
+                                    <button class="mode-btn active" onclick="setSecurityMode('night')">Nuit</button>
+                                    <button class="mode-btn" onclick="setSecurityMode('away')">Absent</button>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="btn-icon" onclick="viewCamera()">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card climate on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-bed"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Contrôle lit intelligent</h4>
+                                    <p>Position: Lecture</p>
+                                </div>
+                                <div class="device-status on">ON</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="bed-positions">
+                                    <button class="pos-btn" onclick="setBedPosition('flat')">Plat</button>
+                                    <button class="pos-btn active" onclick="setBedPosition('read')">Lecture</button>
+                                    <button class="pos-btn" onclick="setBedPosition('zero-g')">Zero-G</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bureau -->
+                <div class="room-content" id="bureau-room">
+                    <div class="devices-grid">
+                        <div class="device-card light on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-desk-lamp"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Lampe de bureau</h4>
+                                    <p>Mode concentration</p>
+                                </div>
+                                <div class="device-status on">ON</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="light-modes">
+                                    <button class="mode-btn active" onclick="setLightMode('focus')">Focus</button>
+                                    <button class="mode-btn" onclick="setLightMode('relax')">Relax</button>
+                                    <button class="mode-btn" onclick="setLightMode('meeting')">Réunion</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card tech on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-desktop"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Station de travail</h4>
+                                    <p>2 écrans connectés</p>
+                                </div>
+                                <div class="device-status on">ACTIF</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="workstation-control">
+                                    <button class="btn-small" onclick="switchDisplay(1)">Écran 1</button>
+                                    <button class="btn-small" onclick="switchDisplay(2)">Écran 2</button>
+                                    <button class="btn-small" onclick="switchDisplay('both')">Les deux</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Extérieur -->
+                <div class="room-content" id="exterieur-room">
+                    <div class="devices-grid">
+                        <div class="device-card security on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Système d'alarme</h4>
+                                    <p>Périmètre sécurisé</p>
+                                </div>
+                                <div class="device-status on">ARMÉ</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="alarm-control">
+                                    <button class="btn-danger" onclick="disarmAlarm()">Désarmer</button>
+                                    <button class="btn-warning" onclick="testAlarm()">Test</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card light off">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Éclairage jardin</h4>
+                                    <p>Détection automatique</p>
+                                </div>
+                                <div class="device-status off">AUTO</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="auto-control">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleAutoLighting()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span>Mode automatique</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card garden on">
+                            <div class="device-header">
+                                <div class="device-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <div class="device-info">
+                                    <h4>Système d'arrosage</h4>
+                                    <p>Programmé: 6h00 et 18h00</p>
+                                </div>
+                                <div class="device-status on">PROGRAMMÉ</div>
+                            </div>
+                            <div class="device-controls">
+                                <div class="irrigation-control">
+                                    <button class="btn-primary" onclick="startIrrigation()">Démarrer</button>
+                                    <button class="btn-secondary" onclick="scheduleIrrigation()">Programmer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scénarios automatisés -->
+            <div class="automation-scenarios" data-aos="fade-up" data-aos-delay="300">
+                <div class="section-header">
+                    <h3><i class="fas fa-magic"></i> Scénarios automatisés</h3>
+                    <button class="btn-secondary" onclick="createScenario()">
+                        <i class="fas fa-plus"></i>
+                        Créer un scénario
+                    </button>
+                </div>
+                
+                <div class="scenarios-grid">
+                    <div class="scenario-card active">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <div class="scenario-info">
+                                <h4>Mode nuit</h4>
+                                <p>Éteint toutes les lumières, active la sécurité</p>
+                            </div>
+                            <div class="scenario-status active">ACTIF</div>
+                        </div>
+                        <div class="scenario-actions">
+                            <button class="btn-secondary" onclick="editScenario('night')">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </button>
+                            <button class="btn-primary" onclick="runScenario('night')">
+                                <i class="fas fa-play"></i>
+                                Exécuter
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-card">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="scenario-info">
+                                <h4>Retour à la maison</h4>
+                                <p>Allume l'éclairage, ajuste la température</p>
+                            </div>
+                            <div class="scenario-status inactive">INACTIF</div>
+                        </div>
+                        <div class="scenario-actions">
+                            <button class="btn-secondary" onclick="editScenario('home')">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </button>
+                            <button class="btn-primary" onclick="runScenario('home')">
+                                <i class="fas fa-play"></i>
+                                Exécuter
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-card">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">
+                                <i class="fas fa-plane-departure"></i>
+                            </div>
+                            <div class="scenario-info">
+                                <h4>Mode vacances</h4>
+                                <p>Simulation de présence, sécurité renforcée</p>
+                            </div>
+                            <div class="scenario-status inactive">INACTIF</div>
+                        </div>
+                        <div class="scenario-actions">
+                            <button class="btn-secondary" onclick="editScenario('vacation')">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </button>
+                            <button class="btn-primary" onclick="runScenario('vacation')">
+                                <i class="fas fa-play"></i>
+                                Exécuter
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-card">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="scenario-info">
+                                <h4>Mode travail</h4>
+                                <p>Optimise l'éclairage et la température du bureau</p>
+                            </div>
+                            <div class="scenario-status inactive">INACTIF</div>
+                        </div>
+                        <div class="scenario-actions">
+                            <button class="btn-secondary" onclick="editScenario('work')">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </button>
+                            <button class="btn-primary" onclick="runScenario('work')">
+                                <i class="fas fa-play"></i>
+                                Exécuter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consommation énergétique -->
+            <div class="energy-monitoring" data-aos="fade-up" data-aos-delay="400">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-line"></i> Monitoring énergétique</h3>
+                    <div class="energy-period">
+                        <select class="period-select" onchange="changePeriod()">
+                            <option value="today">Aujourd'hui</option>
+                            <option value="week">Cette semaine</option>
+                            <option value="month" selected>Ce mois</option>
+                            <option value="year">Cette année</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="energy-stats">
+                    <div class="energy-card">
+                        <div class="energy-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="energy-info">
+                            <h4>Consommation actuelle</h4>
+                            <div class="energy-value">2.4 kW</div>
+                            <div class="energy-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                +12% vs hier
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="energy-card">
+                        <div class="energy-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="energy-info">
+                            <h4>Aujourd'hui</h4>
+                            <div class="energy-value">18.7 kWh</div>
+                            <div class="energy-trend down">
+                                <i class="fas fa-arrow-down"></i>
+                                -5% vs moyenne
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="energy-card">
+                        <div class="energy-icon">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="energy-info">
+                            <h4>Cette semaine</h4>
+                            <div class="energy-value">142 kWh</div>
+                            <div class="energy-trend neutral">
+                                <i class="fas fa-minus"></i>
+                                Stable
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="energy-card">
+                        <div class="energy-icon">
+                            <i class="fas fa-euro-sign"></i>
+                        </div>
+                        <div class="energy-info">
+                            <h4>Coût estimé</h4>
+                            <div class="energy-value">€24.50</div>
+                            <div class="energy-trend down">
+                                <i class="fas fa-arrow-down"></i>
+                                -8% vs mois dernier
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="energy-breakdown">
+                    <h4>Répartition par catégorie</h4>
+                    <div class="breakdown-items">
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Éclairage</span>
+                            </div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 25%"></div>
+                            </div>
+                            <div class="breakdown-value">25%</div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">
+                                <i class="fas fa-snowflake"></i>
+                                <span>Climatisation</span>
+                            </div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 35%"></div>
+                            </div>
+                            <div class="breakdown-value">35%</div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">
+                                <i class="fas fa-tv"></i>
+                                <span>Électronique</span>
+                            </div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 20%"></div>
+                            </div>
+                            <div class="breakdown-value">20%</div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">
+                                <i class="fas fa-blender"></i>
+                                <span>Électroménager</span>
+                            </div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 15%"></div>
+                            </div>
+                            <div class="breakdown-value">15%</div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <div class="breakdown-label">
+                                <i class="fas fa-ellipsis-h"></i>
+                                <span>Autres</span>
+                            </div>
+                            <div class="breakdown-bar">
+                                <div class="breakdown-fill" style="width: 5%"></div>
+                            </div>
+                            <div class="breakdown-value">5%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Initialisation AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Variables globales
+        let currentRoom = 'salon';
+        let allDevicesState = true;
+
+        // Gestion des pièces
+        function switchRoom(roomName) {
+            // Désactiver tous les onglets et contenus
+            document.querySelectorAll('.room-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.room-content').forEach(content => content.classList.remove('active'));
+            
+            // Activer l'onglet et le contenu sélectionnés
+            document.querySelector(`[data-room="${roomName}"]`).classList.add('active');
+            document.getElementById(`${roomName}-room`).classList.add('active');
+            
+            currentRoom = roomName;
+            showNotification(`Pièce sélectionnée : ${roomName}`, 'info');
+        }
+
+        // Contrôle des appareils
+        function toggleDevice(deviceId) {
+            const deviceCard = event.target.closest('.device-card');
+            const statusElement = deviceCard.querySelector('.device-status');
+            const isOn = deviceCard.classList.contains('on');
+            
+            if (isOn) {
+                deviceCard.classList.remove('on');
+                deviceCard.classList.add('off');
+                statusElement.textContent = 'OFF';
+                statusElement.className = 'device-status off';
+                showNotification('Appareil éteint', 'info');
+            } else {
+                deviceCard.classList.remove('off');
+                deviceCard.classList.add('on');
+                statusElement.textContent = 'ON';
+                statusElement.className = 'device-status on';
+                showNotification('Appareil allumé', 'success');
+            }
+            
+            updateOverviewStats();
+        }
+
+        function adjustBrightness(deviceId, value) {
+            showNotification(`Luminosité ajustée à ${value}%`, 'info');
+        }
+
+        function changeColor(deviceId, color) {
+            showNotification(`Couleur changée : ${color}`, 'info');
+        }
+
+        function adjustVolume(deviceId, value) {
+            showNotification(`Volume ajusté à ${value}%`, 'info');
+        }
+
+        function adjustTemp(deviceId, change) {
+            const tempDisplay = event.target.closest('.temperature-control').querySelector('.temp-display');
+            let currentTemp = parseInt(tempDisplay.textContent);
+            currentTemp += change;
+            tempDisplay.textContent = `${currentTemp}°C`;
+            showNotification(`Température ajustée à ${currentTemp}°C`, 'info');
+        }
+
+        // Contrôles spécialisés
+        function deviceSettings(deviceId) {
+            alert(`Paramètres de l'appareil ${deviceId}`);
+        }
+
+        function changeChannel() {
+            showNotification('Changement de chaîne', 'info');
+        }
+
+        function changeACMode() {
+            showNotification('Mode climatisation changé', 'info');
+        }
+
+        function setSecurityMode(mode) {
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            showNotification(`Mode sécurité : ${mode}`, 'info');
+        }
+
+        function setBedPosition(position) {
+            document.querySelectorAll('.pos-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            showNotification(`Position du lit : ${position}`, 'info');
+        }
+
+        function setLightMode(mode) {
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            showNotification(`Mode éclairage : ${mode}`, 'info');
+        }
+
+        function switchDisplay(display) {
+            showNotification(`Affichage : ${display}`, 'info');
+        }
+
+        function viewCamera() {
+            alert('Ouverture du flux vidéo de la caméra');
+        }
+
+        // Contrôles globaux
+        function refreshDevices() {
+            showNotification('Actualisation des appareils...', 'info');
+            setTimeout(() => {
+                showNotification('Appareils actualisés', 'success');
+            }, 1500);
+        }
+
+        function addNewDevice() {
+            alert('Assistant d\'ajout d\'appareil (fonctionnalité en développement)');
+        }
+
+        function toggleAllDevices() {
+            allDevicesState = !allDevicesState;
+            const action = allDevicesState ? 'allumés' : 'éteints';
+            showNotification(`Tous les appareils ${action}`, 'info');
+            updateOverviewStats();
+        }
+
+        function toggleAllLights() {
+            showNotification('Basculement de tous les éclairages', 'info');
+            updateOverviewStats();
+        }
+
+        function armSecurity() {
+            showNotification('Système de sécurité armé', 'success');
+        }
+
+        function adjustClimate() {
+            alert('Panneau de contrôle climatique');
+        }
+
+        function viewEnergyDetails() {
+            alert('Détails de la consommation énergétique');
+        }
+
+        // Extérieur
+        function disarmAlarm() {
+            if (confirm('Désarmer le système d\'alarme ?')) {
+                showNotification('Système d\'alarme désarmé', 'warning');
+            }
+        }
+
+        function testAlarm() {
+            showNotification('Test du système d\'alarme...', 'info');
+            setTimeout(() => {
+                showNotification('Test terminé - Système fonctionnel', 'success');
+            }, 3000);
+        }
+
+        function toggleAutoLighting() {
+            const isAuto = event.target.checked;
+            showNotification(`Éclairage automatique ${isAuto ? 'activé' : 'désactivé'}`, 'info');
+        }
+
+        function startIrrigation() {
+            showNotification('Arrosage démarré', 'success');
+        }
+
+        function scheduleIrrigation() {
+            alert('Programmation de l\'arrosage');
+        }
+
+        // Scénarios
+        function createScenario() {
+            alert('Créateur de scénarios (fonctionnalité en développement)');
+        }
+
+        function editScenario(scenarioId) {
+            alert(`Édition du scénario : ${scenarioId}`);
+        }
+
+        function runScenario(scenarioId) {
+            showNotification(`Exécution du scénario : ${scenarioId}`, 'info');
+            setTimeout(() => {
+                showNotification('Scénario exécuté avec succès', 'success');
+            }, 2000);
+        }
+
+        // Monitoring énergétique
+        function changePeriod() {
+            const period = event.target.value;
+            showNotification(`Période changée : ${period}`, 'info');
+        }
+
+        // Mise à jour des statistiques
+        function updateOverviewStats() {
+            // Simulation de mise à jour des statistiques
+            const lightsOn = Math.floor(Math.random() * 12) + 1;
+            document.getElementById('lightsOn').textContent = lightsOn;
+        }
+
+        // Fonction d'affichage des notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times' : 'info'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animation d'apparition
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Suppression automatique
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Simulation de données en temps réel
+        setInterval(() => {
+            const powerElement = document.getElementById('powerConsumption');
+            if (powerElement) {
+                const newPower = (Math.random() * 2 + 1.5).toFixed(1);
+                powerElement.textContent = newPower;
+            }
+            
+            const tempElement = document.getElementById('currentTemp');
+            if (tempElement) {
+                const newTemp = Math.floor(Math.random() * 3) + 21;
+                tempElement.textContent = `${newTemp}°C`;
+            }
+        }, 30000); // Mise à jour toutes les 30 secondes
+    </script>
+</body>
+
+</html>

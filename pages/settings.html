@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <title>Paramètres - Vulsshield</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
+
+<body>
     <!-- Barre supérieure avec navigation et actions -->
     <div class="top-bar">
         <div class="container">
@@ -15,7 +20,8 @@
                     <div class="project-icon">
                         <div class="gradient-circle"></div>
                     </div>
-                    <span class="project-name">Vulsshield</span>
+                    <span class="project-name">Paramètres</span>
+                    <i class="fas fa-sort"></i>
                 </div>
             </div>
             
@@ -24,137 +30,24 @@
             </div>
             
             <div class="top-bar-right">
+                <button class="action-btn back-btn" onclick="window.location.href='dashboard.html'" title="Retour au dashboard" aria-label="Retour au dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Find..." class="search-input">
+                    <input type="text" placeholder="Rechercher..." class="search-input">
                 </div>
-                <button class="action-btn password-action-btn" onclick="window.location.href='dashboard.html'">
-                    <i class="fas fa-key"></i>
-                </button>
                 <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
                 
-                <!-- Menu Feedback -->
-                <div class="dropdown-menu feedback-menu" id="feedbackMenu">
-                    <div class="menu-header">
-                        <h4>Envoyer un feedback</h4>
-                    </div>
-                    <div class="menu-content">
-                        <div class="feedback-form">
-                            <div class="form-group">
-                                <label for="feedbackType">Type de feedback</label>
-                                <select id="feedbackType" class="feedback-select">
-                                    <option value="bug">Rapport de bug</option>
-                                    <option value="feature">Demande de fonctionnalité</option>
-                                    <option value="improvement">Amélioration</option>
-                                    <option value="other">Autre</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="feedbackMessage">Message</label>
-                                <textarea id="feedbackMessage" class="feedback-textarea" placeholder="Décrivez votre feedback..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="feedbackEmail">Email (optionnel)</label>
-                                <input type="email" id="feedbackEmail" class="feedback-input" placeholder="votre@email.com">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-footer">
-                        <button class="btn-secondary" onclick="closeFeedbackMenu()">Annuler</button>
-                        <button class="btn-primary" onclick="submitFeedback()">Envoyer</button>
-                    </div>
-                </div>
                 <div class="notification-icon" onclick="toggleNotificationMenu()">
                     <i class="fas fa-bell"></i>
                     <span class="notification-dot"></span>
-                    
-                    <!-- Menu des notifications -->
-                    <div class="dropdown-menu notification-menu" id="notificationMenu">
-                        <div class="menu-header">
-                            <h4>Notifications</h4>
-                            <button class="mark-all-read">Marquer comme lu</button>
-                        </div>
-                        <div class="menu-content">
-                            <div class="notification-item unread">
-                                <div class="notification-icon-small">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <p class="notification-title">Sécurité renforcée</p>
-                                    <p class="notification-text">Votre mot de passe a été mis à jour avec succès.</p>
-                                    <span class="notification-time">Il y a 2h</span>
-                                </div>
-                            </div>
-                            <div class="notification-item unread">
-                                <div class="notification-icon-small">
-                                    <i class="fas fa-sync-alt"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <p class="notification-title">Synchronisation</p>
-                                    <p class="notification-text">Nouvelles données synchronisées sur le cloud.</p>
-                                    <span class="notification-time">Il y a 4h</span>
-                                </div>
-                            </div>
-                            <div class="notification-item">
-                                <div class="notification-icon-small">
-                                    <i class="fas fa-bell"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <p class="notification-title">Rappel</p>
-                                    <p class="notification-text">Pensez à changer vos mots de passe régulièrement.</p>
-                                    <span class="notification-time">Hier</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="menu-footer">
-                            <a href="#" class="view-all">Voir toutes les notifications</a>
-                        </div>
-                    </div>
                 </div>
                 
-                <div class="action-icon">
-                    <i class="fas fa-book-open"></i>
-                </div>
-                
-                <div class="user-avatar" onclick="toggleUserMenu()">
-                    <div class="avatar-gradient"></div>
-                    
-                    <!-- Menu utilisateur -->
-                    <div class="dropdown-menu user-menu" id="userMenu">
-                        <div class="menu-header">
-                            <div class="user-info">
-                                <div class="user-avatar-small">
-                                    <div class="avatar-gradient"></div>
-                                </div>
-                                <div class="user-details">
-                                    <p class="user-name">John Doe</p>
-                                    <p class="user-email">john.doe@example.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="menu-content">
-                            <a href="#" class="menu-item">
-                                <i class="fas fa-user"></i>
-                                <span>Profil</span>
-                            </a>
-                            <a href="pages/settings.html" class="menu-item">
-                                <i class="fas fa-cog"></i>
-                                <span>Paramètres</span>
-                            </a>
-                            <a href="#" class="menu-item">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Sécurité</span>
-                            </a>
-                            <a href="pages/aide.html" class="menu-item">
-                                <i class="fas fa-question-circle"></i>
-                                <span>Aide</span>
-                            </a>
-                        </div>
-                        <div class="menu-footer">
-                            <a href="#" class="menu-item logout">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span>Déconnexion</span>
-                            </a>
+                <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-avatar">
+                        <div class="avatar-gradient">
+                            <i class="fas fa-user-shield"></i>
                         </div>
                     </div>
                 </div>
@@ -162,198 +55,614 @@
         </div>
     </div>
 
-    <header class="top-nav">
-        <div class="container">
-            <a href="../index.html" class="logo">
-                <img src="../assets/images/logo.svg" alt="Vulsshield Logo">
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="../index.html#home">Accueil</a></li>
-                    <li><a href="../index.html#features">Fonctionnalités</a></li>
-                    <li><a href="../index.html#why-us">Pourquoi nous</a></li>
-                    <li><a href="produits.html">Produits</a></li>
-                    <li><a href="team.html">Team</a></li>
-                    <li><a href="../index.html#partners">Partenaires</a></li>
-                    <li><a href="download.html">Télécharger</a></li>
-                </ul>
+    <!-- Layout administrateur avec sidebar -->
+    <div class="admin-layout">
+        <!-- Sidebar de navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">Principal</div>
+                    <a href="dashboard.html" class="nav-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-key"></i>
+                        <span>Mots de passe</span>
+                        <span class="nav-badge">24</span>
+                    </a>
+                    <a href="categories.html" class="nav-item">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Catégories</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Sécurité</div>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Analyse sécurité</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alertes</span>
+                        <span class="nav-badge danger">3</span>
+                    </a>
+                    <a href="activites.html" class="nav-item">
+                        <i class="fas fa-history"></i>
+                        <span>Activité</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Configuration</div>
+                    <a href="settings.html" class="nav-item active">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="synchronisation.html" class="nav-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Synchronisation</span>
+                    </a>
+                    <a href="profil.html" class="nav-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profil</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Contrôle</div>
+                    <a href="house.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Maison connectée</span>
+                    </a>
+                    <a href="drones.html" class="nav-item">
+                        <i class="fas fa-helicopter"></i>
+                        <span>Pilotage drones</span>
+                    </a>
+                </div>
             </nav>
-            <a class="inscription cta-button" href="../inscription.html">S'inscrire</a>
-
-        </div>
-    </header>
-
-    <main class="settings-page">
-        <div class="container">
-            <section class="user-profile-section" data-aos="fade-up" data-aos-delay="100">
-                <div class="user-profile-card">
-                    <h2>Informations du profil</h2>
-                    <p class="muted">Ajoutez ou mettez à jour vos coordonnées. Ces informations restent locales sur votre navigateur tant qu'aucune synchronisation n'est activée.</p>
-
-                    <form id="userProfileForm" class="profile-form" style="margin-top:16px; display:grid; gap:14px;">
-                        <div class="form-group">
-                            <label for="userPhone">Numéro de téléphone</label>
-                            <input type="tel" id="userPhone" class="feedback-input" placeholder="+33 6 12 34 56 78">
+            
+            <div class="sidebar-footer">
+                <div class="user-quick-info">
+                    <div class="user-avatar-mini">
+                        <div class="avatar-gradient">
+                             <i class="fas fa-user-shield"></i>
                         </div>
-                        <div class="form-group">
-                            <label for="userAddress">Adresse</label>
-                            <input type="text" id="userAddress" class="feedback-input" placeholder="12 rue Exemple, Bât A">
+                    </div>
+                    <div class="user-mini-details">
+                        <div class="user-mini-name role-with-icon">
+                           <span>Administrateur</span>
                         </div>
-                        <div class="form-group">
-                            <label for="userCountry">Pays</label>
-                            <input type="text" id="userCountry" class="feedback-input" placeholder="France">
-                        </div>
-                        <div class="form-group">
-                            <label for="userCity">Ville</label>
-                            <input type="text" id="userCity" class="feedback-input" placeholder="Paris">
-                        </div>
-
-                        <div style="display:flex; gap:10px; margin-top:8px;">
-                            <button type="submit" class="btn-primary">Enregistrer</button>
-                            <button type="button" id="clearProfileBtn" class="btn-secondary">Effacer</button>
-                        </div>
-
-                        <div id="profileSaveStatus" style="display:none; margin-top:8px; padding:10px; border-radius:8px; font-size:0.95rem;"></div>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </main>
-<footer>
-        <div class="container footer-container">
-            <div class="footer-section footer-about">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/images/logo.svg" alt="Vulsshield Logo">
-                </a>
-                <p>Vulsshield est une application mobile innovante conçue pour protéger, organiser et simplifier la gestion
-                    de vos mots de passe et informations sensibles.</p>
-            </div>
-
-            <div class="footer-section footer-links">
-                <h3>Navigation</h3>
-                <ul>
-                    <li><a href="../index.html#home">Accueil</a></li>
-                    <li><a href="produits.html">Produits</a></li>
-                    <li><a href="../index.html#features">Fonctionnalités</a></li>
-                    <li><a href="team.html">Équipe</a></li>
-                    <li><a href="download.html">Télécharger</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section footer-contact">
-                <h3>Contact</h3>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:contact@vulsshield.com">contact@vulsshield.com</a></p>
-                <p><i class="fas fa-phone"></i> +224 623 10 96 92</p>
-                <p><i class="fas fa-location"></i> Conakry</p>
-
-                <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 Vulsshield. Tous droits réservés.</p>
-        </div>
-    </footer>
+        </aside>
 
-    <script src="../script.js"></script>
-    <script src="../dark-mode.js"></script>
+        <!-- Contenu principal -->
+        <main class="admin-main">
+            <!-- En-tête de la page -->
+            <div class="page-header" data-aos="fade-up">
+                <div class="page-title">
+                    <h1><i class="fas fa-cog"></i> Paramètres</h1>
+                    <p>Configurez vos préférences et paramètres de sécurité</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn-secondary" onclick="resetSettings()">
+                        <i class="fas fa-undo"></i>
+                        Réinitialiser
+                    </button>
+                    <button class="btn-primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i>
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+
+            <!-- Onglets de paramètres -->
+            <div class="settings-tabs" data-aos="fade-up" data-aos-delay="100">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="showTab('general')">
+                        <i class="fas fa-cog"></i>
+                        Général
+                    </button>
+                    <button class="tab-btn" onclick="showTab('security')">
+                        <i class="fas fa-shield-alt"></i>
+                        Sécurité
+                    </button>
+                    <button class="tab-btn" onclick="showTab('notifications')">
+                        <i class="fas fa-bell"></i>
+                        Notifications
+                    </button>
+                    <button class="tab-btn" onclick="showTab('privacy')">
+                        <i class="fas fa-user-secret"></i>
+                        Confidentialité
+                    </button>
+                    <button class="tab-btn" onclick="showTab('advanced')">
+                        <i class="fas fa-tools"></i>
+                        Avancé
+                    </button>
+                </div>
+
+                <!-- Onglet Général -->
+                <div class="tab-content active" id="general">
+                    <div class="settings-section">
+                        <h3>Préférences générales</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Langue de l'interface</label>
+                                <p>Choisissez la langue d'affichage de l'application</p>
+                            </div>
+                            <select class="setting-control">
+                                <option value="fr" selected>Français</option>
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                                <option value="de">Deutsch</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Thème</label>
+                                <p>Apparence de l'interface utilisateur</p>
+                            </div>
+                            <select class="setting-control">
+                                <option value="auto" selected>Automatique</option>
+                                <option value="light">Clair</option>
+                                <option value="dark">Sombre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Démarrage automatique</label>
+                                <p>Lancer Vulsshield au démarrage du système</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Minimiser dans la barre système</label>
+                                <p>Réduire l'application dans la zone de notification</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Onglet Sécurité -->
+                <div class="tab-content" id="security">
+                    <div class="settings-section">
+                        <h3>Paramètres de sécurité</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Authentification à deux facteurs (2FA)</label>
+                                <p>Renforcez la sécurité de votre compte</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Verrouillage automatique</label>
+                                <p>Temps d'inactivité avant verrouillage</p>
+                            </div>
+                            <select class="setting-control">
+                                <option value="5">5 minutes</option>
+                                <option value="15" selected>15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="60">1 heure</option>
+                                <option value="0">Jamais</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Chiffrement renforcé</label>
+                                <p>Utiliser AES-256 pour le chiffrement des données</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Analyse des mots de passe</label>
+                                <p>Vérifier automatiquement la force des mots de passe</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Alertes de sécurité</label>
+                                <p>Recevoir des notifications pour les menaces détectées</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Gestion des sessions</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Sessions actives</label>
+                                <p>Gérer les appareils connectés à votre compte</p>
+                            </div>
+                            <button class="btn-secondary" onclick="showActiveSessions()">
+                                <i class="fas fa-list"></i>
+                                Voir les sessions
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Déconnexion de tous les appareils</label>
+                                <p>Forcer la déconnexion sur tous les appareils</p>
+                            </div>
+                            <button class="btn-danger" onclick="logoutAllDevices()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Déconnecter tout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Onglet Notifications -->
+                <div class="tab-content" id="notifications">
+                    <div class="settings-section">
+                        <h3>Préférences de notification</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Notifications push</label>
+                                <p>Recevoir des notifications sur cet appareil</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Notifications par email</label>
+                                <p>Recevoir des alertes importantes par email</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Alertes de sécurité</label>
+                                <p>Notifications pour les tentatives de connexion suspectes</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Rappels de synchronisation</label>
+                                <p>Notifications pour les échecs de synchronisation</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Mises à jour</label>
+                                <p>Notifications pour les nouvelles versions</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Horaires de notification</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Mode silencieux</label>
+                                <p>Désactiver les notifications pendant certaines heures</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Heures de silence</label>
+                                <p>Période pendant laquelle les notifications sont désactivées</p>
+                            </div>
+                            <div class="time-range">
+                                <input type="time" value="22:00" class="time-input">
+                                <span>à</span>
+                                <input type="time" value="08:00" class="time-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Onglet Confidentialité -->
+                <div class="tab-content" id="privacy">
+                    <div class="settings-section">
+                        <h3>Paramètres de confidentialité</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Collecte de données d'usage</label>
+                                <p>Aider à améliorer Vulsshield en partageant des données anonymes</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Rapports de crash</label>
+                                <p>Envoyer automatiquement les rapports d'erreur</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Historique de navigation</label>
+                                <p>Conserver l'historique des sites visités pour l'analyse</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Gestion des données</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Exporter mes données</label>
+                                <p>Télécharger une copie de toutes vos données</p>
+                            </div>
+                            <button class="btn-secondary" onclick="exportData()">
+                                <i class="fas fa-download"></i>
+                                Exporter
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Supprimer toutes les données</label>
+                                <p>Effacer définitivement toutes vos données</p>
+                            </div>
+                            <button class="btn-danger" onclick="deleteAllData()">
+                                <i class="fas fa-trash"></i>
+                                Supprimer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Onglet Avancé -->
+                <div class="tab-content" id="advanced">
+                    <div class="settings-section">
+                        <h3>Paramètres avancés</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Mode développeur</label>
+                                <p>Activer les fonctionnalités de débogage</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Logs détaillés</label>
+                                <p>Enregistrer des informations détaillées pour le débogage</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Serveur proxy</label>
+                                <p>Configurer un serveur proxy pour les connexions</p>
+                            </div>
+                            <input type="text" class="setting-control" placeholder="http://proxy.example.com:8080">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Timeout de connexion</label>
+                                <p>Délai d'attente pour les connexions réseau (secondes)</p>
+                            </div>
+                            <input type="number" class="setting-control" value="30" min="5" max="300">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Maintenance</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Vider le cache</label>
+                                <p>Supprimer les fichiers temporaires et le cache</p>
+                            </div>
+                            <button class="btn-secondary" onclick="clearCache()">
+                                <i class="fas fa-broom"></i>
+                                Vider
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Réinitialiser l'application</label>
+                                <p>Restaurer tous les paramètres par défaut</p>
+                            </div>
+                            <button class="btn-danger" onclick="resetApplication()">
+                                <i class="fas fa-undo-alt"></i>
+                                Réinitialiser
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../script.js"></script>
     <script>
+        // Initialisation AOS
         AOS.init({
-            duration: 1000,
-            once: true,
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
         });
-    </script>
-    <script src="../firebase-auth.js?v=2" type="module"></script>
-    <script>
-        // Gestion du formulaire de profil utilisateur (localStorage)
-        document.addEventListener('DOMContentLoaded', function() {
-            const KEYS = {
-                phone: 'vuls_user_phone',
-                address: 'vuls_user_address',
-                country: 'vuls_user_country',
-                city: 'vuls_user_city'
-            };
 
-            const form = document.getElementById('userProfileForm');
-            const phoneInput = document.getElementById('userPhone');
-            const addressInput = document.getElementById('userAddress');
-            const countryInput = document.getElementById('userCountry');
-            const cityInput = document.getElementById('userCity');
-            const statusBox = document.getElementById('profileSaveStatus');
-            const clearBtn = document.getElementById('clearProfileBtn');
+        // Gestion des onglets
+        function showTab(tabName) {
+            // Masquer tous les contenus d'onglets
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Désactiver tous les boutons d'onglets
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Afficher le contenu de l'onglet sélectionné
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activer le bouton de l'onglet sélectionné
+            event.target.classList.add('active');
+        }
 
-            function showStatus(message, type = 'success') {
-                if (!statusBox) return;
-                statusBox.textContent = message;
-                statusBox.style.display = 'block';
-                if (type === 'success') {
-                    statusBox.style.background = 'rgba(40, 167, 69, 0.15)';
-                    statusBox.style.border = '1px solid rgba(40, 167, 69, 0.35)';
-                    statusBox.style.color = '#9be7ac';
-                } else {
-                    statusBox.style.background = 'rgba(220, 53, 69, 0.15)';
-                    statusBox.style.border = '1px solid rgba(220, 53, 69, 0.35)';
-                    statusBox.style.color = '#f5a3a9';
+        // Fonctions de paramètres
+        function saveSettings() {
+            // Simulation de sauvegarde
+            showNotification('Paramètres sauvegardés avec succès', 'success');
+        }
+
+        function resetSettings() {
+            if (confirm('Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?')) {
+                // Simulation de réinitialisation
+                showNotification('Paramètres réinitialisés', 'info');
+            }
+        }
+
+        function showActiveSessions() {
+            alert('Fonctionnalité en développement : Affichage des sessions actives');
+        }
+
+        function logoutAllDevices() {
+            if (confirm('Déconnecter tous les appareils ? Vous devrez vous reconnecter partout.')) {
+                showNotification('Déconnexion de tous les appareils effectuée', 'success');
+            }
+        }
+
+        function exportData() {
+            showNotification('Export des données en cours...', 'info');
+            // Simulation d'export
+            setTimeout(() => {
+                showNotification('Données exportées avec succès', 'success');
+            }, 2000);
+        }
+
+        function deleteAllData() {
+            if (confirm('ATTENTION : Cette action est irréversible. Supprimer toutes vos données ?')) {
+                if (confirm('Êtes-vous absolument certain ? Toutes vos données seront perdues.')) {
+                    showNotification('Suppression des données en cours...', 'warning');
                 }
-                setTimeout(() => { statusBox.style.display = 'none'; }, 2000);
             }
+        }
 
-            function loadProfile() {
-                if (!form) return;
-                phoneInput.value = localStorage.getItem(KEYS.phone) || '';
-                addressInput.value = localStorage.getItem(KEYS.address) || '';
-                countryInput.value = localStorage.getItem(KEYS.country) || '';
-                cityInput.value = localStorage.getItem(KEYS.city) || '';
+        function clearCache() {
+            showNotification('Cache vidé avec succès', 'success');
+        }
+
+        function resetApplication() {
+            if (confirm('Réinitialiser complètement l\'application ? Tous vos paramètres seront perdus.')) {
+                showNotification('Application réinitialisée', 'info');
             }
+        }
 
-            function saveProfile() {
-                const phone = (phoneInput.value || '').trim();
-                const address = (addressInput.value || '').trim();
-                const country = (countryInput.value || '').trim();
-                const city = (cityInput.value || '').trim();
-
-                // Validation simple du téléphone (optionnel)
-                if (phone && phone.replace(/\D/g, '').length < 6) {
-                    showStatus('Numéro de téléphone invalide (trop court).', 'error');
-                    return false;
-                }
-
-                localStorage.setItem(KEYS.phone, phone);
-                localStorage.setItem(KEYS.address, address);
-                localStorage.setItem(KEYS.country, country);
-                localStorage.setItem(KEYS.city, city);
-                return true;
-            }
-
-            if (form) {
-                loadProfile();
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    if (saveProfile()) {
-                        showStatus('Profil enregistré avec succès.');
-                    }
-                });
-            }
-
-            if (clearBtn) {
-                clearBtn.addEventListener('click', function() {
-                    phoneInput.value = '';
-                    addressInput.value = '';
-                    countryInput.value = '';
-                    cityInput.value = '';
-                    localStorage.removeItem(KEYS.phone);
-                    localStorage.removeItem(KEYS.address);
-                    localStorage.removeItem(KEYS.country);
-                    localStorage.removeItem(KEYS.city);
-                    showStatus('Informations effacées.');
-                });
-            }
-        });
+        // Fonction d'affichage des notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times' : 'info'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animation d'apparition
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Suppression automatique
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
     </script>
 </body>
+
 </html>

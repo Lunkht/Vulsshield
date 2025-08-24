@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronisation - Vulsshield</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Barre supérieure avec navigation et actions -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="breadcrumb">
+                    <div class="project-icon">
+                        <div class="gradient-circle"></div>
+                    </div>
+                    <span class="project-name">Synchronisation</span>
+                    <i class="fas fa-sort"></i>
+                </div>
+            </div>
+            
+            <div class="top-bar-center">
+                <!-- Espace central vide -->
+            </div>
+            
+            <div class="top-bar-right">
+                <button class="action-btn back-btn" onclick="window.location.href='dashboard.html'" title="Retour au dashboard" aria-label="Retour au dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher..." class="search-input">
+                </div>
+                <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <div class="notification-icon" onclick="toggleNotificationMenu()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </div>
+                
+                <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-avatar">
+                        <div class="avatar-gradient">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout administrateur avec sidebar -->
+    <div class="admin-layout">
+        <!-- Sidebar de navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">Principal</div>
+                    <a href="dashboard.html" class="nav-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-key"></i>
+                        <span>Mots de passe</span>
+                        <span class="nav-badge">24</span>
+                    </a>
+                    <a href="categories.html" class="nav-item">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Catégories</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Sécurité</div>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Analyse sécurité</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alertes</span>
+                        <span class="nav-badge danger">3</span>
+                    </a>
+                    <a href="activites.html" class="nav-item">
+                        <i class="fas fa-history"></i>
+                        <span>Activité</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Configuration</div>
+                    <a href="settings.html" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="synchronisation.html" class="nav-item active">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Synchronisation</span>
+                    </a>
+                    <a href="profil.html" class="nav-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profil</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Contrôle</div>
+                    <a href="house.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Maison connectée</span>
+                    </a>
+                    <a href="drones.html" class="nav-item">
+                        <i class="fas fa-helicopter"></i>
+                        <span>Pilotage drones</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-quick-info">
+                    <div class="user-avatar-mini">
+                        <div class="avatar-gradient">
+                             <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                    <div class="user-mini-details">
+                        <div class="user-mini-name role-with-icon">
+                           <span>Administrateur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="admin-main">
+            <!-- En-tête de la page -->
+            <div class="page-header" data-aos="fade-up">
+                <div class="page-title">
+                    <h1><i class="fas fa-sync-alt"></i> Synchronisation</h1>
+                    <p>Gérez la synchronisation de vos données entre tous vos appareils</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn-secondary" onclick="refreshSyncStatus()">
+                        <i class="fas fa-refresh"></i>
+                        Actualiser
+                    </button>
+                    <button class="btn-primary" onclick="forceSyncNow()">
+                        <i class="fas fa-sync"></i>
+                        Synchroniser maintenant
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statut de synchronisation -->
+            <div class="sync-status-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="sync-status-header">
+                    <div class="sync-status-info">
+                        <h3>Statut de synchronisation</h3>
+                        <div class="sync-status-indicator online">
+                            <i class="fas fa-check-circle"></i>
+                            <span>En ligne - Synchronisé</span>
+                        </div>
+                    </div>
+                    <div class="sync-last-update">
+                        <span>Dernière synchronisation :</span>
+                        <strong id="lastSyncTime">Il y a 2 minutes</strong>
+                    </div>
+                </div>
+                
+                <div class="sync-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                    <span class="progress-text">Synchronisation terminée</span>
+                </div>
+            </div>
+
+            <!-- Appareils connectés -->
+            <div class="devices-section" data-aos="fade-up" data-aos-delay="200">
+                <div class="section-header">
+                    <h3><i class="fas fa-devices"></i> Appareils connectés</h3>
+                    <button class="btn-secondary" onclick="addNewDevice()">
+                        <i class="fas fa-plus"></i>
+                        Ajouter un appareil
+                    </button>
+                </div>
+                
+                <div class="devices-grid">
+                    <div class="device-card current">
+                        <div class="device-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div class="device-info">
+                            <h4>MacBook Pro</h4>
+                            <p>Cet appareil</p>
+                            <span class="device-status online">En ligne</span>
+                        </div>
+                        <div class="device-actions">
+                            <span class="current-badge">Actuel</span>
+                        </div>
+                    </div>
+                    
+                    <div class="device-card">
+                        <div class="device-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="device-info">
+                            <h4>iPhone 15 Pro</h4>
+                            <p>iOS 17.2</p>
+                            <span class="device-status online">En ligne</span>
+                        </div>
+                        <div class="device-actions">
+                            <button class="btn-icon" onclick="syncDevice('iphone')" title="Synchroniser">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                            <button class="btn-icon danger" onclick="removeDevice('iphone')" title="Supprimer">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="device-card">
+                        <div class="device-icon">
+                            <i class="fas fa-tablet-alt"></i>
+                        </div>
+                        <div class="device-info">
+                            <h4>iPad Air</h4>
+                            <p>iPadOS 17.1</p>
+                            <span class="device-status offline">Hors ligne</span>
+                        </div>
+                        <div class="device-actions">
+                            <button class="btn-icon" onclick="syncDevice('ipad')" title="Synchroniser" disabled>
+                                <i class="fas fa-sync"></i>
+                            </button>
+                            <button class="btn-icon danger" onclick="removeDevice('ipad')" title="Supprimer">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="device-card">
+                        <div class="device-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="device-info">
+                            <h4>PC Windows</h4>
+                            <p>Windows 11</p>
+                            <span class="device-status online">En ligne</span>
+                        </div>
+                        <div class="device-actions">
+                            <button class="btn-icon" onclick="syncDevice('windows')" title="Synchroniser">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                            <button class="btn-icon danger" onclick="removeDevice('windows')" title="Supprimer">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paramètres de synchronisation -->
+            <div class="sync-settings" data-aos="fade-up" data-aos-delay="300">
+                <h3><i class="fas fa-cogs"></i> Paramètres de synchronisation</h3>
+                
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Synchronisation automatique</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked onchange="toggleAutoSync()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <p>Synchroniser automatiquement les données lorsque des modifications sont détectées</p>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Fréquence de synchronisation</h4>
+                            <select class="setting-select" onchange="updateSyncFrequency()">
+                                <option value="realtime">Temps réel</option>
+                                <option value="5min" selected>Toutes les 5 minutes</option>
+                                <option value="15min">Toutes les 15 minutes</option>
+                                <option value="30min">Toutes les 30 minutes</option>
+                                <option value="1hour">Toutes les heures</option>
+                                <option value="manual">Manuel uniquement</option>
+                            </select>
+                        </div>
+                        <p>Définir la fréquence de synchronisation automatique</p>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Synchronisation en arrière-plan</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked onchange="toggleBackgroundSync()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <p>Permettre la synchronisation même lorsque l'application est fermée</p>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Chiffrement de bout en bout</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked disabled>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <p>Toutes les données sont chiffrées avant la synchronisation (obligatoire)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Types de données synchronisées -->
+            <div class="sync-data-types" data-aos="fade-up" data-aos-delay="400">
+                <h3><i class="fas fa-database"></i> Types de données synchronisées</h3>
+                
+                <div class="data-types-grid">
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="data-type-info">
+                                <h4>Mots de passe</h4>
+                                <span class="data-count">127 éléments</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked onchange="toggleDataType('passwords')">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini success">
+                                <i class="fas fa-check"></i>
+                                <span>Synchronisé</span>
+                            </div>
+                            <span class="last-sync">Il y a 2 min</span>
+                        </div>
+                    </div>
+                    
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-folder"></i>
+                            </div>
+                            <div class="data-type-info">
+                                <h4>Catégories</h4>
+                                <span class="data-count">8 éléments</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked onchange="toggleDataType('categories')">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini success">
+                                <i class="fas fa-check"></i>
+                                <span>Synchronisé</span>
+                            </div>
+                            <span class="last-sync">Il y a 2 min</span>
+                        </div>
+                    </div>
+                    
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div class="data-type-info">
+                                <h4>Paramètres</h4>
+                                <span class="data-count">Préférences</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked onchange="toggleDataType('settings')">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini success">
+                                <i class="fas fa-check"></i>
+                                <span>Synchronisé</span>
+                            </div>
+                            <span class="last-sync">Il y a 5 min</span>
+                        </div>
+                    </div>
+                    
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="data-type-info">
+                                <h4>Historique</h4>
+                                <span class="data-count">245 entrées</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" onchange="toggleDataType('history')">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini disabled">
+                                <i class="fas fa-times"></i>
+                                <span>Désactivé</span>
+                            </div>
+                            <span class="last-sync">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historique de synchronisation -->
+            <div class="sync-history" data-aos="fade-up" data-aos-delay="500">
+                <div class="section-header">
+                    <h3><i class="fas fa-clock"></i> Historique de synchronisation</h3>
+                    <button class="btn-secondary" onclick="clearSyncHistory()">
+                        <i class="fas fa-trash"></i>
+                        Vider l'historique
+                    </button>
+                </div>
+                
+                <div class="sync-history-list">
+                    <div class="sync-history-item success">
+                        <div class="sync-history-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="sync-history-content">
+                            <div class="sync-history-title">Synchronisation réussie</div>
+                            <div class="sync-history-details">127 mots de passe, 8 catégories synchronisés</div>
+                            <div class="sync-history-time">Il y a 2 minutes</div>
+                        </div>
+                        <div class="sync-history-device">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>iPhone 15 Pro</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sync-history-item success">
+                        <div class="sync-history-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="sync-history-content">
+                            <div class="sync-history-title">Synchronisation réussie</div>
+                            <div class="sync-history-details">Paramètres utilisateur mis à jour</div>
+                            <div class="sync-history-time">Il y a 15 minutes</div>
+                        </div>
+                        <div class="sync-history-device">
+                            <i class="fas fa-desktop"></i>
+                            <span>PC Windows</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sync-history-item warning">
+                        <div class="sync-history-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="sync-history-content">
+                            <div class="sync-history-title">Synchronisation partielle</div>
+                            <div class="sync-history-details">Appareil hors ligne pendant la synchronisation</div>
+                            <div class="sync-history-time">Il y a 1 heure</div>
+                        </div>
+                        <div class="sync-history-device">
+                            <i class="fas fa-tablet-alt"></i>
+                            <span>iPad Air</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sync-history-item success">
+                        <div class="sync-history-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="sync-history-content">
+                            <div class="sync-history-title">Synchronisation réussie</div>
+                            <div class="sync-history-details">Nouveau mot de passe ajouté</div>
+                            <div class="sync-history-time">Il y a 3 heures</div>
+                        </div>
+                        <div class="sync-history-device">
+                            <i class="fas fa-laptop"></i>
+                            <span>MacBook Pro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions de maintenance -->
+            <div class="sync-maintenance" data-aos="fade-up" data-aos-delay="600">
+                <h3><i class="fas fa-tools"></i> Maintenance</h3>
+                
+                <div class="maintenance-actions">
+                    <div class="maintenance-card">
+                        <div class="maintenance-info">
+                            <h4>Résoudre les conflits</h4>
+                            <p>Résoudre automatiquement les conflits de synchronisation</p>
+                        </div>
+                        <button class="btn-secondary" onclick="resolveConflicts()">
+                            <i class="fas fa-magic"></i>
+                            Résoudre
+                        </button>
+                    </div>
+                    
+                    <div class="maintenance-card">
+                        <div class="maintenance-info">
+                            <h4>Réinitialiser la synchronisation</h4>
+                            <p>Forcer une synchronisation complète de toutes les données</p>
+                        </div>
+                        <button class="btn-warning" onclick="resetSync()">
+                            <i class="fas fa-redo"></i>
+                            Réinitialiser
+                        </button>
+                    </div>
+                    
+                    <div class="maintenance-card">
+                        <div class="maintenance-info">
+                            <h4>Sauvegarder les données</h4>
+                            <p>Créer une sauvegarde locale de toutes vos données</p>
+                        </div>
+                        <button class="btn-primary" onclick="backupData()">
+                            <i class="fas fa-download"></i>
+                            Sauvegarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Initialisation AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Fonctions de synchronisation
+        function forceSyncNow() {
+            showNotification('Synchronisation en cours...', 'info');
+            // Simulation de synchronisation
+            setTimeout(() => {
+                updateSyncStatus();
+                showNotification('Synchronisation terminée avec succès', 'success');
+            }, 2000);
+        }
+
+        function refreshSyncStatus() {
+            showNotification('Actualisation du statut...', 'info');
+            setTimeout(() => {
+                updateLastSyncTime();
+                showNotification('Statut actualisé', 'success');
+            }, 1000);
+        }
+
+        function updateSyncStatus() {
+            const statusIndicator = document.querySelector('.sync-status-indicator');
+            const progressFill = document.querySelector('.progress-fill');
+            const progressText = document.querySelector('.progress-text');
+            
+            // Animation de progression
+            progressFill.style.width = '0%';
+            progressText.textContent = 'Synchronisation en cours...';
+            
+            setTimeout(() => {
+                progressFill.style.width = '100%';
+                progressText.textContent = 'Synchronisation terminée';
+                updateLastSyncTime();
+            }, 2000);
+        }
+
+        function updateLastSyncTime() {
+            document.getElementById('lastSyncTime').textContent = 'À l\'instant';
+        }
+
+        function addNewDevice() {
+            alert('Fonctionnalité en développement : Ajout d\'un nouvel appareil');
+        }
+
+        function syncDevice(deviceId) {
+            showNotification(`Synchronisation de l'appareil ${deviceId}...`, 'info');
+            setTimeout(() => {
+                showNotification('Appareil synchronisé avec succès', 'success');
+            }, 1500);
+        }
+
+        function removeDevice(deviceId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet appareil ?')) {
+                showNotification('Appareil supprimé', 'success');
+            }
+        }
+
+        function toggleAutoSync() {
+            const isEnabled = event.target.checked;
+            showNotification(
+                isEnabled ? 'Synchronisation automatique activée' : 'Synchronisation automatique désactivée',
+                'info'
+            );
+        }
+
+        function updateSyncFrequency() {
+            const frequency = event.target.value;
+            const frequencies = {
+                'realtime': 'temps réel',
+                '5min': '5 minutes',
+                '15min': '15 minutes',
+                '30min': '30 minutes',
+                '1hour': '1 heure',
+                'manual': 'manuel'
+            };
+            showNotification(`Fréquence mise à jour : ${frequencies[frequency]}`, 'info');
+        }
+
+        function toggleBackgroundSync() {
+            const isEnabled = event.target.checked;
+            showNotification(
+                isEnabled ? 'Synchronisation en arrière-plan activée' : 'Synchronisation en arrière-plan désactivée',
+                'info'
+            );
+        }
+
+        function toggleDataType(dataType) {
+            const isEnabled = event.target.checked;
+            const dataTypes = {
+                'passwords': 'mots de passe',
+                'categories': 'catégories',
+                'settings': 'paramètres',
+                'history': 'historique'
+            };
+            showNotification(
+                `Synchronisation des ${dataTypes[dataType]} ${isEnabled ? 'activée' : 'désactivée'}`,
+                'info'
+            );
+        }
+
+        function clearSyncHistory() {
+            if (confirm('Êtes-vous sûr de vouloir vider l\'historique de synchronisation ?')) {
+                showNotification('Historique vidé', 'success');
+            }
+        }
+
+        function resolveConflicts() {
+            showNotification('Résolution des conflits en cours...', 'info');
+            setTimeout(() => {
+                showNotification('Conflits résolus automatiquement', 'success');
+            }, 2000);
+        }
+
+        function resetSync() {
+            if (confirm('Réinitialiser complètement la synchronisation ? Cette action peut prendre du temps.')) {
+                showNotification('Réinitialisation de la synchronisation...', 'warning');
+                setTimeout(() => {
+                    showNotification('Synchronisation réinitialisée avec succès', 'success');
+                }, 3000);
+            }
+        }
+
+        function backupData() {
+            showNotification('Création de la sauvegarde...', 'info');
+            setTimeout(() => {
+                showNotification('Sauvegarde créée avec succès', 'success');
+            }, 2000);
+        }
+
+        // Fonction d'affichage des notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times' : 'info'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animation d'apparition
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Suppression automatique
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Mise à jour automatique du temps de dernière synchronisation
+        setInterval(() => {
+            const lastSyncElement = document.getElementById('lastSyncTime');
+            if (lastSyncElement && lastSyncElement.textContent === 'À l\'instant') {
+                lastSyncElement.textContent = 'Il y a 1 minute';
+            }
+        }, 60000);
+    </script>
+</body>
+
+</html>

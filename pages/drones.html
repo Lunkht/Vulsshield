@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilotage Drones - Vulsshield</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Barre supérieure avec navigation et actions -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="breadcrumb">
+                    <div class="project-icon">
+                        <div class="gradient-circle"></div>
+                    </div>
+                    <span class="project-name">Pilotage Drones</span>
+                    <i class="fas fa-helicopter"></i>
+                </div>
+            </div>
+            
+            <div class="top-bar-center">
+                <!-- Statut de connexion -->
+                <div class="connection-status" id="connectionStatus">
+                    <div class="status-indicator offline"></div>
+                    <span>Hors ligne</span>
+                </div>
+            </div>
+            
+            <div class="top-bar-right">
+                <button class="action-btn back-btn" onclick="window.location.href='dashboard.html'" title="Retour au dashboard" aria-label="Retour au dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="action-btn emergency-btn" onclick="emergencyStop()" title="Arrêt d'urgence">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    URGENCE
+                </button>
+                <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                
+                <div class="notification-icon" onclick="toggleNotificationMenu()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </div>
+                
+                <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-avatar">
+                        <div class="avatar-gradient">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout administrateur avec sidebar -->
+    <div class="admin-layout">
+        <!-- Sidebar de navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">Principal</div>
+                    <a href="dashboard.html" class="nav-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-key"></i>
+                        <span>Mots de passe</span>
+                        <span class="nav-badge">24</span>
+                    </a>
+                    <a href="categories.html" class="nav-item">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Catégories</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Sécurité</div>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Analyse sécurité</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alertes</span>
+                        <span class="nav-badge danger">3</span>
+                    </a>
+                    <a href="activites.html" class="nav-item">
+                        <i class="fas fa-history"></i>
+                        <span>Activité</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Configuration</div>
+                    <a href="settings.html" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="synchronisation.html" class="nav-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Synchronisation</span>
+                    </a>
+                    <a href="profil.html" class="nav-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profil</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Contrôle</div>
+                    <a href="house.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Maison connectée</span>
+                    </a>
+                    <a href="drones.html" class="nav-item active">
+                        <i class="fas fa-helicopter"></i>
+                        <span>Pilotage drones</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-quick-info">
+                    <div class="user-avatar-mini">
+                        <div class="avatar-gradient">
+                             <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                    <div class="user-mini-details">
+                        <div class="user-mini-name role-with-icon">
+                           <span>Pilote</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="admin-main">
+            <!-- En-tête de la page -->
+            <div class="page-header" data-aos="fade-up">
+                <div class="page-title">
+                    <h1><i class="fas fa-helicopter"></i> Centre de pilotage</h1>
+                    <p>Contrôlez et surveillez vos drones en temps réel</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn-secondary" onclick="connectDrone()">
+                        <i class="fas fa-wifi"></i>
+                        Connecter
+                    </button>
+                    <button class="btn-secondary" onclick="calibrateDrone()">
+                        <i class="fas fa-crosshairs"></i>
+                        Calibrer
+                    </button>
+                    <button class="btn-primary" onclick="takeOff()">
+                        <i class="fas fa-plane-departure"></i>
+                        Décollage
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statut des drones -->
+            <div class="drones-status" data-aos="fade-up" data-aos-delay="100">
+                <div class="status-cards">
+                    <div class="status-card drone-1">
+                        <div class="drone-info">
+                            <div class="drone-icon">
+                                <i class="fas fa-helicopter"></i>
+                            </div>
+                            <div class="drone-details">
+                                <h3>Drone Alpha</h3>
+                                <div class="drone-model">DJI Mavic Pro</div>
+                                <div class="drone-status connected">
+                                    <i class="fas fa-circle"></i>
+                                    Connecté
+                                </div>
+                            </div>
+                        </div>
+                        <div class="drone-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Batterie</span>
+                                <div class="battery-indicator">
+                                    <div class="battery-level" style="width: 85%"></div>
+                                    <span class="battery-text">85%</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Signal</span>
+                                <div class="signal-strength">
+                                    <div class="signal-bar active"></div>
+                                    <div class="signal-bar active"></div>
+                                    <div class="signal-bar active"></div>
+                                    <div class="signal-bar active"></div>
+                                    <div class="signal-bar"></div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Altitude</span>
+                                <span class="stat-value">0m</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card drone-2">
+                        <div class="drone-info">
+                            <div class="drone-icon">
+                                <i class="fas fa-helicopter"></i>
+                            </div>
+                            <div class="drone-details">
+                                <h3>Drone Beta</h3>
+                                <div class="drone-model">Parrot Anafi</div>
+                                <div class="drone-status disconnected">
+                                    <i class="fas fa-circle"></i>
+                                    Déconnecté
+                                </div>
+                            </div>
+                        </div>
+                        <div class="drone-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Batterie</span>
+                                <div class="battery-indicator">
+                                    <div class="battery-level" style="width: 0%"></div>
+                                    <span class="battery-text">--</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Signal</span>
+                                <div class="signal-strength">
+                                    <div class="signal-bar"></div>
+                                    <div class="signal-bar"></div>
+                                    <div class="signal-bar"></div>
+                                    <div class="signal-bar"></div>
+                                    <div class="signal-bar"></div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Altitude</span>
+                                <span class="stat-value">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interface de contrôle principal -->
+            <div class="drone-control-interface" data-aos="fade-up" data-aos-delay="200">
+                <div class="control-layout">
+                    <!-- Panneau de contrôle gauche -->
+                    <div class="control-panel left-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-gamepad"></i> Contrôles de vol</h3>
+                        </div>
+                        
+                        <!-- Joystick gauche (Altitude/Rotation) -->
+                        <div class="joystick-container">
+                            <div class="joystick-label">Altitude / Rotation</div>
+                            <div class="joystick left-joystick" id="leftJoystick">
+                                <div class="joystick-knob" id="leftKnob"></div>
+                                <div class="joystick-axis vertical"></div>
+                                <div class="joystick-axis horizontal"></div>
+                            </div>
+                            <div class="joystick-values">
+                                <span>Alt: <span id="altitudeValue">0</span></span>
+                                <span>Rot: <span id="rotationValue">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Contrôles rapides -->
+                        <div class="quick-controls">
+                            <button class="control-btn" onclick="takeOff()" id="takeoffBtn">
+                                <i class="fas fa-plane-departure"></i>
+                                Décollage
+                            </button>
+                            <button class="control-btn" onclick="land()" id="landBtn">
+                                <i class="fas fa-plane-arrival"></i>
+                                Atterrissage
+                            </button>
+                            <button class="control-btn" onclick="hover()">
+                                <i class="fas fa-pause"></i>
+                                Vol stationnaire
+                            </button>
+                            <button class="control-btn emergency" onclick="emergencyStop()">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Arrêt d'urgence
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Panneau central - Caméra/Carte -->
+                    <div class="control-panel center-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-video"></i> Vue en direct</h3>
+                            <div class="view-controls">
+                                <button class="view-btn active" onclick="switchView('camera')">
+                                    <i class="fas fa-video"></i>
+                                    Caméra
+                                </button>
+                                <button class="view-btn" onclick="switchView('map')">
+                                    <i class="fas fa-map"></i>
+                                    Carte
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Vue caméra -->
+                        <div class="camera-view active" id="cameraView">
+                            <div class="video-feed">
+                                <div class="video-placeholder">
+                                    <i class="fas fa-video-slash"></i>
+                                    <p>Caméra non disponible</p>
+                                    <small>Connectez un drone pour voir le flux vidéo</small>
+                                </div>
+                                
+                                <!-- Overlay d'informations -->
+                                <div class="video-overlay">
+                                    <div class="overlay-info top-left">
+                                        <div class="info-item">
+                                            <i class="fas fa-battery-three-quarters"></i>
+                                            <span>85%</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-signal"></i>
+                                            <span>4/5</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="overlay-info top-right">
+                                        <div class="info-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span id="flightTime">00:00</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-tachometer-alt"></i>
+                                            <span id="speed">0 km/h</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="overlay-info bottom-center">
+                                        <div class="altitude-indicator">
+                                            <span>ALT: <span id="currentAltitude">0m</span></span>
+                                        </div>
+                                        <div class="compass">
+                                            <div class="compass-needle" id="compassNeedle"></div>
+                                            <span id="heading">N 0°</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Contrôles caméra -->
+                            <div class="camera-controls">
+                                <button class="camera-btn" onclick="takePhoto()">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                                <button class="camera-btn" onclick="startRecording()" id="recordBtn">
+                                    <i class="fas fa-video"></i>
+                                </button>
+                                <button class="camera-btn" onclick="toggleGimbal()">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Vue carte -->
+                        <div class="map-view" id="mapView">
+                            <div class="map-container">
+                                <div class="map-placeholder">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                    <p>Carte GPS</p>
+                                    <small>Position du drone et trajectoire de vol</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Panneau de contrôle droit -->
+                    <div class="control-panel right-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-arrows-alt"></i> Direction</h3>
+                        </div>
+                        
+                        <!-- Joystick droit (Direction) -->
+                        <div class="joystick-container">
+                            <div class="joystick-label">Avant/Arrière - Gauche/Droite</div>
+                            <div class="joystick right-joystick" id="rightJoystick">
+                                <div class="joystick-knob" id="rightKnob"></div>
+                                <div class="joystick-axis vertical"></div>
+                                <div class="joystick-axis horizontal"></div>
+                            </div>
+                            <div class="joystick-values">
+                                <span>X: <span id="xValue">0</span></span>
+                                <span>Y: <span id="yValue">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Modes de vol -->
+                        <div class="flight-modes">
+                            <div class="mode-selector">
+                                <label>Mode de vol :</label>
+                                <select class="mode-select" onchange="changeFlightMode()">
+                                    <option value="manual">Manuel</option>
+                                    <option value="stabilized">Stabilisé</option>
+                                    <option value="gps">GPS Hold</option>
+                                    <option value="follow">Suivi</option>
+                                    <option value="waypoint">Points de passage</option>
+                                </select>
+                            </div>
+                            
+                            <div class="speed-control">
+                                <label>Vitesse :</label>
+                                <input type="range" class="speed-slider" min="1" max="10" value="5" onchange="adjustSpeed()">
+                                <span class="speed-display">5/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panneau d'informations détaillées -->
+            <div class="drone-telemetry" data-aos="fade-up" data-aos-delay="300">
+                <div class="telemetry-tabs">
+                    <button class="tab-btn active" onclick="switchTab('telemetry')">
+                        <i class="fas fa-chart-line"></i>
+                        Télémétrie
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('mission')">
+                        <i class="fas fa-route"></i>
+                        Mission
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('settings')">
+                        <i class="fas fa-cog"></i>
+                        Paramètres
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('logs')">
+                        <i class="fas fa-list"></i>
+                        Logs
+                    </button>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- Onglet Télémétrie -->
+                    <div class="tab-panel active" id="telemetryPanel">
+                        <div class="telemetry-grid">
+                            <div class="telemetry-card">
+                                <h4><i class="fas fa-location-arrow"></i> Position</h4>
+                                <div class="telemetry-data">
+                                    <div class="data-row">
+                                        <span>Latitude:</span>
+                                        <span id="latitude">48.8566° N</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Longitude:</span>
+                                        <span id="longitude">2.3522° E</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Altitude:</span>
+                                        <span id="telemetryAltitude">0 m</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="telemetry-card">
+                                <h4><i class="fas fa-tachometer-alt"></i> Vitesse</h4>
+                                <div class="telemetry-data">
+                                    <div class="data-row">
+                                        <span>Vitesse sol:</span>
+                                        <span id="groundSpeed">0 km/h</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Vitesse verticale:</span>
+                                        <span id="verticalSpeed">0 m/s</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Direction:</span>
+                                        <span id="direction">N 0°</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="telemetry-card">
+                                <h4><i class="fas fa-battery-half"></i> Énergie</h4>
+                                <div class="telemetry-data">
+                                    <div class="data-row">
+                                        <span>Batterie:</span>
+                                        <span id="batteryLevel">85%</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Voltage:</span>
+                                        <span id="voltage">11.4V</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Temps restant:</span>
+                                        <span id="remainingTime">22 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="telemetry-card">
+                                <h4><i class="fas fa-wifi"></i> Communication</h4>
+                                <div class="telemetry-data">
+                                    <div class="data-row">
+                                        <span>Signal:</span>
+                                        <span id="signalStrength">-45 dBm</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Distance:</span>
+                                        <span id="distance">0 m</span>
+                                    </div>
+                                    <div class="data-row">
+                                        <span>Latence:</span>
+                                        <span id="latency">12 ms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet Mission -->
+                    <div class="tab-panel" id="missionPanel">
+                        <div class="mission-controls">
+                            <div class="mission-actions">
+                                <button class="btn-secondary" onclick="loadMission()">
+                                    <i class="fas fa-upload"></i>
+                                    Charger mission
+                                </button>
+                                <button class="btn-secondary" onclick="saveMission()">
+                                    <i class="fas fa-save"></i>
+                                    Sauvegarder
+                                </button>
+                                <button class="btn-primary" onclick="startMission()">
+                                    <i class="fas fa-play"></i>
+                                    Démarrer mission
+                                </button>
+                            </div>
+                            
+                            <div class="waypoints-list">
+                                <h4>Points de passage</h4>
+                                <div class="waypoint-item">
+                                    <div class="waypoint-number">1</div>
+                                    <div class="waypoint-info">
+                                        <div class="waypoint-coords">48.8566°N, 2.3522°E</div>
+                                        <div class="waypoint-altitude">Alt: 50m</div>
+                                    </div>
+                                    <div class="waypoint-actions">
+                                        <button class="waypoint-btn" onclick="editWaypoint(1)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="waypoint-btn" onclick="deleteWaypoint(1)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <button class="add-waypoint-btn" onclick="addWaypoint()">
+                                    <i class="fas fa-plus"></i>
+                                    Ajouter un point
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet Paramètres -->
+                    <div class="tab-panel" id="settingsPanel">
+                        <div class="drone-settings">
+                            <div class="settings-group">
+                                <h4>Paramètres de vol</h4>
+                                <div class="setting-item">
+                                    <label>Altitude maximale:</label>
+                                    <input type="number" value="120" min="10" max="500"> m
+                                </div>
+                                <div class="setting-item">
+                                    <label>Distance maximale:</label>
+                                    <input type="number" value="500" min="50" max="2000"> m
+                                </div>
+                                <div class="setting-item">
+                                    <label>Vitesse maximale:</label>
+                                    <input type="number" value="15" min="1" max="20"> m/s
+                                </div>
+                            </div>
+                            
+                            <div class="settings-group">
+                                <h4>Sécurité</h4>
+                                <div class="setting-item">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked>
+                                        <span class="checkbox-custom"></span>
+                                        Retour automatique en cas de perte de signal
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked>
+                                        <span class="checkbox-custom"></span>
+                                        Atterrissage automatique batterie faible
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox">
+                                        <span class="checkbox-custom"></span>
+                                        Mode débutant
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet Logs -->
+                    <div class="tab-panel" id="logsPanel">
+                        <div class="logs-container">
+                            <div class="logs-header">
+                                <h4>Journal de vol</h4>
+                                <button class="btn-secondary" onclick="clearLogs()">
+                                    <i class="fas fa-trash"></i>
+                                    Effacer
+                                </button>
+                            </div>
+                            <div class="logs-list" id="logsList">
+                                <div class="log-entry info">
+                                    <span class="log-time">14:32:15</span>
+                                    <span class="log-message">Drone connecté avec succès</span>
+                                </div>
+                                <div class="log-entry warning">
+                                    <span class="log-time">14:30:42</span>
+                                    <span class="log-message">Signal faible détecté</span>
+                                </div>
+                                <div class="log-entry success">
+                                    <span class="log-time">14:28:10</span>
+                                    <span class="log-message">Calibration terminée</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Initialisation AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Variables globales
+        let isConnected = false;
+        let isFlying = false;
+        let isRecording = false;
+        let flightStartTime = null;
+        let flightTimer = null;
+        let currentView = 'camera';
+        let currentTab = 'telemetry';
+        
+        // Données de télémétrie simulées
+        let telemetryData = {
+            latitude: 48.8566,
+            longitude: 2.3522,
+            altitude: 0,
+            groundSpeed: 0,
+            verticalSpeed: 0,
+            direction: 0,
+            battery: 85,
+            voltage: 11.4,
+            signalStrength: -45,
+            distance: 0,
+            latency: 12
+        };
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeJoysticks();
+            updateTelemetryDisplay();
+            
+            // Simulation de données en temps réel
+            setInterval(updateSimulatedData, 1000);
+        });
+
+        // Gestion des joysticks
+        function initializeJoysticks() {
+            const leftJoystick = document.getElementById('leftJoystick');
+            const rightJoystick = document.getElementById('rightJoystick');
+            const leftKnob = document.getElementById('leftKnob');
+            const rightKnob = document.getElementById('rightKnob');
+            
+            // Joystick gauche (Altitude/Rotation)
+            let leftDragging = false;
+            leftKnob.addEventListener('mousedown', (e) => {
+                leftDragging = true;
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (leftDragging) {
+                    updateJoystick(leftJoystick, leftKnob, e, 'left');
+                }
+            });
+            
+            document.addEventListener('mouseup', () => {
+                if (leftDragging) {
+                    leftDragging = false;
+                    resetJoystick(leftKnob);
+                }
+            });
+            
+            // Joystick droit (Direction)
+            let rightDragging = false;
+            rightKnob.addEventListener('mousedown', (e) => {
+                rightDragging = true;
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (rightDragging) {
+                    updateJoystick(rightJoystick, rightKnob, e, 'right');
+                }
+            });
+            
+            document.addEventListener('mouseup', () => {
+                if (rightDragging) {
+                    rightDragging = false;
+                    resetJoystick(rightKnob);
+                }
+            });
+        }
+
+        function updateJoystick(joystick, knob, event, side) {
+            const rect = joystick.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const maxRadius = centerX - 15;
+            
+            let x = event.clientX - rect.left - centerX;
+            let y = event.clientY - rect.top - centerY;
+            
+            const distance = Math.sqrt(x * x + y * y);
+            if (distance > maxRadius) {
+                x = (x / distance) * maxRadius;
+                y = (y / distance) * maxRadius;
+            }
+            
+            knob.style.transform = `translate(${x}px, ${y}px)`;
+            
+            // Mettre à jour les valeurs
+            const normalizedX = (x / maxRadius * 100).toFixed(0);
+            const normalizedY = (-y / maxRadius * 100).toFixed(0);
+            
+            if (side === 'left') {
+                document.getElementById('altitudeValue').textContent = normalizedY;
+                document.getElementById('rotationValue').textContent = normalizedX;
+            } else {
+                document.getElementById('xValue').textContent = normalizedX;
+                document.getElementById('yValue').textContent = normalizedY;
+            }
+        }
+
+        function resetJoystick(knob) {
+            knob.style.transform = 'translate(0px, 0px)';
+        }
+
+        // Fonctions de contrôle du drone
+        function connectDrone() {
+            if (!isConnected) {
+                showNotification('Connexion au drone...', 'info');
+                setTimeout(() => {
+                    isConnected = true;
+                    updateConnectionStatus();
+                    showNotification('Drone connecté avec succès', 'success');
+                    addLogEntry('Drone connecté avec succès', 'success');
+                }, 2000);
+            } else {
+                isConnected = false;
+                updateConnectionStatus();
+                showNotification('Drone déconnecté', 'info');
+                addLogEntry('Drone déconnecté', 'info');
+            }
+        }
+
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('connectionStatus');
+            const indicator = statusElement.querySelector('.status-indicator');
+            const text = statusElement.querySelector('span');
+            
+            if (isConnected) {
+                indicator.className = 'status-indicator online';
+                text.textContent = 'En ligne';
+            } else {
+                indicator.className = 'status-indicator offline';
+                text.textContent = 'Hors ligne';
+            }
+        }
+
+        function takeOff() {
+            if (!isConnected) {
+                showNotification('Veuillez d\'abord connecter le drone', 'warning');
+                return;
+            }
+            
+            if (!isFlying) {
+                showNotification('Décollage en cours...', 'info');
+                isFlying = true;
+                flightStartTime = new Date();
+                startFlightTimer();
+                
+                document.getElementById('takeoffBtn').disabled = true;
+                document.getElementById('landBtn').disabled = false;
+                
+                addLogEntry('Décollage initié', 'info');
+                
+                // Simulation de l'altitude
+                setTimeout(() => {
+                    telemetryData.altitude = 5;
+                    updateTelemetryDisplay();
+                    showNotification('Décollage réussi', 'success');
+                    addLogEntry('Décollage réussi - Altitude: 5m', 'success');
+                }, 3000);
+            }
+        }
+
+        function land() {
+            if (isFlying) {
+                showNotification('Atterrissage en cours...', 'info');
+                isFlying = false;
+                stopFlightTimer();
+                
+                document.getElementById('takeoffBtn').disabled = false;
+                document.getElementById('landBtn').disabled = true;
+                
+                addLogEntry('Atterrissage initié', 'info');
+                
+                // Simulation de l'atterrissage
+                setTimeout(() => {
+                    telemetryData.altitude = 0;
+                    telemetryData.groundSpeed = 0;
+                    updateTelemetryDisplay();
+                    showNotification('Atterrissage réussi', 'success');
+                    addLogEntry('Atterrissage réussi', 'success');
+                }, 3000);
+            }
+        }
+
+        function hover() {
+            if (isFlying) {
+                showNotification('Mode vol stationnaire activé', 'info');
+                addLogEntry('Mode vol stationnaire activé', 'info');
+            }
+        }
+
+        function emergencyStop() {
+            if (isFlying) {
+                showNotification('ARRÊT D\'URGENCE ACTIVÉ', 'error');
+                isFlying = false;
+                stopFlightTimer();
+                telemetryData.altitude = 0;
+                telemetryData.groundSpeed = 0;
+                updateTelemetryDisplay();
+                addLogEntry('ARRÊT D\'URGENCE ACTIVÉ', 'error');
+            }
+        }
+
+        function calibrateDrone() {
+            if (isConnected) {
+                showNotification('Calibration en cours...', 'info');
+                setTimeout(() => {
+                    showNotification('Calibration terminée', 'success');
+                    addLogEntry('Calibration terminée', 'success');
+                }, 3000);
+            } else {
+                showNotification('Veuillez d\'abord connecter le drone', 'warning');
+            }
+        }
+
+        // Gestion du timer de vol
+        function startFlightTimer() {
+            flightTimer = setInterval(() => {
+                if (flightStartTime) {
+                    const elapsed = new Date() - flightStartTime;
+                    const minutes = Math.floor(elapsed / 60000);
+                    const seconds = Math.floor((elapsed % 60000) / 1000);
+                    document.getElementById('flightTime').textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function stopFlightTimer() {
+            if (flightTimer) {
+                clearInterval(flightTimer);
+                flightTimer = null;
+                flightStartTime = null;
+                document.getElementById('flightTime').textContent = '00:00';
+            }
+        }
+
+        // Gestion des vues
+        function switchView(viewType) {
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[onclick="switchView('${viewType}')"]`).classList.add('active');
+            
+            document.querySelectorAll('.camera-view, .map-view').forEach(view => view.classList.remove('active'));
+            document.getElementById(`${viewType}View`).classList.add('active');
+            
+            currentView = viewType;
+        }
+
+        // Gestion des onglets
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            document.getElementById(`${tabName}Panel`).classList.add('active');
+            
+            currentTab = tabName;
+        }
+
+        // Contrôles caméra
+        function takePhoto() {
+            if (isConnected) {
+                showNotification('Photo prise', 'success');
+                addLogEntry('Photo capturée', 'info');
+            }
+        }
+
+        function startRecording() {
+            if (!isConnected) return;
+            
+            const btn = document.getElementById('recordBtn');
+            if (!isRecording) {
+                isRecording = true;
+                btn.innerHTML = '<i class="fas fa-stop"></i>';
+                btn.classList.add('recording');
+                showNotification('Enregistrement démarré', 'success');
+                addLogEntry('Enregistrement vidéo démarré', 'info');
+            } else {
+                isRecording = false;
+                btn.innerHTML = '<i class="fas fa-video"></i>';
+                btn.classList.remove('recording');
+                showNotification('Enregistrement arrêté', 'info');
+                addLogEntry('Enregistrement vidéo arrêté', 'info');
+            }
+        }
+
+        function toggleGimbal() {
+            showNotification('Contrôle gimbal activé', 'info');
+        }
+
+        // Gestion des modes de vol
+        function changeFlightMode() {
+            const mode = event.target.value;
+            showNotification(`Mode de vol changé: ${mode}`, 'info');
+            addLogEntry(`Mode de vol changé: ${mode}`, 'info');
+        }
+
+        function adjustSpeed() {
+            const speed = event.target.value;
+            document.querySelector('.speed-display').textContent = `${speed}/10`;
+        }
+
+        // Gestion des missions
+        function loadMission() {
+            showNotification('Chargement de mission...', 'info');
+        }
+
+        function saveMission() {
+            showNotification('Mission sauvegardée', 'success');
+        }
+
+        function startMission() {
+            if (isConnected && isFlying) {
+                showNotification('Mission démarrée', 'success');
+                addLogEntry('Mission automatique démarrée', 'info');
+            } else {
+                showNotification('Le drone doit être en vol pour démarrer une mission', 'warning');
+            }
+        }
+
+        function addWaypoint() {
+            showNotification('Point de passage ajouté', 'success');
+        }
+
+        function editWaypoint(id) {
+            showNotification(`Édition du point ${id}`, 'info');
+        }
+
+        function deleteWaypoint(id) {
+            showNotification(`Point ${id} supprimé`, 'info');
+        }
+
+        // Mise à jour de la télémétrie
+        function updateTelemetryDisplay() {
+            document.getElementById('latitude').textContent = `${telemetryData.latitude.toFixed(4)}° N`;
+            document.getElementById('longitude').textContent = `${telemetryData.longitude.toFixed(4)}° E`;
+            document.getElementById('telemetryAltitude').textContent = `${telemetryData.altitude} m`;
+            document.getElementById('currentAltitude').textContent = `${telemetryData.altitude}m`;
+            document.getElementById('groundSpeed').textContent = `${telemetryData.groundSpeed} km/h`;
+            document.getElementById('speed').textContent = `${telemetryData.groundSpeed} km/h`;
+            document.getElementById('verticalSpeed').textContent = `${telemetryData.verticalSpeed} m/s`;
+            document.getElementById('direction').textContent = `N ${telemetryData.direction}°`;
+            document.getElementById('heading').textContent = `N ${telemetryData.direction}°`;
+            document.getElementById('batteryLevel').textContent = `${telemetryData.battery}%`;
+            document.getElementById('voltage').textContent = `${telemetryData.voltage}V`;
+            document.getElementById('signalStrength').textContent = `${telemetryData.signalStrength} dBm`;
+            document.getElementById('distance').textContent = `${telemetryData.distance} m`;
+            document.getElementById('latency').textContent = `${telemetryData.latency} ms`;
+            
+            // Mise à jour du temps restant basé sur la batterie
+            const remainingMinutes = Math.floor(telemetryData.battery * 0.26); // Approximation
+            document.getElementById('remainingTime').textContent = `${remainingMinutes} min`;
+            
+            // Mise à jour de la boussole
+            const compass = document.getElementById('compassNeedle');
+            if (compass) {
+                compass.style.transform = `rotate(${telemetryData.direction}deg)`;
+            }
+        }
+
+        // Simulation de données en temps réel
+        function updateSimulatedData() {
+            if (isFlying) {
+                // Simulation de petites variations
+                telemetryData.groundSpeed = Math.max(0, telemetryData.groundSpeed + (Math.random() - 0.5) * 2);
+                telemetryData.direction = (telemetryData.direction + (Math.random() - 0.5) * 5) % 360;
+                telemetryData.battery = Math.max(0, telemetryData.battery - 0.01);
+                telemetryData.distance = Math.max(0, telemetryData.distance + (Math.random() - 0.5) * 10);
+                
+                updateTelemetryDisplay();
+            }
+        }
+
+        // Gestion des logs
+        function addLogEntry(message, type = 'info') {
+            const logsList = document.getElementById('logsList');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('fr-FR');
+            
+            logEntry.innerHTML = `
+                <span class="log-time">${timeString}</span>
+                <span class="log-message">${message}</span>
+            `;
+            
+            logsList.insertBefore(logEntry, logsList.firstChild);
+            
+            // Limiter le nombre de logs
+            while (logsList.children.length > 50) {
+                logsList.removeChild(logsList.lastChild);
+            }
+        }
+
+        function clearLogs() {
+            document.getElementById('logsList').innerHTML = '';
+            showNotification('Logs effacés', 'info');
+        }
+
+        // Fonction d'affichage des notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times' : 'info'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Raccourcis clavier
+        document.addEventListener('keydown', function(event) {
+            if (!isConnected) return;
+            
+            switch(event.key) {
+                case 't':
+                case 'T':
+                    if (!isFlying) takeOff();
+                    break;
+                case 'l':
+                case 'L':
+                    if (isFlying) land();
+                    break;
+                case ' ':
+                    event.preventDefault();
+                    hover();
+                    break;
+                case 'Escape':
+                    emergencyStop();
+                    break;
+            }
+        });
+    </script>
+</body>
+
+</html>
