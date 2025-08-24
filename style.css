@@ -570,6 +570,9 @@ footer {
 .status-info p { margin: 2px 0 0; font-size: 13px; color: #b3b3b3; }
 .status-control { display: flex; align-items: center; gap: 8px; }
 
+/* Alias pour compatibilité (certaines pages utilisent .admin-content) */
+.admin-content { padding:0 16px 40px 0; }
+
 /* Indicateurs d'état */
 .status-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; background: #101010; border: 1px solid #1e1e1e; color: #cfcfcf; }
 .status-indicator.active { color: #10b981; border-color: #115e59; background: rgba(16,185,129,0.08); }
@@ -711,33 +714,7 @@ footer {
 .device-title { margin:0; font-size:16px; color:#e5e5e5; }
 .device-actions { display:flex; gap:8px; }
 
-/* Onglets */
-.tab-nav { display:flex; align-items:center; gap:8px; border-bottom:1px solid #1e1e1e; margin-bottom:12px; flex-wrap:wrap; }
-.tab-btn { background:#111; border:1px solid #1e1e1e; color:#cfcfcf; padding:8px 12px; border-radius:8px; cursor:pointer; transition:all .2s ease; }
-.tab-btn:hover { background:#151515; color:#fff; }
-.tab-btn.active { background:#101010; border-color:var(--primary-green); color:#fff; }
-.tab-container .tab-content { display:none; }
- .tab-container .tab-content.active { display:block; }
- /* Variante de structure: panneaux internes */
- .tab-panel { display:none; }
- .tab-panel.active { display:block; }
 
-/* Alias pour compatibilité (certaines pages utilisent .admin-content) */
-.admin-content { padding:0 16px 40px 0; }
-
-/* ===== UI Harmonisation: En-têtes, cartes de statut, contrôles et indicateurs ===== */
-/* En-tête de page */
-.page-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin:0 0 16px; }
-.page-title h1 { margin:0 0 4px; font-size:22px; color: #e5e5e5; }
-.page-title p { margin:0; color: #b5b5b5; }
-.page-actions { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-
-/* Grille de cartes de statut */
-.status-cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px; }
-.status-card { background: #0f0f0f; border: 1px solid #1e1e1e; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; transition: transform .2s ease, border-color .2s ease; }
-.status-icon { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; background: #111; border: 1px solid #1e1e1e; color: #cfcfcf; }
-.status-info h3 { margin: 0; font-size: 16px; color: #e5e5e5; }
-.status-info p { margin: 2px 0 0; font-size: 13px; color: #b3b3b3; }
 .status-control { display: flex; align-items: center; gap: 8px; }
 
 /* Indicateurs d'état */
