@@ -206,3 +206,75 @@ if (pixelBackground) {
     }
   });
 })();
+
+// Tabs: generic initializer and global helper
+(function () {
+  const esc = (window.CSS && CSS.escape) ? CSS.escape : (s) => String(s).replace(/[^a-zA-Z0-9_-]/g, '\\$&');
+
+  function findTargetContent(name, scope) {
+    if (!name) return null;
+    const root = scope || document;
+    return root.querySelector('#' + esc(name) + '-tab') || root.querySelector('#' + esc(name));
+  }
+
+  function activateTab(name, scope) {
+    const root = scope || document;
+    const buttons = root.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => {
+      const isActive = btn.dataset && btn.dataset.tab === name;
+      if (isActive) btn.classList.add('active'); else btn.classList.remove('active');
+    });
+
+    // Structure 1: plusieurs sections .tab-content
+    const contents = root.querySelectorAll('.tab-content');
+    if (contents.length) {
+      contents.forEach(c => c.classList.remove('active'));
+      const target = findTargetContent(name, root);
+      if (target) target.classList.add('active');
+    }
+
+    // Structure 2: un conteneur avec plusieurs .tab-panel (ex: drones.html)
+    const panels = root.querySelectorAll('.tab-panel');
+    if (panels.length) {
+      panels.forEach(p => p.classList.remove('active'));
+      const targetPanel = root.querySelector('#' + esc(name) + 'Panel');
+      if (targetPanel) targetPanel.classList.add('active');
+    }
+  }
+
+  function initTabs(container) {
+    const root = container || document;
+    const btns = root.querySelectorAll('.tab-btn');
+    if (!btns.length) return;
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.dataset && btn.dataset.tab;
+        const scope = btn.closest('.tab-container') || root;
+        if (name) activateTab(name, scope);
+      });
+    });
+    // Ensure a default active state within each tab-container
+    const containers = root.querySelectorAll('.tab-container');
+    containers.forEach(cont => {
+      const hasActiveContent = cont.querySelector('.tab-content.active');
+      if (!hasActiveContent) {
+        const firstBtn = cont.querySelector('.tab-btn');
+        const name = firstBtn && firstBtn.dataset ? firstBtn.dataset.tab : null;
+        if (name) activateTab(name, cont);
+      }
+    });
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initTabs());
+  } else {
+    initTabs();
+  }
+
+  // Global helper to support inline onclick="switchTab('name')"
+  window.switchTab = function (tabName) {
+    const activeContainer = document.querySelector('.tab-container') || document;
+    activateTab(tabName, activeContainer);
+  };
+})();
