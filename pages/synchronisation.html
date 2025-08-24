@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Synchronisation - Vulsshield</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="common-styles.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -153,12 +154,12 @@
                     <h1><i class="fas fa-sync-alt"></i> Synchronisation</h1>
                     <p>Gérez la synchronisation de vos données entre tous vos appareils</p>
                 </div>
-                <div class="page-actions">
-                    <button class="btn-secondary" onclick="refreshSyncStatus()">
+                <div class="card-actions">
+                    <button class="btn btn-secondary" onclick="refreshSyncStatus()">
                         <i class="fas fa-refresh"></i>
                         Actualiser
                     </button>
-                    <button class="btn-primary" onclick="forceSyncNow()">
+                    <button class="btn btn-primary" onclick="forceSyncNow()">
                         <i class="fas fa-sync"></i>
                         Synchroniser maintenant
                     </button>
@@ -166,7 +167,7 @@
             </div>
 
             <!-- Statut de synchronisation -->
-            <div class="sync-status-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="admin-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="sync-status-header">
                     <div class="sync-status-info">
                         <h3>Statut de synchronisation</h3>
@@ -193,7 +194,7 @@
             <div class="devices-section" data-aos="fade-up" data-aos-delay="200">
                 <div class="section-header">
                     <h3><i class="fas fa-devices"></i> Appareils connectés</h3>
-                    <button class="btn-secondary" onclick="addNewDevice()">
+                    <button class="btn btn-secondary" onclick="addNewDevice()">
                         <i class="fas fa-plus"></i>
                         Ajouter un appareil
                     </button>
@@ -224,10 +225,10 @@
                             <span class="device-status online">En ligne</span>
                         </div>
                         <div class="device-actions">
-                            <button class="btn-icon" onclick="syncDevice('iphone')" title="Synchroniser">
+                            <button class="btn btn-icon" onclick="syncDevice('iphone')" title="Synchroniser">
                                 <i class="fas fa-sync"></i>
                             </button>
-                            <button class="btn-icon danger" onclick="removeDevice('iphone')" title="Supprimer">
+                            <button class="btn btn-icon btn-danger" onclick="removeDevice('iphone')" title="Supprimer">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -243,10 +244,10 @@
                             <span class="device-status offline">Hors ligne</span>
                         </div>
                         <div class="device-actions">
-                            <button class="btn-icon" onclick="syncDevice('ipad')" title="Synchroniser" disabled>
+                            <button class="btn btn-icon" onclick="syncDevice('ipad')" title="Synchroniser" disabled>
                                 <i class="fas fa-sync"></i>
                             </button>
-                            <button class="btn-icon danger" onclick="removeDevice('ipad')" title="Supprimer">
+                            <button class="btn btn-icon btn-danger" onclick="removeDevice('ipad')" title="Supprimer">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -262,10 +263,10 @@
                             <span class="device-status online">En ligne</span>
                         </div>
                         <div class="device-actions">
-                            <button class="btn-icon" onclick="syncDevice('windows')" title="Synchroniser">
+                            <button class="btn btn-icon" onclick="syncDevice('windows')" title="Synchroniser">
                                 <i class="fas fa-sync"></i>
                             </button>
-                            <button class="btn-icon danger" onclick="removeDevice('windows')" title="Supprimer">
+                            <button class="btn btn-icon btn-danger" onclick="removeDevice('windows')" title="Supprimer">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -545,6 +546,7 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../script.js"></script>
+    <script src="common-scripts.js"></script>
     <script>
         // Initialisation AOS
         AOS.init({

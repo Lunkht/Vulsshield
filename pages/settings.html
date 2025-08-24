@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paramètres - Vulsshield</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="common-styles.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -146,66 +147,67 @@
         </aside>
 
         <!-- Contenu principal -->
-        <main class="admin-main">
-            <!-- En-tête de la page -->
-            <div class="page-header" data-aos="fade-up">
-                <div class="page-title">
-                    <h1><i class="fas fa-cog"></i> Paramètres</h1>
-                    <p>Configurez vos préférences et paramètres de sécurité</p>
-                </div>
-                <div class="page-actions">
-                    <button class="btn-secondary" onclick="resetSettings()">
+        <main class="admin-content">
+            <div class="page-header">
+                <h1 class="page-title">Paramètres</h1>
+                <p class="page-subtitle">Gérez vos préférences et configurations</p>
+            </div>
+                <div class="card-actions">
+                    <button class="btn btn-secondary" onclick="resetSettings()">
                         <i class="fas fa-undo"></i>
                         Réinitialiser
                     </button>
-                    <button class="btn-primary" onclick="saveSettings()">
+                    <button class="btn btn-primary save-btn" onclick="saveSettings()">
                         <i class="fas fa-save"></i>
                         Sauvegarder
                     </button>
                 </div>
             </div>
 
-            <!-- Onglets de paramètres -->
-            <div class="settings-tabs" data-aos="fade-up" data-aos-delay="100">
+            <!-- Navigation par onglets -->
+            <div class="tab-container" data-aos="fade-up" data-aos-delay="100">
                 <div class="tab-nav">
-                    <button class="tab-btn active" onclick="showTab('general')">
-                        <i class="fas fa-cog"></i>
+                    <button class="tab-btn active" data-tab="general">
+                        <i class="fas fa-sliders-h"></i>
                         Général
                     </button>
-                    <button class="tab-btn" onclick="showTab('security')">
+                    <button class="tab-btn" data-tab="security">
                         <i class="fas fa-shield-alt"></i>
                         Sécurité
                     </button>
-                    <button class="tab-btn" onclick="showTab('notifications')">
+                    <button class="tab-btn" data-tab="notifications">
                         <i class="fas fa-bell"></i>
                         Notifications
                     </button>
-                    <button class="tab-btn" onclick="showTab('privacy')">
+                    <button class="tab-btn" data-tab="privacy">
                         <i class="fas fa-user-secret"></i>
                         Confidentialité
                     </button>
-                    <button class="tab-btn" onclick="showTab('advanced')">
-                        <i class="fas fa-tools"></i>
+                    <button class="tab-btn" data-tab="advanced">
+                        <i class="fas fa-cogs"></i>
                         Avancé
                     </button>
                 </div>
 
                 <!-- Onglet Général -->
                 <div class="tab-content active" id="general">
-                    <div class="settings-section">
-                        <h3>Préférences générales</h3>
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <label>Langue de l'interface</label>
-                                <p>Choisissez la langue d'affichage de l'application</p>
-                            </div>
-                            <select class="setting-control">
-                                <option value="fr" selected>Français</option>
-                                <option value="en">English</option>
-                                <option value="es">Español</option>
-                                <option value="de">Deutsch</option>
-                            </select>
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-palette"></i> Préférences générales</h3>
                         </div>
+                        <div class="card-body">
+                            <div class="form-group d-flex justify-between align-center">
+                                <div>
+                                    <label class="form-label mb-1">Langue de l'interface</label>
+                                    <div class="text-muted">Choisissez la langue d'affichage de l'application</div>
+                                </div>
+                                <select class="form-control" data-setting="language">
+                                    <option value="fr" selected>Français</option>
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                    <option value="de">Deutsch</option>
+                                </select>
+                            </div>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -566,101 +568,104 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../script.js"></script>
+    <script src="common-scripts.js"></script>
     <script>
-        // Initialisation AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
+        // Configuration spécifique à la page des paramètres
+        document.addEventListener('DOMContentLoaded', function() {
+            // Charger les paramètres sauvegardés
+            loadSavedSettings();
         });
 
-        // Gestion des onglets
-        function showTab(tabName) {
-            // Masquer tous les contenus d'onglets
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
+        function loadSavedSettings() {
+            const settings = JSON.parse(localStorage.getItem('adminSettings') || '{}');
+            
+            // Appliquer les paramètres sauvegardés
+            Object.keys(settings).forEach(key => {
+                const element = document.querySelector(`[data-setting="${key}"]`);
+                if (element) {
+                    if (element.type === 'checkbox') {
+                        element.checked = settings[key];
+                    } else {
+                        element.value = settings[key];
+                    }
+                }
             });
-            
-            // Désactiver tous les boutons d'onglets
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Afficher le contenu de l'onglet sélectionné
-            document.getElementById(tabName).classList.add('active');
-            
-            // Activer le bouton de l'onglet sélectionné
-            event.target.classList.add('active');
         }
 
-        // Fonctions de paramètres
         function saveSettings() {
-            // Simulation de sauvegarde
-            showNotification('Paramètres sauvegardés avec succès', 'success');
+            if (window.adminManager) {
+                window.adminManager.showNotification('Paramètres sauvegardés avec succès', 'success');
+            }
         }
 
         function resetSettings() {
             if (confirm('Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?')) {
-                // Simulation de réinitialisation
-                showNotification('Paramètres réinitialisés', 'info');
+                // Réinitialiser tous les toggles
+                const toggles = document.querySelectorAll('input[type="checkbox"]');
+                toggles.forEach(toggle => {
+                    toggle.checked = false;
+                });
+                
+                // Réinitialiser les selects
+                const selects = document.querySelectorAll('select');
+                selects.forEach(select => {
+                    select.selectedIndex = 0;
+                });
+                
+                // Nettoyer le localStorage
+                localStorage.removeItem('adminSettings');
+                
+                if (window.adminManager) {
+                    window.adminManager.showNotification('Paramètres réinitialisés', 'info');
+                }
             }
         }
 
         function showActiveSessions() {
-            alert('Fonctionnalité en développement : Affichage des sessions actives');
+            if (window.adminManager) {
+                window.adminManager.showNotification('Fonctionnalité en développement : Affichage des sessions actives', 'info');
+            }
         }
 
         function logoutAllDevices() {
             if (confirm('Déconnecter tous les appareils ? Vous devrez vous reconnecter partout.')) {
-                showNotification('Déconnexion de tous les appareils effectuée', 'success');
+                if (window.adminManager) {
+                    window.adminManager.showNotification('Déconnexion de tous les appareils effectuée', 'success');
+                }
             }
         }
 
         function exportData() {
-            showNotification('Export des données en cours...', 'info');
-            // Simulation d'export
-            setTimeout(() => {
-                showNotification('Données exportées avec succès', 'success');
-            }, 2000);
+            if (window.adminManager) {
+                window.adminManager.showNotification('Export des données en cours...', 'info');
+                setTimeout(() => {
+                    window.adminManager.showNotification('Données exportées avec succès', 'success');
+                }, 2000);
+            }
         }
 
         function deleteAllData() {
             if (confirm('ATTENTION : Cette action est irréversible. Supprimer toutes vos données ?')) {
                 if (confirm('Êtes-vous absolument certain ? Toutes vos données seront perdues.')) {
-                    showNotification('Suppression des données en cours...', 'warning');
+                    if (window.adminManager) {
+                        window.adminManager.showNotification('Suppression des données en cours...', 'warning');
+                    }
                 }
             }
         }
 
         function clearCache() {
-            showNotification('Cache vidé avec succès', 'success');
+            if (window.adminManager) {
+                window.adminManager.showNotification('Cache vidé avec succès', 'success');
+            }
         }
 
         function resetApplication() {
             if (confirm('Réinitialiser complètement l\'application ? Tous vos paramètres seront perdus.')) {
-                showNotification('Application réinitialisée', 'info');
+                if (window.adminManager) {
+                    window.adminManager.showNotification('Application réinitialisée', 'info');
+                }
             }
-        }
-
-        // Fonction d'affichage des notifications
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times' : 'info'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Animation d'apparition
-            setTimeout(() => notification.classList.add('show'), 100);
-            
-            // Suppression automatique
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
         }
     </script>
 </body>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - Vulsshield</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="common-styles.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -153,12 +154,12 @@
                     <h1><i class="fas fa-user-cog"></i> Profil utilisateur</h1>
                     <p>Gérez vos informations personnelles et préférences de compte</p>
                 </div>
-                <div class="page-actions">
-                    <button class="btn-secondary" onclick="resetProfile()">
+                <div class="card-actions">
+                    <button class="btn btn-secondary" onclick="resetProfile()">
                         <i class="fas fa-undo"></i>
                         Annuler
                     </button>
-                    <button class="btn-primary" onclick="saveProfile()">
+                    <button class="btn btn-primary" onclick="saveProfile()">
                         <i class="fas fa-save"></i>
                         Enregistrer
                     </button>
@@ -166,7 +167,7 @@
             </div>
 
             <!-- Carte de profil principal -->
-            <div class="profile-main-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="admin-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="profile-header">
                     <div class="profile-avatar-section">
                         <div class="profile-avatar-container">
@@ -181,11 +182,11 @@
                             <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload()">
                         </div>
                         <div class="profile-avatar-actions">
-                            <button class="btn-secondary" onclick="uploadAvatar()">
+                            <button class="btn btn-secondary" onclick="uploadAvatar()">
                                 <i class="fas fa-upload"></i>
                                 Changer l'avatar
                             </button>
-                            <button class="btn-secondary" onclick="removeAvatar()">
+                            <button class="btn btn-secondary" onclick="removeAvatar()">
                                 <i class="fas fa-trash"></i>
                                 Supprimer
                             </button>
@@ -225,21 +226,21 @@
             </div>
 
             <!-- Onglets de profil -->
-            <div class="profile-tabs" data-aos="fade-up" data-aos-delay="200">
-                <div class="tab-navigation">
-                    <button class="tab-btn active" onclick="switchTab('personal')">
+            <div class="admin-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="personal">
                         <i class="fas fa-user"></i>
                         Informations personnelles
                     </button>
-                    <button class="tab-btn" onclick="switchTab('security')">
+                    <button class="tab-btn" data-tab="security">
                         <i class="fas fa-shield-alt"></i>
                         Sécurité
                     </button>
-                    <button class="tab-btn" onclick="switchTab('preferences')">
+                    <button class="tab-btn" data-tab="preferences">
                         <i class="fas fa-cog"></i>
                         Préférences
                     </button>
-                    <button class="tab-btn" onclick="switchTab('activity')">
+                    <button class="tab-btn" data-tab="activity">
                         <i class="fas fa-history"></i>
                         Activité récente
                     </button>
@@ -688,6 +689,7 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../script.js"></script>
+    <script src="common-scripts.js"></script>
     <script>
         // Initialisation AOS
         AOS.init({
