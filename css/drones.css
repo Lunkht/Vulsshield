@@ -5,32 +5,34 @@
 }
 
 .drone-card {
-    background-color: #fff;
+    background-color: var(--primary-grey-transparent);
+    border: 1px solid var(--primary-gray);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 20px;
     transition: transform 0.2s;
 }
 
 .drone-card:hover {
     transform: translateY(-5px);
+    border-color: var(--primary-green);
 }
 
 .drone-card h3 {
     margin-top: 0;
+    color: var(--primary-white);
 }
 
 .drone-details {
     margin-top: 20px;
-    background-color: #fff;
+    background-color: var(--primary-black);
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid var(--primary-gray);
 }
 
 .telemetry-tabs {
     display: flex;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--primary-gray);
     margin-bottom: 20px;
 }
 
@@ -40,12 +42,13 @@
     padding: 15px 20px;
     cursor: pointer;
     font-size: 16px;
+    color: var(--primary-gray);
     transition: color 0.2s, border-bottom 0.2s;
 }
 
 .tab-btn.active {
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
+    color: var(--primary-green);
+    border-bottom: 2px solid var(--primary-green);
 }
 
 .telemetry-grid {
@@ -55,13 +58,15 @@
 }
 
 .telemetry-card {
-    background-color: #f8f9fa;
+    background-color: var(--primary-grey-transparent);
     border-radius: 5px;
     padding: 15px;
+    border: 1px solid var(--primary-gray);
 }
 
 .settings-group, .mission-controls, .logs-container {
     margin-top: 15px;
+    color: var(--primary-white);
 }
 
 
