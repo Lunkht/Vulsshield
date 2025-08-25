@@ -7,7 +7,6 @@ class AdminPageManager {
     }
 
     init() {
-        this.loadIncludes();
         this.initSidebar();
         this.initTabs();
         this.initToggles();
@@ -17,34 +16,11 @@ class AdminPageManager {
         this.bindEvents();
     }
 
-    // Chargement des composants inclus
-    async loadIncludes() {
-        const includes = document.querySelectorAll('[data-include]');
-        for (const el of includes) {
-            const filePath = el.getAttribute('data-include');
-            try {
-                const response = await fetch(filePath);
-                if (response.ok) {
-                    const html = await response.text();
-                    el.innerHTML = html;
-                } else {
-                    console.error(`Failed to load include: ${filePath}`);
-                    el.innerHTML = `<p style="color:red;">Error loading ${filePath}</p>`;
-                }
-            } catch (error) {
-                console.error(`Error fetching include: ${filePath}`, error);
-                el.innerHTML = `<p style="color:red;">Error loading ${filePath}</p>`;
-            }
-        }
-    }
-
     // Gestion de la sidebar
     initSidebar() {
-        // La logique de la sidebar est maintenant chargée dynamiquement
-        // Nous devons nous assurer que les éléments sont présents avant d'attacher les écouteurs
-        const sidebarToggle = document.querySelector('.sidebar-toggle');
-        const sidebar = document.querySelector('.sidebar');
-
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.querySelector('.admin-sidebar');
+        
         if (sidebarToggle && sidebar) {
             sidebarToggle.addEventListener('click', () => {
                 sidebar.classList.toggle('collapsed');
@@ -135,24 +111,13 @@ class AdminPageManager {
     // Gestion des dropdowns
     initDropdowns() {
         document.addEventListener('click', (e) => {
-            const dropdownToggle = e.target.closest('[data-dropdown-target]');
-
-            // Fermer tous les dropdowns ouverts, sauf celui qui est cliqué
+            // Fermer tous les dropdowns ouverts
             const openDropdowns = document.querySelectorAll('.dropdown-menu.active');
             openDropdowns.forEach(dropdown => {
-                // Si le clic n'est pas sur le toggle du dropdown actuel, ni à l'intérieur du dropdown
-                if (!dropdown.contains(e.target) && (!dropdownToggle || dropdown.id !== dropdownToggle.getAttribute('data-dropdown-target'))) {
+                if (!dropdown.contains(e.target) && !e.target.closest('[data-dropdown]')) {
                     dropdown.classList.remove('active');
                 }
             });
-
-            if (dropdownToggle) {
-                const targetId = dropdownToggle.getAttribute('data-dropdown-target');
-                const targetDropdown = document.getElementById(targetId);
-                if (targetDropdown) {
-                    targetDropdown.classList.toggle('active');
-                }
-            }
         });
     }
 
@@ -383,6 +348,27 @@ class AdminPageManager {
 }
 
 // Fonctions globales pour la compatibilité
+function toggleFeedbackMenu() {
+    const menu = document.getElementById('feedbackMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+    }
+}
+
+function toggleNotificationMenu() {
+    const menu = document.getElementById('notificationMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+    }
+}
+
+function toggleUserMenu() {
+    const menu = document.getElementById('userMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+    }
+}
+
 function switchTab(tabName) {
     const tabs = document.querySelectorAll('.tab-content');
     const buttons = document.querySelectorAll('.tab-btn');
@@ -417,18 +403,8 @@ function switchTab(tabName) {
 }
 
 // Initialisation automatique
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     window.adminManager = new AdminPageManager();
-    await window.adminManager.loadIncludes();
-
-    // Le reste de l'initialisation qui dépend des éléments chargés
-    window.adminManager.initSidebar();
-    window.adminManager.initTabs();
-    window.adminManager.initToggles();
-    window.adminManager.initDropdowns();
-    window.adminManager.initSearch();
-    window.adminManager.initNotifications();
-    window.adminManager.bindEvents();
     
     // Gestion des onglets avec data-tab
     document.querySelectorAll('[data-tab]').forEach(button => {
