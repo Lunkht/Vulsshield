@@ -115,7 +115,7 @@
 .notification-icon, .user-avatar { position: relative; }
 
 /* Layout offset for fixed Top Bar (appliqué uniquement si .top-bar est présent) */
-body:has(.top-bar) { padding-top: 84px; }
+.top-bar + * { margin-top: 84px; }
 
 /*le code du footer dois Toujours rester en bas*/
 
@@ -354,8 +354,8 @@ footer {
         top: 100px; /* Ajuster pour la top-bar en mode mobile */
     }
     
-    body:has(.top-bar) {
-         padding-top: 100px; /* Espace supplémentaire sur mobile pour la top bar */
+    .top-bar + * {
+         margin-top: 100px; /* Espace supplémentaire sur mobile pour la top bar */
      }
     
     /* Responsive pour les menus déroulants */
