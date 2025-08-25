@@ -1,3 +1,122 @@
+/* =================================
+   Core Variables (added)
+   ================================= */
+:root {
+  --primary-green: #10b981;
+  --primary-white: #ffffff;
+  --primary-black: #0b0b0b;
+}
+
+/* Generic container utility (used by top-bar and sections) */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* =================================
+   Top Bar - Base styles (added)
+   ================================= */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  background: #0c0c0c;
+  border-bottom: 1px solid #1e1e1e;
+  z-index: 1100;
+  backdrop-filter: blur(6px);
+}
+
+.top-bar .container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.top-bar-left,
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-bar-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Breadcrumb */
+.breadcrumb { display:flex; align-items:center; gap:8px; color:#9a9a9a; }
+.breadcrumb .project-name { color:#fff; font-weight:600; letter-spacing:.02em; }
+.project-icon { width:28px; height:28px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#101010; border:1px solid #1e1e1e; }
+.project-icon .gradient-circle { width:14px; height:14px; border-radius:50%; background: conic-gradient(from 180deg, var(--primary-green), #16a34a, #0ea5e9, var(--primary-green)); box-shadow:0 0 0 2px #0e0e0e inset; }
+
+/* Buttons + actions */
+.action-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:8px 10px; height:36px; border-radius:8px; background:#0f0f0f; color:#cfcfcf; border:1px solid #1e1e1e; cursor:pointer; transition: all .2s ease; text-decoration:none; }
+.action-btn:hover { background:#121212; color:#fff; border-color:#2a2a2a; box-shadow:0 0 0 3px rgba(16,185,129,.08); }
+.action-btn:active { transform: translateY(1px); }
+
+/* Search */
+.search-container { display:flex; align-items:center; gap:8px; padding:8px 10px; background:#0f0f0f; border:1px solid #1e1e1e; border-radius:10px; }
+.search-container i { color:#8b8b8b; }
+.search-input { width:220px; background:transparent; border:none; outline:none; color:#eee; font-size:14px; }
+
+/* Notification bell */
+.notification-icon { position:relative; width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; background:#0f0f0f; border:1px solid #1e1e1e; color:#cfcfcf; cursor:pointer; transition: all .2s ease; }
+.notification-icon:hover { background:#121212; color:#fff; border-color:#2a2a2a; }
+.notification-dot { position:absolute; top:6px; right:6px; width:8px; height:8px; background: var(--primary-green); border-radius:999px; box-shadow:0 0 0 2px #0c0c0c; }
+
+/* User avatar */
+.user-avatar { position:relative; width:36px; height:36px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#0f0f0f; border:1px solid #1e1e1e; cursor:pointer; }
+.user-avatar .avatar-gradient { width:22px; height:22px; border-radius:50%; background: radial-gradient(circle at 30% 30%, var(--primary-green), #16a34a 60%, #134e4a); box-shadow: 0 0 0 2px #0e0e0e inset; }
+
+/* Dropdown menus */
+.dropdown-menu { position:absolute; top:calc(100% + 10px); right:0; background:#0f0f0f; border:1px solid #1e1e1e; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.5); min-width:320px; display:none; z-index:1200; }
+.dropdown-menu.active { display:block; }
+.dropdown-menu .menu-header { padding:12px 14px; border-bottom:1px solid #1e1e1e; }
+.dropdown-menu .menu-header h4 { margin:0; font-size:14px; color:#eee; }
+.dropdown-menu .menu-content { padding:12px 14px; color:#cfcfcf; }
+.dropdown-menu .menu-footer { padding:10px 14px; border-top:1px solid #1e1e1e; display:flex; align-items:center; gap:8px; justify-content:flex-end; }
+
+/* Menu variants */
+.user-menu .menu-item { display:flex; align-items:center; gap:10px; padding:10px 12px; color:#d0d0d0; text-decoration:none; border-radius:8px; transition: all .2s ease; }
+.user-menu .menu-item:hover { background:#121212; color:#fff; }
+.user-menu .menu-item.logout { color:#ffb4b4; }
+
+/* Buttons - global (used in menus and elsewhere) */
+.btn-primary, .btn-secondary { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:36px; padding:8px 12px; border-radius:10px; border:1px solid #1e1e1e; font-weight:600; letter-spacing:.01em; cursor:pointer; transition: all .2s ease; text-decoration:none; }
+.btn-primary { background: var(--primary-green); color:#0b0b0b; border-color:#11a26d; }
+.btn-primary:hover { filter: brightness(1.04); box-shadow: 0 0 0 3px rgba(16,185,129,.15); }
+.btn-secondary { background:#111; color:#e0e0e0; border-color:#1f1f1f; }
+.btn-secondary:hover { background:#151515; color:#fff; border-color:#2a2a2a; box-shadow:0 0 0 3px rgba(255,255,255,.05); }
+.btn-primary:active, .btn-secondary:active { transform: translateY(1px); }
+.btn-primary:focus-visible, .btn-secondary:focus-visible { outline:none; box-shadow: 0 0 0 3px rgba(16,185,129,.18); }
+
+/* Feedback form styles (inside dropdown) */
+.feedback-form { display:flex; flex-direction:column; gap:12px; }
+.feedback-form .form-group { display:flex; flex-direction:column; gap:6px; }
+.feedback-form label { font-size:12px; color:#a8a8a8; }
+.feedback-select, .feedback-input, .feedback-textarea { background:#0b0b0b; border:1px solid #1e1e1e; color:#e8e8e8; border-radius:10px; padding:10px 12px; font-size:14px; width:100%; transition: all .2s ease; }
+.feedback-textarea { min-height:90px; resize: vertical; }
+.feedback-select:focus, .feedback-input:focus, .feedback-textarea:focus { outline:none; border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(16,185,129,.15); }
+
+/* Compact variant used in tight spaces */
+.btn-primary.compact, .btn-secondary.compact { padding: 8px 10px; font-size: 12px; height: 32px; }
+
+/* Make triggers positioning context for dropdowns */
+.notification-icon, .user-avatar { position: relative; }
+
+/* Layout offset for fixed Top Bar (appliqué uniquement si .top-bar est présent) */
+body:has(.top-bar) { padding-top: 84px; }
+
 /*le code du footer dois Toujours rester en bas*/
 
 /* =================================
@@ -235,9 +354,9 @@ footer {
         top: 100px; /* Ajuster pour la top-bar en mode mobile */
     }
     
-    main {
-        padding-top: 160px; /* Ajuster pour les deux barres en mode mobile */
-    }
+    body:has(.top-bar) {
+         padding-top: 100px; /* Espace supplémentaire sur mobile pour la top bar */
+     }
     
     /* Responsive pour les menus déroulants */
     .dropdown-menu {
