@@ -1,0 +1,71 @@
+.drone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.drone-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.2s;
+}
+
+.drone-card:hover {
+    transform: translateY(-5px);
+}
+
+.drone-card h3 {
+    margin-top: 0;
+}
+
+.drone-details {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.telemetry-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.tab-btn.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+.telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.telemetry-card {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.settings-group, .mission-controls, .logs-container {
+    margin-top: 15px;
+}
+
+
+.status-en-ligne { color: #28a745; }
+.status-hors-ligne { color: #dc3545; }
+.status-en-mission { color: #007bff; }
+.status-maintenance { color: #ffc107; }
