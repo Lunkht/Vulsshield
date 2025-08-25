@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catégories</title>
     <link rel="stylesheet" href="../style.css?v=1.1">
+    <link rel="stylesheet" href="../css/categories.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="common-styles.css">
@@ -354,22 +355,42 @@
             <!-- Filtres et options -->
             <div class="categories-filters" data-aos="fade-up" data-aos-delay="200">
                 <div class="filter-section">
+                    <h3 class="filter-title">
+                        <i class="fas fa-filter"></i>
+                        Filtres et options
+                    </h3>
+                    <div class="view-options">
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                            <button class="view-btn" data-view="tree">
+                                <i class="fas fa-sitemap"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filters-section">
                     <div class="filter-group">
                         <label>Trier par :</label>
-                        <select class="filter-select" onchange="sortCategories()">
+                        <select class="filter-select">
                             <option value="name">Nom</option>
                             <option value="count">Nombre d'éléments</option>
                             <option value="created">Date de création</option>
-                            <option value="modified">Dernière modification</option>
+                            <option value="modified">Date de modification</option>
                         </select>
                     </div>
                     
                     <div class="filter-group">
                         <label>Type :</label>
-                        <select class="filter-select" onchange="filterByType()">
+                        <select class="filter-select">
                             <option value="all">Tous les types</option>
                             <option value="personal">Personnel</option>
-                            <option value="work">Professionnel</option>
+                            <option value="professional">Professionnel</option>
                             <option value="social">Social</option>
                             <option value="finance">Finance</option>
                             <option value="other">Autre</option>
@@ -378,29 +399,12 @@
                     
                     <div class="filter-group">
                         <label>Statut :</label>
-                        <select class="filter-select" onchange="filterByStatus()">
+                        <select class="filter-select">
                             <option value="all">Tous les statuts</option>
-                            <option value="active">Actives</option>
-                            <option value="archived">Archivées</option>
-                            <option value="favorite">Favorites</option>
+                            <option value="active">Actif</option>
+                            <option value="archived">Archivé</option>
+                            <option value="favorite">Favori</option>
                         </select>
-                    </div>
-                </div>
-                
-                <div class="view-options">
-                    <div class="view-toggle">
-                        <button class="view-btn active" onclick="switchView('grid')" data-view="grid">
-                            <i class="fas fa-th"></i>
-                            Grille
-                        </button>
-                        <button class="view-btn" onclick="switchView('list')" data-view="list">
-                            <i class="fas fa-list"></i>
-                            Liste
-                        </button>
-                        <button class="view-btn" onclick="switchView('tree')" data-view="tree">
-                            <i class="fas fa-sitemap"></i>
-                            Arbre
-                        </button>
                     </div>
                 </div>
             </div>

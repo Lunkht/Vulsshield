@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
     <link rel="stylesheet" href="../style.css?v=1.1">
+    <link rel="stylesheet" href="../css/profil.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="common-styles.css">
@@ -275,7 +276,7 @@
                     <h1><i class="fas fa-user-cog"></i> Profil utilisateur</h1>
                     <p>Gérez vos informations personnelles et préférences de compte</p>
                 </div>
-                <div class="card-actions">
+                <div class="page-actions">
                     <button class="btn btn-secondary" onclick="resetProfile()">
                         <i class="fas fa-undo"></i>
                         Annuler
@@ -288,7 +289,7 @@
             </div>
 
             <!-- Carte de profil principal -->
-            <div class="admin-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card profile-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="profile-header">
                     <div class="profile-avatar-section">
                         <div class="profile-avatar-container">
@@ -347,28 +348,28 @@
             </div>
 
             <!-- Onglets de profil -->
-            <div class="admin-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="tab-nav">
-                    <button class="tab-btn active" data-tab="personal">
+            <div class="card profile-tabs-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="profile-tab-nav">
+                    <button class="profile-tab-btn active" data-tab="personal">
                         <i class="fas fa-user"></i>
                         Informations personnelles
                     </button>
-                    <button class="tab-btn" data-tab="security">
+                    <button class="profile-tab-btn" data-tab="security">
                         <i class="fas fa-shield-alt"></i>
                         Sécurité
                     </button>
-                    <button class="tab-btn" data-tab="preferences">
+                    <button class="profile-tab-btn" data-tab="preferences">
                         <i class="fas fa-cog"></i>
                         Préférences
                     </button>
-                    <button class="tab-btn" data-tab="activity">
+                    <button class="profile-tab-btn" data-tab="activity">
                         <i class="fas fa-history"></i>
                         Activité récente
                     </button>
                 </div>
 
                 <!-- Onglet Informations personnelles -->
-                <div class="tab-content active" id="personal-tab">
+                <div class="profile-tab-content active" id="personal-tab">
                     <div class="form-section">
                         <h3>Informations de base</h3>
                         <div class="form-grid">
@@ -443,7 +444,7 @@
                 </div>
 
                 <!-- Onglet Sécurité -->
-                <div class="tab-content" id="security-tab">
+                <div class="profile-tab-content" id="security-tab">
                     <div class="security-section">
                         <h3>Mot de passe principal</h3>
                         <div class="security-card">
@@ -570,7 +571,7 @@
                 </div>
 
                 <!-- Onglet Préférences -->
-                <div class="tab-content" id="preferences-tab">
+                <div class="profile-tab-content" id="preferences-tab">
                     <div class="preferences-section">
                         <h3>Interface utilisateur</h3>
                         <div class="preferences-grid">
@@ -702,7 +703,7 @@
                 </div>
 
                 <!-- Onglet Activité récente -->
-                <div class="tab-content" id="activity-tab">
+                <div class="profile-tab-content" id="activity-tab">
                     <div class="activity-section">
                         <div class="activity-header">
                             <h3>Activité récente</h3>
@@ -816,6 +817,29 @@
         AOS.init({
             duration: 1000,
             once: true,
+        });
+        
+        // --- Profile Tabs Management ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.profile-tab-btn');
+            const tabContents = document.querySelectorAll('.profile-tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    const targetContent = document.getElementById(targetTab + '-tab');
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
         });
     </script>
     <!-- JavaScript pour les menus déroulants -->

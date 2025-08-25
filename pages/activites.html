@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activité</title>
     <link rel="stylesheet" href="../style.css?v=1.1">
+    <link rel="stylesheet" href="../css/activites.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="common-styles.css">
@@ -273,23 +274,23 @@
                 <p class="page-subtitle">Suivez les actions et les connexions récentes.</p>
             </div>
 
-            <div class="admin-card">
-                <div class="card-header">
-                    <h3 class="card-title">Historique des connexions</h3>
-                    <div class="card-actions">
-                        <select class="form-select" style="width: auto;">
+            <div class="activity-table">
+                <div class="activity-table-header">
+                    <h3 class="activity-table-title"><i class="fas fa-history"></i> Historique des connexions</h3>
+                    <div class="activity-table-actions">
+                        <select class="activity-filter">
                             <option>Filtrer par période</option>
                             <option>7 derniers jours</option>
                             <option>30 derniers jours</option>
                             <option>90 derniers jours</option>
                         </select>
-                        <button class="btn btn-secondary">
+                        <button class="activity-export-btn">
                             <i class="fas fa-download"></i>
                             Exporter
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="activity-table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
@@ -306,54 +307,62 @@
                                 <td>192.168.1.10</td>
                                 <td>Paris, France</td>
                                 <td>Chrome sur Windows</td>
-                                <td><span class="badge success">Réussie</span></td>
+                                <td><span class="activity-status success">Réussie</span></td>
                             </tr>
                             <tr>
                                 <td>2023-10-25 18:45:12</td>
                                 <td>8.8.8.8</td>
                                 <td>Mountain View, USA</td>
                                 <td>Firefox sur macOS</td>
-                                <td><span class="badge success">Réussie</span></td>
+                                <td><span class="activity-status success">Réussie</span></td>
                             </tr>
                             <tr>
                                 <td>2023-10-24 09:12:05</td>
                                 <td>208.67.222.222</td>
                                 <td>San Francisco, USA</td>
                                 <td>Application mobile Android</td>
-                                <td><span class="badge danger">Échouée</span></td>
+                                <td><span class="activity-status danger">Échouée</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="admin-card">
-                <div class="card-header">
-                    <h3 class="card-title">Actions récentes</h3>
+            <div class="activity-list-container">
+                <div class="activity-list-header">
+                    <h3 class="activity-list-title"><i class="fas fa-clock"></i> Actions récentes</h3>
                 </div>
-                <ul class="activity-list">
-                    <li class="activity-item">
-                        <div class="activity-icon"><i class="fas fa-key"></i></div>
-                        <div class="activity-details">
-                            <p>Mot de passe pour <strong>Gmail</strong> mis à jour.</p>
-                            <small class="text-muted">Il y a 2 heures</small>
-                        </div>
-                    </li>
-                    <li class="activity-item">
-                        <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
-                        <div class="activity-details">
-                            <p>Nouvel appareil <strong>iPhone 15 Pro</strong> ajouté.</p>
-                            <small class="text-muted">Hier à 14:30</small>
-                        </div>
-                    </li>
-                    <li class="activity-item">
-                        <div class="activity-icon"><i class="fas fa-shield-alt"></i></div>
-                        <div class="activity-details">
-                            <p>Analyse de sécurité effectuée. Score : <strong>95%</strong>.</p>
-                            <small class="text-muted">Le 24 octobre 2023</small>
-                        </div>
-                    </li>
-                </ul>
+                <div class="activity-list">
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">Mot de passe mis à jour</div>
+                                <div class="activity-time">Il y a 2 heures</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">Nouvel appareil iPhone 15 Pro ajouté</div>
+                                <div class="activity-time">Hier à 14:30</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">Analyse de sécurité effectuée. Score : 95%</div>
+                                <div class="activity-time">Le 24 octobre 2023</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </main>
     </div>

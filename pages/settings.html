@@ -6,8 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paramètres</title>
     <link rel="stylesheet" href="../style.css?v=1.1">
+<<<<<<< HEAD
         <link rel="stylesheet" href="common-styles.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+=======
+    <link rel="stylesheet" href="../css/settings.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon"
+>>>>>>> 9af42ecb5ddea7b6fb9c8611bfec37663ec8e120
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -273,7 +278,7 @@
                 <h1 class="page-title">Paramètres</h1>
                 <p class="page-subtitle">Gérez vos préférences et configurations</p>
             </div>
-                <div class="card-actions">
+                <div class="settings-actions">
                     <button class="btn btn-secondary" onclick="resetSettings()">
                         <i class="fas fa-undo"></i>
                         Réinitialiser
@@ -287,48 +292,45 @@
 
             <!-- Navigation par onglets -->
             <div class="tab-container" data-aos="fade-up" data-aos-delay="100">
-                <div class="tab-nav">
-                    <button class="tab-btn active" data-tab="general">
+                <div class="settings-tab-nav">
+                    <button class="settings-tab-btn active" data-tab="general">
                         <i class="fas fa-sliders-h"></i>
-                        Général
+                        <span>Général</span>
                     </button>
-                    <button class="tab-btn" data-tab="security">
+                    <button class="settings-tab-btn" data-tab="security">
                         <i class="fas fa-shield-alt"></i>
-                        Sécurité
+                        <span>Sécurité</span>
                     </button>
-                    <button class="tab-btn" data-tab="notifications">
+                    <button class="settings-tab-btn" data-tab="notifications">
                         <i class="fas fa-bell"></i>
-                        Notifications
+                        <span>Notifications</span>
                     </button>
-                    <button class="tab-btn" data-tab="privacy">
+                    <button class="settings-tab-btn" data-tab="privacy">
                         <i class="fas fa-user-secret"></i>
-                        Confidentialité
+                        <span>Confidentialité</span>
                     </button>
-                    <button class="tab-btn" data-tab="advanced">
+                    <button class="settings-tab-btn" data-tab="advanced">
                         <i class="fas fa-cogs"></i>
-                        Avancé
+                        <span>Avancé</span>
                     </button>
                 </div>
 
                 <!-- Onglet Général -->
-                <div class="tab-content active" id="general">
-                    <div class="admin-card">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-palette"></i> Préférences générales</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group d-flex justify-between align-center">
-                                <div>
-                                    <label class="form-label mb-1">Langue de l'interface</label>
-                                    <div class="text-muted">Choisissez la langue d'affichage de l'application</div>
-                                </div>
-                                <select class="form-control" data-setting="language">
-                                    <option value="fr" selected>Français</option>
-                                    <option value="en">English</option>
-                                    <option value="es">Español</option>
-                                    <option value="de">Deutsch</option>
-                                </select>
+                <div class="settings-tab-content active" id="general">
+                    <div class="settings-section">
+                        <h3><i class="fas fa-palette"></i> Préférences générales</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Langue de l'interface</label>
+                                <p>Choisissez la langue d'affichage de l'application</p>
                             </div>
+                            <select class="setting-control" data-setting="language">
+                                <option value="fr" selected>Français</option>
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                                <option value="de">Deutsch</option>
+                            </select>
+                        </div>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -367,9 +369,9 @@
                 </div>
 
                 <!-- Onglet Sécurité -->
-                <div class="tab-content" id="security">
+                <div class="settings-tab-content" id="security">
                     <div class="settings-section">
-                        <h3>Paramètres de sécurité</h3>
+                        <h3><i class="fas fa-shield-alt"></i> Paramètres de sécurité</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -431,7 +433,7 @@
                     </div>
                     
                     <div class="settings-section">
-                        <h3>Gestion des sessions</h3>
+                        <h3><i class="fas fa-users-cog"></i> Gestion des sessions</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -458,9 +460,9 @@
                 </div>
 
                 <!-- Onglet Notifications -->
-                <div class="tab-content" id="notifications">
+                <div class="settings-tab-content" id="notifications">
                     <div class="settings-section">
-                        <h3>Préférences de notification</h3>
+                        <h3><i class="fas fa-bell"></i> Préférences de notification</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -519,7 +521,7 @@
                     </div>
                     
                     <div class="settings-section">
-                        <h3>Horaires de notification</h3>
+                        <h3><i class="fas fa-clock"></i> Horaires de notification</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -547,9 +549,9 @@
                 </div>
 
                 <!-- Onglet Confidentialité -->
-                <div class="tab-content" id="privacy">
+                <div class="settings-tab-content" id="privacy">
                     <div class="settings-section">
-                        <h3>Paramètres de confidentialité</h3>
+                        <h3><i class="fas fa-user-shield"></i> Paramètres de confidentialité</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -586,7 +588,7 @@
                     </div>
                     
                     <div class="settings-section">
-                        <h3>Gestion des données</h3>
+                        <h3><i class="fas fa-database"></i> Gestion des données</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -613,9 +615,9 @@
                 </div>
 
                 <!-- Onglet Avancé -->
-                <div class="tab-content" id="advanced">
+                <div class="settings-tab-content" id="advanced">
                     <div class="settings-section">
-                        <h3>Paramètres avancés</h3>
+                        <h3><i class="fas fa-cogs"></i> Paramètres avancés</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
@@ -657,7 +659,7 @@
                     </div>
                     
                     <div class="settings-section">
-                        <h3>Maintenance</h3>
+                        <h3><i class="fas fa-tools"></i> Maintenance</h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
