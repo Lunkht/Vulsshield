@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="modern-enhancement.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -30,7 +31,7 @@
             </div>
 
             <div class="top-bar-right">
-                <button class="action-btn back-btn" onclick="window.location.href='../index.html'"
+                <button class="modern-btn-icon action-btn back-btn" onclick="window.location.href='../index.html'"
                     title="Retour à l'accueil" aria-label="Retour à l'accueil">
                     <i class="fas fa-arrow-left"></i>
                 </button>
@@ -38,10 +39,10 @@
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Rechercher..." class="search-input">
                 </div>
-                <button class="action-btn password-action-btn" onclick="window.location.href='dashboard.html'">
+                <button class="modern-btn-icon action-btn password-action-btn" onclick="window.location.href='dashboard.html'">
                     <i class="fas fa-key"></i>
                 </button>
-                <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
+                <button class="modern-btn modern-btn-secondary action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
 
                 <!-- Menu Feedback -->
                 <div class="dropdown-menu feedback-menu" id="feedbackMenu">
@@ -72,8 +73,8 @@
                         </div>
                     </div>
                     <div class="menu-footer">
-                        <button class="btn-secondary" onclick="closeFeedbackMenu()">Annuler</button>
-                        <button class="btn-primary" onclick="submitFeedback()">Envoyer</button>
+                        <button class="modern-btn modern-btn-secondary" onclick="closeFeedbackMenu()">Annuler</button>
+                        <button class="modern-btn modern-btn-primary" onclick="submitFeedback()">Envoyer</button>
                     </div>
                 </div>
 
@@ -357,7 +358,7 @@
                     </div>
                 </div>
 
-                <div class="widget shimmer-hover">
+                <div class="modern-card widget shimmer-hover">
                     <div class="widget-header">
                         <h4>Analyse de sécurité</h4>
                         <button class="widget-action"><i class="fas fa-external-link-alt"></i></button>
@@ -401,10 +402,10 @@
                     </select>
                 </div>
                 <div class="view-options">
-                    <button class="view-btn active" data-view="grid">
+                    <button class="modern-btn-icon view-btn active" data-view="grid">
                         <i class="fas fa-th"></i>
                     </button>
-                    <button class="view-btn" data-view="list">
+                    <button class="modern-btn-icon view-btn" data-view="list">
                         <i class="fas fa-list"></i>
                     </button>
                 </div>
@@ -419,7 +420,7 @@
                     </div>
                     <h3>Aucun mot de passe sauvegardé</h3>
                     <p>Commencez par générer et sauvegarder votre premier mot de passe sécurisé.</p>
-                    <button class="btn-primary" onclick="openPasswordGenerator()">
+                    <button class="modern-btn modern-btn-primary" onclick="openPasswordGenerator()">
                         <i class="fas fa-plus"></i>
                         Générer mon premier mot de passe
                     </button>
@@ -440,7 +441,7 @@
                                 <input type="text" id="urlAnalyzeInput"
                                     placeholder="Coller une URL à analyser (ex: https://exemple.com)" />
                             </div>
-                            <button class="btn-secondary compact" id="urlAnalyzeBtn" title="Analyser"><i
+                            <button class="modern-btn modern-btn-secondary compact" id="urlAnalyzeBtn" title="Analyser"><i
                                     class="fas fa-search"></i><span class="btn-text">Analyser</span></button>
                         </div>
                         <div class="uc-right">
@@ -481,7 +482,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Générateur de Mot de Passe</h3>
-                <button class="close-btn" onclick="closePasswordGenerator()">
+                <button class="modern-btn-icon close-btn" onclick="closePasswordGenerator()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -555,13 +556,13 @@
                 </div>
 
                 <div class="generator-actions">
-                    <button class="btn-primary generate-btn" onclick="generatePassword()">
+                    <button class="modern-btn modern-btn-primary generate-btn" onclick="generatePassword()">
                         <span class="btn-text">Générer un mot de passe</span>
                         <div class="progress-bar" id="generateProgress">
                             <div class="progress-fill"></div>
                         </div>
                     </button>
-                    <button class="btn-secondary" onclick="saveGeneratedPassword()">
+                    <button class="modern-btn modern-btn-secondary" onclick="saveGeneratedPassword()">
                         <i class="fas fa-save"></i>
                         Sauvegarder
                     </button>
@@ -575,7 +576,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Sauvegarder le mot de passe</h3>
-                <button class="close-btn" onclick="closeSaveModal()">
+                <button class="modern-btn-icon close-btn" onclick="closeSaveModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
