@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Synchronisation - Vulsshield</title>
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../css/synchronisation.css">
+    <link rel="stylesheet" href="synchronisation.css">
+    
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="common-styles.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
@@ -155,7 +155,7 @@
                     <h1><i class="fas fa-sync-alt"></i> Synchronisation</h1>
                     <p>Gérez la synchronisation de vos données entre tous vos appareils</p>
                 </div>
-                <div class="page-actions">
+                <div class="card-actions">
                     <button class="btn btn-secondary" onclick="refreshSyncStatus()">
                         <i class="fas fa-refresh"></i>
                         Actualiser
@@ -168,40 +168,26 @@
             </div>
 
             <!-- Statut de synchronisation -->
-            <div class="sync-status-grid" data-aos="fade-up" data-aos-delay="100">
-                <div class="sync-status-card">
-                    <div class="sync-status-header">
-                        <h3 class="sync-status-title">Statut de synchronisation</h3>
-                        <div class="sync-status-indicator connected"></div>
-                    </div>
-                    
+            <div class="admin-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="sync-status-header">
                     <div class="sync-status-info">
-                        <div class="sync-info-item">
-                            <span class="sync-info-label">État :</span>
-                            <span class="sync-info-value">En ligne - Synchronisé</span>
-                        </div>
-                        <div class="sync-info-item">
-                            <span class="sync-info-label">Dernière synchronisation :</span>
-                            <span class="sync-info-value" id="lastSyncTime">Il y a 2 minutes</span>
+                        <h3>Statut de synchronisation</h3>
+                        <div class="sync-status-indicator online">
+                            <i class="fas fa-check-circle"></i>
+                            <span>En ligne - Synchronisé</span>
                         </div>
                     </div>
-                    
-                    <div class="sync-progress">
-                        <div class="sync-progress-bar">
-                            <div class="sync-progress-fill" style="width: 100%"></div>
-                        </div>
+                    <div class="sync-last-update">
+                        <span>Dernière synchronisation :</span>
+                        <strong id="lastSyncTime">Il y a 2 minutes</strong>
                     </div>
-                    
-                    <div class="sync-actions">
-                        <button class="sync-btn secondary" onclick="refreshSyncStatus()">
-                            <i class="fas fa-refresh"></i>
-                            Actualiser
-                        </button>
-                        <button class="sync-btn primary" onclick="forceSyncNow()">
-                            <i class="fas fa-sync"></i>
-                            Synchroniser maintenant
-                        </button>
+                </div>
+                
+                <div class="sync-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
                     </div>
+                    <span class="progress-text">Synchronisation terminée</span>
                 </div>
             </div>
 
@@ -291,29 +277,24 @@
 
             <!-- Paramètres de synchronisation -->
             <div class="sync-settings" data-aos="fade-up" data-aos-delay="300">
-                <div class="sync-settings-header">
-                    <h3 class="sync-settings-title"><i class="fas fa-cogs"></i> Paramètres de synchronisation</h3>
-                </div>
+                <h3><i class="fas fa-cogs"></i> Paramètres de synchronisation</h3>
                 
-                <div class="sync-settings-group">
-                    <div class="sync-setting-item">
-                        <div class="sync-setting-label">
-                            <div class="sync-setting-title">Synchronisation automatique</div>
-                            <div class="sync-setting-description">Synchroniser automatiquement les données lorsque des modifications sont détectées</div>
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Synchronisation automatique</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked onchange="toggleAutoSync()">
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <div class="sync-setting-control">
-                            <div class="sync-toggle" onclick="toggleAutoSync(this)">
-                            </div>
-                        </div>
+                        <p>Synchroniser automatiquement les données lorsque des modifications sont détectées</p>
                     </div>
                     
-                    <div class="sync-setting-item">
-                        <div class="sync-setting-label">
-                            <div class="sync-setting-title">Fréquence de synchronisation</div>
-                            <div class="sync-setting-description">Définir la fréquence de synchronisation automatique</div>
-                        </div>
-                        <div class="sync-setting-control">
-                            <select class="sync-select" onchange="updateSyncFrequency()">
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Fréquence de synchronisation</h4>
+                            <select class="setting-select" onchange="updateSyncFrequency()">
                                 <option value="realtime">Temps réel</option>
                                 <option value="5min" selected>Toutes les 5 minutes</option>
                                 <option value="15min">Toutes les 15 minutes</option>
@@ -322,128 +303,127 @@
                                 <option value="manual">Manuel uniquement</option>
                             </select>
                         </div>
+                        <p>Définir la fréquence de synchronisation automatique</p>
                     </div>
                     
-                    <div class="sync-setting-item">
-                        <div class="sync-setting-label">
-                            <div class="sync-setting-title">Synchronisation en arrière-plan</div>
-                            <div class="sync-setting-description">Permettre la synchronisation même lorsque l'application est fermée</div>
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Synchronisation en arrière-plan</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked onchange="toggleBackgroundSync()">
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <div class="sync-setting-control">
-                            <div class="sync-toggle active" onclick="toggleBackgroundSync(this)">
-                            </div>
-                        </div>
+                        <p>Permettre la synchronisation même lorsque l'application est fermée</p>
                     </div>
                     
-                    <div class="sync-setting-item">
-                        <div class="sync-setting-label">
-                            <div class="sync-setting-title">Chiffrement de bout en bout</div>
-                            <div class="sync-setting-description">Toutes les données sont chiffrées avant la synchronisation (obligatoire)</div>
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <h4>Chiffrement de bout en bout</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked disabled>
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <div class="sync-setting-control">
-                            <div class="sync-toggle active disabled" onclick="return false;">
-                            </div>
-                        </div>
+                        <p>Toutes les données sont chiffrées avant la synchronisation (obligatoire)</p>
                     </div>
                 </div>
             </div>
 
             <!-- Types de données synchronisées -->
             <div class="sync-data-types" data-aos="fade-up" data-aos-delay="400">
-                <div class="sync-data-header">
-                    <h3 class="sync-data-title"><i class="fas fa-database"></i> Types de données synchronisées</h3>
-                </div>
+                <h3><i class="fas fa-database"></i> Types de données synchronisées</h3>
                 
-                <div class="sync-data-grid">
-                    <div class="sync-data-card">
-                        <div class="sync-data-icon">
-                            <i class="fas fa-key"></i>
-                        </div>
-                        <div class="sync-data-info">
-                            <h4 class="sync-data-name">Mots de passe</h4>
-                            <div class="sync-data-details">
-                                <span class="sync-data-count">127 éléments</span>
-                                <span class="sync-data-time">Il y a 2 min</span>
+                <div class="data-types-grid">
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-key"></i>
                             </div>
-                        </div>
-                        <div class="sync-data-status">
-                            <span class="sync-status-indicator synced"></span>
-                            <span class="sync-status-text">Synchronisé</span>
-                        </div>
-                        <div class="sync-data-control">
+                            <div class="data-type-info">
+                                <h4>Mots de passe</h4>
+                                <span class="data-count">127 éléments</span>
+                            </div>
                             <label class="toggle-switch">
                                 <input type="checkbox" checked onchange="toggleDataType('passwords')">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini success">
+                                <i class="fas fa-check"></i>
+                                <span>Synchronisé</span>
+                            </div>
+                            <span class="last-sync">Il y a 2 min</span>
+                        </div>
                     </div>
                     
-                    <div class="sync-data-card">
-                        <div class="sync-data-icon">
-                            <i class="fas fa-folder"></i>
-                        </div>
-                        <div class="sync-data-info">
-                            <h4 class="sync-data-name">Catégories</h4>
-                            <div class="sync-data-details">
-                                <span class="sync-data-count">8 éléments</span>
-                                <span class="sync-data-time">Il y a 2 min</span>
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-folder"></i>
                             </div>
-                        </div>
-                        <div class="sync-data-status">
-                            <span class="sync-status-indicator synced"></span>
-                            <span class="sync-status-text">Synchronisé</span>
-                        </div>
-                        <div class="sync-data-control">
+                            <div class="data-type-info">
+                                <h4>Catégories</h4>
+                                <span class="data-count">8 éléments</span>
+                            </div>
                             <label class="toggle-switch">
                                 <input type="checkbox" checked onchange="toggleDataType('categories')">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini success">
+                                <i class="fas fa-check"></i>
+                                <span>Synchronisé</span>
+                            </div>
+                            <span class="last-sync">Il y a 2 min</span>
+                        </div>
                     </div>
                     
-                    <div class="sync-data-card">
-                        <div class="sync-data-icon">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                        <div class="sync-data-info">
-                            <h4 class="sync-data-name">Paramètres</h4>
-                            <div class="sync-data-details">
-                                <span class="sync-data-count">Préférences</span>
-                                <span class="sync-data-time">Il y a 5 min</span>
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-cog"></i>
                             </div>
-                        </div>
-                        <div class="sync-data-status">
-                            <span class="sync-status-indicator synced"></span>
-                            <span class="sync-status-text">Synchronisé</span>
-                        </div>
-                        <div class="sync-data-control">
+                            <div class="data-type-info">
+                                <h4>Paramètres</h4>
+                                <span class="data-count">Préférences</span>
+                            </div>
                             <label class="toggle-switch">
                                 <input type="checkbox" checked onchange="toggleDataType('settings')">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini success">
+                                <i class="fas fa-check"></i>
+                                <span>Synchronisé</span>
+                            </div>
+                            <span class="last-sync">Il y a 5 min</span>
+                        </div>
                     </div>
                     
-                    <div class="sync-data-card">
-                        <div class="sync-data-icon">
-                            <i class="fas fa-history"></i>
-                        </div>
-                        <div class="sync-data-info">
-                            <h4 class="sync-data-name">Historique</h4>
-                            <div class="sync-data-details">
-                                <span class="sync-data-count">245 entrées</span>
-                                <span class="sync-data-time">-</span>
+                    <div class="data-type-card">
+                        <div class="data-type-header">
+                            <div class="data-type-icon">
+                                <i class="fas fa-history"></i>
                             </div>
-                        </div>
-                        <div class="sync-data-status">
-                            <span class="sync-status-indicator disabled"></span>
-                            <span class="sync-status-text">Désactivé</span>
-                        </div>
-                        <div class="sync-data-control">
+                            <div class="data-type-info">
+                                <h4>Historique</h4>
+                                <span class="data-count">245 entrées</span>
+                            </div>
                             <label class="toggle-switch">
                                 <input type="checkbox" onchange="toggleDataType('history')">
                                 <span class="toggle-slider"></span>
                             </label>
+                        </div>
+                        <div class="data-type-details">
+                            <div class="sync-status-mini disabled">
+                                <i class="fas fa-times"></i>
+                                <span>Désactivé</span>
+                            </div>
+                            <span class="last-sync">-</span>
                         </div>
                     </div>
                 </div>
@@ -451,11 +431,11 @@
 
             <!-- Historique de synchronisation -->
             <div class="sync-history" data-aos="fade-up" data-aos-delay="500">
-                <div class="sync-history-header">
-                    <h3 class="sync-history-title"><i class="fas fa-clock"></i> Historique de synchronisation</h3>
-                    <button class="btn btn-secondary" onclick="clearSyncHistory()">
+                <div class="section-header">
+                    <h3><i class="fas fa-clock"></i> Historique de synchronisation</h3>
+                    <button class="btn-secondary" onclick="clearSyncHistory()">
                         <i class="fas fa-trash"></i>
-                        Effacer l'historique
+                        Vider l'historique
                     </button>
                 </div>
                 
@@ -524,15 +504,13 @@
 
             <!-- Actions de maintenance -->
             <div class="sync-maintenance" data-aos="fade-up" data-aos-delay="600">
-                <div class="sync-maintenance-header">
-                    <h3 class="sync-maintenance-title"><i class="fas fa-tools"></i> Maintenance</h3>
-                </div>
+                <h3><i class="fas fa-tools"></i> Maintenance</h3>
                 
-                <div class="sync-maintenance-grid">
-                    <div class="sync-maintenance-card">
-                        <div class="sync-maintenance-info">
-                            <h4 class="sync-maintenance-name">Résoudre les conflits</h4>
-                            <p class="sync-maintenance-description">Résoudre automatiquement les conflits de synchronisation</p>
+                <div class="maintenance-actions">
+                    <div class="maintenance-card">
+                        <div class="maintenance-info">
+                            <h4>Résoudre les conflits</h4>
+                            <p>Résoudre automatiquement les conflits de synchronisation</p>
                         </div>
                         <button class="btn-secondary" onclick="resolveConflicts()">
                             <i class="fas fa-magic"></i>
@@ -540,23 +518,23 @@
                         </button>
                     </div>
                     
-                    <div class="sync-maintenance-card">
-                        <div class="sync-maintenance-info">
-                            <h4 class="sync-maintenance-name">Réinitialiser la synchronisation</h4>
-                            <p class="sync-maintenance-description">Forcer une synchronisation complète de toutes les données</p>
+                    <div class="maintenance-card">
+                        <div class="maintenance-info">
+                            <h4>Réinitialiser la synchronisation</h4>
+                            <p>Forcer une synchronisation complète de toutes les données</p>
                         </div>
-                        <button class="btn btn-warning" onclick="resetSync()">
+                        <button class="btn-warning" onclick="resetSync()">
                             <i class="fas fa-redo"></i>
                             Réinitialiser
                         </button>
                     </div>
                     
-                    <div class="sync-maintenance-card">
-                        <div class="sync-maintenance-info">
-                            <h4 class="sync-maintenance-name">Sauvegarder les données</h4>
-                            <p class="sync-maintenance-description">Créer une sauvegarde locale de toutes vos données</p>
+                    <div class="maintenance-card">
+                        <div class="maintenance-info">
+                            <h4>Sauvegarder les données</h4>
+                            <p>Créer une sauvegarde locale de toutes vos données</p>
                         </div>
-                        <button class="btn btn-primary" onclick="backupData()">
+                        <button class="btn-primary" onclick="backupData()">
                             <i class="fas fa-download"></i>
                             Sauvegarder
                         </button>
@@ -734,6 +712,7 @@
             }
         }, 60000);
     </script>
+    
 </body>
 
 </html>

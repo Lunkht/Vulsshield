@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catégories</title>
-    <link rel="stylesheet" href="../style.css?v=1.1">
-    <link rel="stylesheet" href="../css/categories.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="modern-enhancement.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="common-styles.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
@@ -276,15 +275,15 @@
                     <p>Organisez et classifiez vos données pour une meilleure gestion</p>
                 </div>
                 <div class="page-actions">
-                    <button class="btn-secondary" onclick="importCategories()">
+                    <button class="modern-btn modern-btn-secondary" onclick="importCategories()">
                         <i class="fas fa-upload"></i>
                         Importer
                     </button>
-                    <button class="btn-secondary" onclick="exportCategories()">
+                    <button class="modern-btn modern-btn-secondary" onclick="exportCategories()">
                         <i class="fas fa-download"></i>
                         Exporter
                     </button>
-                    <button class="btn-primary" onclick="createCategory()">
+                    <button class="modern-btn modern-btn-primary" onclick="createCategory()">
                         <i class="fas fa-plus"></i>
                         Nouvelle catégorie
                     </button>
@@ -292,119 +291,117 @@
             </div>
 
             <!-- Statistiques des catégories -->
-            <div class="categories-stats" data-aos="fade-up" data-aos-delay="100">
-                <div class="stats-cards">
-                    <div class="stat-card">
-                        <div class="stat-icon">
+            <div class="modern-grid modern-grid-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="modern-card">
+                    <div class="modern-card-body">
+                        <div class="modern-icon-wrapper modern-icon-primary modern-mb-3">
                             <i class="fas fa-folder"></i>
                         </div>
-                        <div class="stat-info">
-                            <h3>Total catégories</h3>
-                            <div class="stat-value">18</div>
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                +3 ce mois
-                            </div>
+                        <h3 class="modern-text-lg modern-mb-2">Total catégories</h3>
+                        <div class="modern-text-3xl modern-font-bold modern-mb-2">18</div>
+                        <div class="modern-badge modern-badge-success">
+                            <i class="fas fa-arrow-up"></i>
+                            +3 ce mois
                         </div>
                     </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
+                </div>
+                
+                <div class="modern-card">
+                    <div class="modern-card-body">
+                        <div class="modern-icon-wrapper modern-icon-info modern-mb-3">
                             <i class="fas fa-key"></i>
                         </div>
-                        <div class="stat-info">
-                            <h3>Mots de passe</h3>
-                            <div class="stat-value">247</div>
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                +12 cette semaine
-                            </div>
+                        <h3 class="modern-text-lg modern-mb-2">Mots de passe</h3>
+                        <div class="modern-text-3xl modern-font-bold modern-mb-2">247</div>
+                        <div class="modern-badge modern-badge-success">
+                            <i class="fas fa-arrow-up"></i>
+                            +12 cette semaine
                         </div>
                     </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
+                </div>
+                
+                <div class="modern-card">
+                    <div class="modern-card-body">
+                        <div class="modern-icon-wrapper modern-icon-warning modern-mb-3">
                             <i class="fas fa-tags"></i>
                         </div>
-                        <div class="stat-info">
-                            <h3>Tags utilisés</h3>
-                            <div class="stat-value">45</div>
-                            <div class="stat-trend neutral">
-                                <i class="fas fa-minus"></i>
-                                Stable
-                            </div>
+                        <h3 class="modern-text-lg modern-mb-2">Tags utilisés</h3>
+                        <div class="modern-text-3xl modern-font-bold modern-mb-2">45</div>
+                        <div class="modern-badge modern-badge-secondary">
+                            <i class="fas fa-minus"></i>
+                            Stable
                         </div>
                     </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
+                </div>
+                
+                <div class="modern-card">
+                    <div class="modern-card-body">
+                        <div class="modern-icon-wrapper modern-icon-success modern-mb-3">
                             <i class="fas fa-star"></i>
                         </div>
-                        <div class="stat-info">
-                            <h3>Favoris</h3>
-                            <div class="stat-value">8</div>
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                +2 récemment
-                            </div>
+                        <h3 class="modern-text-lg modern-mb-2">Favoris</h3>
+                        <div class="modern-text-3xl modern-font-bold modern-mb-2">8</div>
+                        <div class="modern-badge modern-badge-success">
+                            <i class="fas fa-arrow-up"></i>
+                            +2 récemment
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Filtres et options -->
-            <div class="categories-filters" data-aos="fade-up" data-aos-delay="200">
-                <div class="filter-section">
-                    <h3 class="filter-title">
-                        <i class="fas fa-filter"></i>
-                        Filtres et options
-                    </h3>
-                    <div class="view-options">
-                        <div class="view-toggle">
-                            <button class="view-btn active" data-view="grid">
-                                <i class="fas fa-th"></i>
-                            </button>
-                            <button class="view-btn" data-view="list">
-                                <i class="fas fa-list"></i>
-                            </button>
-                            <button class="view-btn" data-view="tree">
-                                <i class="fas fa-sitemap"></i>
-                            </button>
+            <div class="modern-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="modern-card-body">
+                    <div class="modern-flex modern-flex-wrap modern-gap-4 modern-items-end">
+                        <div class="modern-form-group">
+                            <label class="modern-label">Trier par :</label>
+                            <select class="modern-select" onchange="sortCategories()">
+                                <option value="name">Nom</option>
+                                <option value="count">Nombre d'éléments</option>
+                                <option value="created">Date de création</option>
+                                <option value="modified">Dernière modification</option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="filters-section">
-                    <div class="filter-group">
-                        <label>Trier par :</label>
-                        <select class="filter-select">
-                            <option value="name">Nom</option>
-                            <option value="count">Nombre d'éléments</option>
-                            <option value="created">Date de création</option>
-                            <option value="modified">Date de modification</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Type :</label>
-                        <select class="filter-select">
-                            <option value="all">Tous les types</option>
-                            <option value="personal">Personnel</option>
-                            <option value="professional">Professionnel</option>
-                            <option value="social">Social</option>
-                            <option value="finance">Finance</option>
-                            <option value="other">Autre</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Statut :</label>
-                        <select class="filter-select">
-                            <option value="all">Tous les statuts</option>
-                            <option value="active">Actif</option>
-                            <option value="archived">Archivé</option>
-                            <option value="favorite">Favori</option>
-                        </select>
+                        
+                        <div class="modern-form-group">
+                            <label class="modern-label">Type :</label>
+                            <select class="modern-select" onchange="filterByType()">
+                                <option value="all">Tous les types</option>
+                                <option value="personal">Personnel</option>
+                                <option value="work">Professionnel</option>
+                                <option value="social">Social</option>
+                                <option value="finance">Finance</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modern-form-group">
+                            <label class="modern-label">Statut :</label>
+                            <select class="modern-select" onchange="filterByStatus()">
+                                <option value="all">Tous les statuts</option>
+                                <option value="active">Actives</option>
+                                <option value="archived">Archivées</option>
+                                <option value="favorite">Favorites</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modern-form-group">
+                            <label class="modern-label">Vue :</label>
+                            <div class="modern-btn-group">
+                                <button class="modern-btn modern-btn-secondary modern-btn-active" onclick="switchView('grid')" data-view="grid">
+                                    <i class="fas fa-th"></i>
+                                    Grille
+                                </button>
+                                <button class="modern-btn modern-btn-secondary" onclick="switchView('list')" data-view="list">
+                                    <i class="fas fa-list"></i>
+                                    Liste
+                                </button>
+                                <button class="modern-btn modern-btn-secondary" onclick="switchView('tree')" data-view="tree">
+                                    <i class="fas fa-sitemap"></i>
+                                    Arbre
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -535,6 +532,7 @@
         });
     </script>
     <script src="../dark-mode.js"></script>
+
 
 </body>
 

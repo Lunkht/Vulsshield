@@ -1,0 +1,542 @@
+/* Modern Enhancement CSS Framework
+ * Inspiré du design du dashboard VulsShield
+ * Améliore l'apparence des pages existantes sans casser la structure
+ */
+
+/* Variables CSS modernes */
+:root {
+    --modern-bg-primary: #0a0a0a;
+    --modern-bg-secondary: #1a1a1a;
+    --modern-bg-card: #1e1e1e;
+    --modern-border: #333;
+    --modern-border-hover: #555;
+    --modern-text-primary: #ffffff;
+    --modern-text-secondary: #cccccc;
+    --modern-text-muted: #999999;
+    --modern-accent: #4a9eff;
+    --modern-accent-hover: #3a8eef;
+    --modern-success: #10b981;
+    --modern-warning: #f59e0b;
+    --modern-danger: #ef4444;
+    --modern-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --modern-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    --modern-radius: 8px;
+    --modern-radius-lg: 12px;
+    --modern-transition: all 0.2s ease;
+}
+
+/* Améliorations générales */
+.modern-card {
+    background-color: var(--modern-bg-card);
+    border: 1px solid var(--modern-border);
+    border-radius: var(--modern-radius-lg);
+    padding: 24px;
+    box-shadow: var(--modern-shadow);
+    transition: var(--modern-transition);
+}
+
+.modern-card:hover {
+    border-color: var(--modern-border-hover);
+    box-shadow: var(--modern-shadow-lg);
+}
+
+.modern-button {
+    background-color: var(--modern-accent);
+    color: var(--modern-text-primary);
+    border: none;
+    border-radius: var(--modern-radius);
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--modern-transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modern-button:hover {
+    background-color: var(--modern-accent-hover);
+    transform: translateY(-1px);
+}
+
+.modern-button.secondary {
+    background-color: var(--modern-bg-secondary);
+    border: 1px solid var(--modern-border);
+}
+
+.modern-button.secondary:hover {
+    background-color: var(--modern-border);
+    border-color: var(--modern-border-hover);
+}
+
+.modern-input {
+    background-color: var(--modern-bg-secondary);
+    border: 1px solid var(--modern-border);
+    border-radius: var(--modern-radius);
+    padding: 12px 16px;
+    color: var(--modern-text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: var(--modern-transition);
+    width: 100%;
+}
+
+.modern-input:focus {
+    border-color: var(--modern-accent);
+    box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+}
+
+.modern-input::placeholder {
+    color: var(--modern-text-muted);
+}
+
+/* Améliorations des tableaux */
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--modern-bg-card);
+    border-radius: var(--modern-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--modern-shadow);
+}
+
+.modern-table th {
+    background-color: var(--modern-bg-secondary);
+    color: var(--modern-text-secondary);
+    font-weight: 600;
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--modern-border);
+}
+
+.modern-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--modern-border);
+    color: var(--modern-text-primary);
+}
+
+.modern-table tr:hover {
+    background-color: var(--modern-bg-secondary);
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Badges et statuts modernes */
+.modern-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modern-badge.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--modern-success);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.modern-badge.warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--modern-warning);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.modern-badge.danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--modern-danger);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.modern-badge.info {
+    background-color: rgba(74, 158, 255, 0.1);
+    color: var(--modern-accent);
+    border: 1px solid rgba(74, 158, 255, 0.2);
+}
+
+/* Améliorations des formulaires */
+.modern-form-group {
+    margin-bottom: 20px;
+}
+
+.modern-label {
+    display: block;
+    color: var(--modern-text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.modern-select {
+    background-color: var(--modern-bg-secondary);
+    border: 1px solid var(--modern-border);
+    border-radius: var(--modern-radius);
+    padding: 12px 16px;
+    color: var(--modern-text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: var(--modern-transition);
+    width: 100%;
+    cursor: pointer;
+}
+
+.modern-select:focus {
+    border-color: var(--modern-accent);
+    box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+}
+
+/* Améliorations des listes */
+.modern-list {
+    background-color: var(--modern-bg-card);
+    border-radius: var(--modern-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--modern-shadow);
+}
+
+.modern-list-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--modern-border);
+    transition: var(--modern-transition);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modern-list-item:hover {
+    background-color: var(--modern-bg-secondary);
+}
+
+.modern-list-item:last-child {
+    border-bottom: none;
+}
+
+.modern-list-item .item-content {
+    flex: 1;
+}
+
+.modern-list-item .item-title {
+    color: var(--modern-text-primary);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.modern-list-item .item-subtitle {
+    color: var(--modern-text-muted);
+    font-size: 14px;
+}
+
+.modern-list-item .item-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Améliorations des icônes */
+.modern-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modern-icon.large {
+    width: 24px;
+    height: 24px;
+}
+
+/* Améliorations des alertes */
+.modern-alert {
+    padding: 16px 20px;
+    border-radius: var(--modern-radius);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modern-alert.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: var(--modern-success);
+}
+
+.modern-alert.warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    color: var(--modern-warning);
+}
+
+.modern-alert.danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--modern-danger);
+}
+
+.modern-alert.info {
+    background-color: rgba(74, 158, 255, 0.1);
+    border: 1px solid rgba(74, 158, 255, 0.2);
+    color: var(--modern-accent);
+}
+
+/* Améliorations des grilles */
+.modern-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.modern-grid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.modern-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.modern-grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .modern-grid.cols-2,
+    .modern-grid.cols-3,
+    .modern-grid.cols-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Améliorations des modales */
+.modern-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--modern-transition);
+}
+
+.modern-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modern-modal {
+    background-color: var(--modern-bg-card);
+    border-radius: var(--modern-radius-lg);
+    box-shadow: var(--modern-shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: var(--modern-transition);
+}
+
+.modern-modal-overlay.active .modern-modal {
+    transform: scale(1);
+}
+
+.modern-modal-header {
+    padding: 24px 24px 0;
+    border-bottom: 1px solid var(--modern-border);
+    margin-bottom: 24px;
+}
+
+.modern-modal-title {
+    color: var(--modern-text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.modern-modal-content {
+    padding: 0 24px 24px;
+}
+
+.modern-modal-footer {
+    padding: 0 24px 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Améliorations des tooltips */
+.modern-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.modern-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--modern-bg-primary);
+    color: var(--modern-text-primary);
+    padding: 8px 12px;
+    border-radius: var(--modern-radius);
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--modern-transition);
+    z-index: 1000;
+    margin-bottom: 8px;
+    border: 1px solid var(--modern-border);
+}
+
+.modern-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Améliorations des barres de progression */
+.modern-progress {
+    background-color: var(--modern-bg-secondary);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.modern-progress-bar {
+    background: linear-gradient(90deg, var(--modern-accent), var(--modern-accent-hover));
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.modern-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Améliorations des animations */
+.modern-fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+.modern-slide-up {
+    animation: slideUp 0.3s ease;
+}
+
+.modern-scale-in {
+    animation: scaleIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Utilitaires de spacing */
+.modern-mt-1 { margin-top: 8px; }
+.modern-mt-2 { margin-top: 16px; }
+.modern-mt-3 { margin-top: 24px; }
+.modern-mt-4 { margin-top: 32px; }
+
+.modern-mb-1 { margin-bottom: 8px; }
+.modern-mb-2 { margin-bottom: 16px; }
+.modern-mb-3 { margin-bottom: 24px; }
+.modern-mb-4 { margin-bottom: 32px; }
+
+.modern-p-1 { padding: 8px; }
+.modern-p-2 { padding: 16px; }
+.modern-p-3 { padding: 24px; }
+.modern-p-4 { padding: 32px; }
+
+/* Utilitaires de texte */
+.modern-text-center { text-align: center; }
+.modern-text-right { text-align: right; }
+.modern-text-left { text-align: left; }
+
+.modern-text-sm { font-size: 12px; }
+.modern-text-base { font-size: 14px; }
+.modern-text-lg { font-size: 16px; }
+.modern-text-xl { font-size: 18px; }
+
+.modern-font-medium { font-weight: 500; }
+.modern-font-semibold { font-weight: 600; }
+.modern-font-bold { font-weight: 700; }
+
+/* Utilitaires de couleur */
+.modern-text-primary { color: var(--modern-text-primary); }
+.modern-text-secondary { color: var(--modern-text-secondary); }
+.modern-text-muted { color: var(--modern-text-muted); }
+.modern-text-accent { color: var(--modern-accent); }
+.modern-text-success { color: var(--modern-success); }
+.modern-text-warning { color: var(--modern-warning); }
+.modern-text-danger { color: var(--modern-danger); }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .modern-card {
+        padding: 16px;
+    }
+    
+    .modern-button {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+    
+    .modern-table th,
+    .modern-table td {
+        padding: 12px;
+    }
+    
+    .modern-list-item {
+        padding: 12px 16px;
+    }
+    
+    .modern-modal {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+}
