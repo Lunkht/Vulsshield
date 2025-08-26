@@ -10,6 +10,634 @@
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2dd4bf;
+            --primary-hover: #14b8a6;
+            --secondary-color: #ec4899;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #000000;
+            --card-bg: #1e293b;
+            --panel-bg: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #475569;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 8px 30px rgba(45, 212, 191, 0.2);
+            --gradient-primary: linear-gradient(135deg, #2dd4bf 0%, #06b6d4 100%);
+            --gradient-accent: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #2dd4bf 100%);
+            --teal-glow: 0 0 20px rgba(45, 212, 191, 0.3);
+            --pink-glow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Interface de contrôle principal */
+        .drone-control-interface {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            padding: 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(45, 212, 191, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            box-shadow: var(--teal-glow);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Status des drones */
+        .drone-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .status-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--teal-glow);
+            border-color: var(--primary-color);
+        }
+
+        .drone-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .drone-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+            box-shadow: var(--teal-glow);
+        }
+
+        .drone-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .drone-model {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .drone-status.connected {
+            color: var(--success-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .drone-status.disconnected {
+            color: var(--danger-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Indicateurs de batterie et signal */
+        .battery-indicator {
+            position: relative;
+            width: 80px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .battery-level {
+            height: 100%;
+            background: var(--gradient-success);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .signal-strength {
+            display: flex;
+            gap: 3px;
+            align-items: end;
+        }
+
+        .signal-bar {
+            width: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .signal-bar:nth-child(1) { height: 8px; }
+        .signal-bar:nth-child(2) { height: 12px; }
+        .signal-bar:nth-child(3) { height: 16px; }
+        .signal-bar:nth-child(4) { height: 20px; }
+        .signal-bar:nth-child(5) { height: 24px; }
+
+        .signal-bar.active {
+            background: var(--gradient-success);
+        }
+
+        /* Layout de contrôle */
+        .control-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            min-height: 600px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h3 {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Joysticks */
+        .joystick-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .joystick-label {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .joystick {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto 15px;
+            cursor: grab;
+            transition: all 0.3s ease;
+        }
+
+        .joystick:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--teal-glow);
+        }
+
+        .joystick:active {
+            cursor: grabbing;
+        }
+
+        .joystick-knob {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            box-shadow: 0 2px 10px rgba(45, 212, 191, 0.5);
+            transition: all 0.1s ease;
+        }
+
+        .joystick-knob:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: var(--teal-glow);
+        }
+
+        .joystick-axis {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .joystick-axis.horizontal {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .joystick-axis.vertical {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+        }
+
+        .joystick-values {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contrôles rapides */
+        .quick-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 12px;
+            padding: 15px 20px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .control-btn.emergency {
+            background: var(--gradient-accent);
+        }
+
+        .control-btn.emergency:hover {
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Vue caméra */
+        .center-panel {
+            position: relative;
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .view-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        .camera-view, .map-view {
+            display: none;
+            height: 450px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .camera-view.active, .map-view.active {
+            display: block;
+        }
+
+        .video-feed {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-placeholder {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .video-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .overlay-info {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 10px 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .overlay-info.top-left {
+            top: 15px;
+            left: 15px;
+        }
+
+        .overlay-info.top-right {
+            top: 15px;
+            right: 15px;
+        }
+
+        .overlay-info.bottom-center {
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .compass {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .compass-needle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            position: relative;
+            transform-origin: center;
+            transition: transform 0.5s ease;
+        }
+
+        .compass-needle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            width: 2px;
+            height: 8px;
+            background: white;
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        /* Contrôles caméra */
+        .camera-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .camera-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient-primary);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .camera-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Modes de vol */
+        .flight-modes {
+            margin-top: 30px;
+        }
+
+        .mode-selector, .speed-control {
+            margin-bottom: 20px;
+        }
+
+        .mode-selector label, .speed-control label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .mode-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .speed-slider {
+            width: 100%;
+            margin-bottom: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Télémétrie */
+        .telemetry-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .telemetry-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .telemetry-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .data-row span:first-child {
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .connected .fas.fa-circle {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .recording .fas.fa-video {
+            color: var(--danger-color);
+            animation: pulse 1s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .control-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .control-panel {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .joystick {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .joystick-knob {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .drone-status {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -271,8 +899,7 @@
             <!-- En-tête de la page -->
             <div class="page-header" data-aos="fade-up">
                 <div class="page-title">
-                    <h1><i class="fas fa-helicopter"></i> Centre de pilotage</h1>
-                    <p>Contrôlez et surveillez vos drones en temps réel</p>
+                    <h1><i class="fas fa-helicopter"></i>Pilotage</h1>
                 </div>
                 <div class="page-actions">
                     <button class="btn-secondary" onclick="connectDrone()">

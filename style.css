@@ -1875,7 +1875,7 @@ font-size: 1.5rem;
 
 .newsletter-form input[type="email"] {
     flex: 1;
-    height: 50px;
+    height: 40px;
     padding: 0 20px;
     border-radius: 4px 0 0 4px;
     border: 1px solid #444;
