@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activité</title>
-    <link rel="stylesheet" href="../style.css?v=1.1">
-    <link rel="stylesheet" href="modern-enhancement.css">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -25,13 +24,14 @@
                     <i class="fas fa-sort"></i>
                 </div>
             </div>
-            
+
             <div class="top-bar-center">
                 <!-- Espace central vide -->
             </div>
-            
+
             <div class="top-bar-right">
-                <button class="action-btn back-btn" onclick="window.location.href='../index.html'" title="Retour à l'accueil" aria-label="Retour à l'accueil">
+                <button class="action-btn back-btn" onclick="window.location.href='../index.html'"
+                    title="Retour à l'accueil" aria-label="Retour à l'accueil">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="search-container">
@@ -42,7 +42,7 @@
                     <i class="fas fa-key"></i>
                 </button>
                 <button class="action-btn feedback-btn" onclick="toggleFeedbackMenu()">Feedback</button>
-                
+
                 <!-- Menu Feedback -->
                 <div class="dropdown-menu feedback-menu" id="feedbackMenu">
                     <div class="menu-header">
@@ -61,11 +61,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="feedbackMessage">Message</label>
-                                <textarea id="feedbackMessage" class="feedback-textarea" placeholder="Décrivez votre feedback..."></textarea>
+                                <textarea id="feedbackMessage" class="feedback-textarea"
+                                    placeholder="Décrivez votre feedback..."></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="feedbackEmail">Email (optionnel)</label>
-                                <input type="email" id="feedbackEmail" class="feedback-input" placeholder="votre@email.com">
+                                <input type="email" id="feedbackEmail" class="feedback-input"
+                                    placeholder="votre@email.com">
                             </div>
                         </div>
                     </div>
@@ -74,11 +76,11 @@
                         <button class="btn-primary" onclick="submitFeedback()">Envoyer</button>
                     </div>
                 </div>
-                
+
                 <div class="notification-icon" onclick="toggleNotificationMenu()">
                     <i class="fas fa-bell"></i>
                     <span class="notification-dot"></span>
-                    
+
                     <!-- Menu des notifications -->
                     <div class="dropdown-menu notification-menu" id="notificationMenu">
                         <div class="menu-header">
@@ -122,14 +124,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="action-icon">
                     <i class="fas fa-book-open"></i>
                 </div>
-                
+
                 <div class="user-avatar" onclick="toggleUserMenu()">
                     <div class="avatar-gradient"></div>
-                    
+
                     <!-- Menu utilisateur -->
                     <div class="dropdown-menu user-menu" id="userMenu">
                         <div class="menu-header">
@@ -178,16 +180,16 @@
         <!-- Sidebar de navigation -->
         <aside class="admin-sidebar">
             <div class="sidebar-header">
-                
+
                 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Réduire la sidebar" title="Réduire">
                     <i class="fas fa-angle-left"></i>
                 </button>
             </div>
-            
+
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-title">Principal</div>
-                    <a href="dashboard.html" class="nav-item">
+                    <a href="#" class="nav-item active">
                         <i class="fas fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
@@ -201,7 +203,7 @@
                         <span>Catégories</span>
                     </a>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-title">Sécurité</div>
                     <a href="#" class="nav-item">
@@ -213,7 +215,7 @@
                         <span>Alertes</span>
                         <span class="nav-badge danger">3</span>
                     </a>
-                    <a href="activites.html" class="nav-item active">
+                    <a href="activites.html" class="nav-item">
                         <i class="fas fa-history"></i>
                         <span>Activité</span>
                     </a>
@@ -222,7 +224,7 @@
                         <span>Sites suspects</span>
                     </a>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-title">Configuration</div>
                     <a href="settings.html" class="nav-item">
@@ -238,7 +240,7 @@
                         <span>Profil</span>
                     </a>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-title">Contrôle</div>
                     <a href="house.html" class="nav-item">
@@ -251,22 +253,24 @@
                     </a>
                 </div>
             </nav>
-            
+
             <div class="sidebar-footer">
                 <div class="user-quick-info">
                     <div class="user-avatar-mini">
                         <div class="avatar-gradient">
-                             <i class="fas fa-user-shield"></i>
+                            <i class="fas fa-user-shield"></i>
                         </div>
                     </div>
                     <div class="user-mini-details">
                         <div class="user-mini-name role-with-icon">
-                           <span>Administrateur</span></div>
+                            <span>Administrateur</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </aside>
 
+        <!-- Contenu principal -->
         <main class="admin-main">
             <div class="page-header">
                 <h1 class="page-title">Activité du compte</h1>
@@ -364,6 +368,193 @@
         </main>
     </div>
 
+    <!-- Modal de génération de mot de passe -->
+    <div class="password-generator-modal" id="passwordGeneratorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Générateur de Mot de Passe</h3>
+                <button class="close-btn" onclick="closePasswordGenerator()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="generator-section">
+                    <div class="password-display">
+                        <input type="text" id="generatedPassword" readonly
+                            placeholder="Votre mot de passe généré apparaîtra ici">
+                        <div class="password-actions">
+                            <button class="action-btn" onclick="togglePasswordVisibility()">
+                                <i class="fas fa-eye" id="passwordEye"></i>
+                            </button>
+                            <button class="action-btn" onclick="copyGeneratedPassword()">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="action-btn" onclick="regeneratePassword()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="password-strength-indicator">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <span class="strength-text" id="strengthText">Force du mot de passe</span>
+                    </div>
+                </div>
+
+                <div class="generator-options">
+                    <div class="option-group">
+                        <label class="option-label">
+                            <span>Longueur du mot de passe</span>
+                            <span class="length-value" id="lengthValue">16</span>
+                        </label>
+                        <input type="range" id="passwordLength" min="8" max="64" value="16" class="length-slider">
+                    </div>
+
+                    <div class="option-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeLowercase" checked>
+                            <span class="checkmark"></span>
+                            <span>Lettres minuscules (a-z)</span>
+                        </label>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeUppercase" checked>
+                            <span class="checkmark"></span>
+                            <span>Lettres majuscules (A-Z)</span>
+                        </label>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeNumbers" checked>
+                            <span class="checkmark"></span>
+                            <span>Chiffres (0-9)</span>
+                        </label>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeSpecialChars">
+                            <span class="checkmark"></span>
+                            <span>Caractères spéciaux (!@#$%^&*)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="generator-actions">
+                    <button class="btn-primary generate-btn" onclick="generatePassword()">
+                        <span class="btn-text">Générer un mot de passe</span>
+                        <div class="progress-bar" id="generateProgress">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </button>
+                    <button class="btn-secondary" onclick="saveGeneratedPassword()">
+                        <i class="fas fa-save"></i>
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de sauvegarde -->
+    <div class="save-password-modal" id="savePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sauvegarder le mot de passe</h3>
+                <button class="close-btn" onclick="closeSaveModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="passwordTitle">Nom du compte</label>
+                    <input type="text" id="passwordTitle" placeholder="Ex: Facebook, Gmail, Banque...">
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordEmail">Email/Nom d'utilisateur</label>
+                    <input type="text" id="passwordEmail" placeholder="votre@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Icône du service</label>
+                    <div class="icon-selector">
+                        <div class="icon-option" data-icon="fab fa-facebook">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fab fa-google">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fab fa-twitter">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fab fa-linkedin">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fab fa-amazon">
+                            <i class="fab fa-amazon"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fas fa-university">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fas fa-envelope">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fas fa-shopping-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fas fa-briefcase">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="icon-option" data-icon="fas fa-home">
+                            <i class="fas fa-home"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeSaveModal()">Annuler</button>
+                    <button class="btn-primary" onclick="confirmSavePassword()">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Activité récente -->
+    <div class="activity-modal" id="activityModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Activité récente</h3>
+                <button class="close-btn" onclick="closeActivityModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="filters" id="activityFilters">
+                    <button class="btn-secondary compact" data-filter="all"
+                        onclick="setActivityFilter('all')">Tout</button>
+                    <button class="btn-secondary compact" data-filter="add"
+                        onclick="setActivityFilter('add')">Ajouts</button>
+                    <button class="btn-secondary compact" data-filter="edit"
+                        onclick="setActivityFilter('edit')">Modifications</button>
+                    <button class="btn-secondary compact" data-filter="sync"
+                        onclick="setActivityFilter('sync')">Sync</button>
+                </div>
+                <div id="activityListContainer"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="loadMoreActivities()">Charger plus</button>
+                <button class="btn-secondary" onclick="clearActivityHistory()">Effacer l'historique</button>
+                <button class="btn-primary" onclick="closeActivityModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../user-status.js?v=1"></script>
     <script src="../firebase-auth.js?v=2" type="module"></script>
     <script src="password-manager.js" type="module"></script>
@@ -379,7 +570,7 @@
     <script>
         // Variables pour gérer les menus
         let activeMenu = null;
-        
+
         // Fonction pour fermer tous les menus
         function closeAllMenus() {
             const menus = document.querySelectorAll('.dropdown-menu');
@@ -388,11 +579,11 @@
             });
             activeMenu = null;
         }
-        
+
         // Fonction pour ouvrir/fermer le menu des notifications
         function toggleNotificationMenu() {
             const menu = document.getElementById('notificationMenu');
-            
+
             if (activeMenu === menu) {
                 closeAllMenus();
             } else {
@@ -401,11 +592,11 @@
                 activeMenu = menu;
             }
         }
-        
+
         // Fonction pour ouvrir/fermer le menu utilisateur
         function toggleUserMenu() {
             const menu = document.getElementById('userMenu');
-            
+
             if (activeMenu === menu) {
                 closeAllMenus();
             } else {
@@ -414,23 +605,23 @@
                 activeMenu = menu;
             }
         }
-        
+
         // Fermer les menus en cliquant à l'extérieur
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             if (!event.target.closest('.notification-icon') && !event.target.closest('.dropdown-menu') && !event.target.closest('.user-avatar')) {
                 closeAllMenus();
             }
         });
-        
+
         // Empêcher la propagation des clics à l'intérieur des menus
         document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.addEventListener('click', function(event) {
+            menu.addEventListener('click', function (event) {
                 event.stopPropagation();
             });
         });
 
         // --- Sidebar collapse toggle ---
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const layout = document.querySelector('.admin-layout');
             const toggleBtn = document.getElementById('sidebarToggle');
             if (!layout || !toggleBtn) return;
@@ -447,16 +638,994 @@
 
             updateToggleAria();
 
-            toggleBtn.addEventListener('click', function() {
+            toggleBtn.addEventListener('click', function () {
                 layout.classList.toggle('sidebar-collapsed');
                 const isCollapsed = layout.classList.contains('sidebar-collapsed');
                 localStorage.setItem('sidebarCollapsed', isCollapsed);
                 updateToggleAria();
             });
+
+            // Initialiser le gestionnaire de mots de passe après le DOM
+            loadSavedPasswords();
+
+            // Ajout: charger et rendre l'activité récente persistée
+            loadActivityEvents();
+            renderRecentActivity();
+            // Préparer la file de sync API
+            loadActivitySyncQueue();
+            if (activitySyncEnabled) {
+                flushActivitySyncQueue();
+            }
+
+            // Init select nombre d'éléments sur la carte
+            const sel = document.getElementById('activityCardLimitSelect');
+            if (sel) {
+                sel.value = String(activityCardLimit);
+                sel.addEventListener('change', function () {
+                    activityCardLimit = parseInt(this.value, 10);
+                    localStorage.setItem('activityCardLimit', activityCardLimit);
+                    renderRecentActivity();
+                    refreshRecentActivityTimes();
+                });
+            }
+
+            // Rafraîchir les temps relatifs (Dernière sync) + activité récente automatiquement
+            refreshRecentActivityTimes();
+            setInterval(() => {
+                updateUserStats();
+                refreshRecentActivityTimes();
+            }, 60000);
         });
+
+        // Fermer les menus quand on clique en dehors
+        document.addEventListener('click', function (event) {
+            const isClickInsideMenu = event.target.closest('.dropdown-menu');
+            const isClickOnTrigger = event.target.closest('.notification-icon, .user-avatar, .feedback-btn');
+
+            if (!isClickInsideMenu && !isClickOnTrigger) {
+                closeAllMenus();
+            }
+        });
+
+        // Fonction pour ouvrir/fermer le menu feedback
+        function toggleFeedbackMenu() {
+            const menu = document.getElementById('feedbackMenu');
+
+            if (activeMenu === menu) {
+                closeAllMenus();
+            } else {
+                closeAllMenus();
+                menu.classList.add('active');
+                activeMenu = menu;
+            }
+        }
+
+        // Fonction pour fermer le menu feedback
+        function closeFeedbackMenu() {
+            closeAllMenus();
+        }
+
+        // Fonction pour soumettre le feedback
+        function submitFeedback() {
+            const type = document.getElementById('feedbackType').value;
+            const message = document.getElementById('feedbackMessage').value;
+            const email = document.getElementById('feedbackEmail').value;
+
+            if (!message.trim()) {
+                alert('Veuillez saisir un message');
+                return;
+            }
+
+            // TODO: envoyer le feedback au serveur / service
+            console.log('Feedback soumis:', { type, message, email });
+            alert('Merci pour votre feedback !');
+
+            // Réinitialiser le formulaire
+            document.getElementById('feedbackMessage').value = '';
+            document.getElementById('feedbackEmail').value = '';
+            closeAllMenus();
+        }
+
+        // Fermer les menus avec la touche Escape
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeAllMenus();
+            }
+        });
+
+        // Marquer toutes les notifications comme lues
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('mark-all-read')) {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => {
+                    item.classList.remove('unread');
+                });
+                const notificationDot = document.querySelector('.notification-dot');
+                if (notificationDot) {
+                    notificationDot.style.display = 'none';
+                }
+            }
+        });
+
+        // Fonction pour basculer l'affichage du mot de passe
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById('eye' + inputId.replace('pass', ''));
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Gestion des vues (grille/liste)
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const view = this.dataset.view;
+                const grid = document.querySelector('.passwords-grid');
+
+                if (view === 'list') {
+                    grid.classList.add('list-view');
+                } else {
+                    grid.classList.remove('list-view');
+                }
+            });
+        });
+
+        // Copier le mot de passe
+        document.querySelectorAll('.action-icon-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                if (this.querySelector('.fa-copy')) {
+                    const passwordInput = this.closest('.password-card').querySelector('input[type="password"], input[type="text"]');
+                    passwordInput.select();
+                    document.execCommand('copy');
+
+                    // Feedback visuel
+                    const originalIcon = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        this.innerHTML = originalIcon;
+                    }, 2000);
+                }
+            });
+        });
+
+        // ===========================================
+        // GÉNÉRATEUR DE MOT DE PASSE (Adapté du code Android)
+        // ===========================================
+
+        // Constantes pour la génération de mots de passe
+        const LOWERCASE_CHARACTERS = 'abcdefghijklmnopqrstuvwxyz';
+        const UPPERCASE_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const NUMERIC_CHARACTERS = '0123456789';
+        const SPECIAL_CHARACTERS = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+        // Variables globales
+        let currentGeneratedPassword = '';
+        let selectedIcon = 'fas fa-key';
+        let savedPasswords = []; // Array pour stocker les mots de passe sauvegardés
+        let passwordCounter = 0; // Compteur pour les IDs uniques
+        // Ajout: Historique d'activités persisté
+        let activityEvents = []; // { id, text, icon, timestamp, type }
+        let activityCardLimit = parseInt(localStorage.getItem('activityCardLimit') || '3', 10);
+        let currentActivityFilter = 'all';
+        let activityModalPageSize = 10;
+        let activityModalShown = 0;
+        // Préparation sync API (désactivée par défaut)
+        let activitySyncEnabled = false; // activez quand l’API sera prête
+        let activitySyncEndpoint = '';
+        let activitySyncQueue = [];
+
+        // Ouvrir le générateur de mot de passe
+        function openPasswordGenerator() {
+            document.getElementById('passwordGeneratorModal').classList.add('active');
+            // Générer un mot de passe par défaut
+            setTimeout(() => generatePassword(), 100);
+        }
+
+        // Fermer le générateur de mot de passe
+        function closePasswordGenerator() {
+            document.getElementById('passwordGeneratorModal').classList.remove('active');
+        }
+
+        // Mettre à jour l'affichage de la longueur
+        document.getElementById('passwordLength').addEventListener('input', function () {
+            document.getElementById('lengthValue').textContent = this.value;
+        });
+
+        // Basculer la visibilité du mot de passe généré
+        function togglePasswordVisibility() {
+            const input = document.getElementById('generatedPassword');
+            const eyeIcon = document.getElementById('passwordEye');
+
+            if (input.type === 'text') {
+                input.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                input.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Copier le mot de passe généré
+        function copyGeneratedPassword() {
+            const password = document.getElementById('generatedPassword').value;
+            if (password) {
+                navigator.clipboard.writeText(password).then(() => {
+                    showNotification('Mot de passe copié ! Sera effacé dans 60 secondes', 'success');
+
+                    // Effacer le presse-papiers après 60 secondes
+                    setTimeout(() => {
+                        navigator.clipboard.writeText('[Effacé pour sécurité]');
+                        showNotification('Presse-papiers effacé pour sécurité', 'info');
+                    }, 60000);
+                }).catch(() => {
+                    // Fallback pour les navigateurs plus anciens
+                    const textArea = document.createElement('textarea');
+                    textArea.value = password;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    showNotification('Mot de passe copié !', 'success');
+                });
+            } else {
+                showNotification('Aucun mot de passe à copier.', 'error');
+            }
+        }
+
+        // Régénérer un mot de passe
+        function regeneratePassword() {
+            generatePassword();
+        }
+
+        // Générer un mot de passe (adapté du code Android)
+        function generatePassword() {
+            const generateBtn = document.querySelector('.generate-btn');
+            const btnText = generateBtn.querySelector('.btn-text');
+            const progressBar = generateBtn.querySelector('.progress-bar');
+
+            // Afficher la progression
+            btnText.style.display = 'none';
+            progressBar.style.display = 'block';
+
+            // Simuler la progression comme dans le code Android
+            let progress = 0;
+            const progressFill = progressBar.querySelector('.progress-fill');
+            const interval = setInterval(() => {
+                progress += 10;
+                progressFill.style.width = progress + '%';
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+
+                    // Génération réelle du mot de passe
+                    const passwordLength = parseInt(document.getElementById('passwordLength').value);
+                    const includeSpecialChars = document.getElementById('includeSpecialChars').checked;
+                    const includeLowercase = document.getElementById('includeLowercase').checked;
+                    const includeUppercase = document.getElementById('includeUppercase').checked;
+                    const includeNumbers = document.getElementById('includeNumbers').checked;
+
+                    // Vérifier qu'au moins une option est sélectionnée
+                    if (!includeLowercase && !includeUppercase && !includeNumbers && !includeSpecialChars) {
+                        showNotification('Veuillez sélectionner au moins un type de caractères', 'error');
+                        resetGenerateButton();
+                        return;
+                    }
+
+                    const generatedPassword = generateSecurePassword(passwordLength, includeSpecialChars, includeLowercase, includeUppercase, includeNumbers);
+
+                    // Afficher le mot de passe
+                    document.getElementById('generatedPassword').value = generatedPassword;
+                    currentGeneratedPassword = generatedPassword;
+
+                    // Calculer et afficher la force
+                    const strength = calculatePasswordStrength(generatedPassword);
+                    updateStrengthIndicator(strength);
+
+                    // Réinitialiser le bouton
+                    resetGenerateButton();
+                }
+            }, 100);
+        }
+
+        // Réinitialiser le bouton de génération
+        function resetGenerateButton() {
+            const generateBtn = document.querySelector('.generate-btn');
+            const btnText = generateBtn.querySelector('.btn-text');
+            const progressBar = generateBtn.querySelector('.progress-bar');
+
+            btnText.style.display = 'block';
+            progressBar.style.display = 'none';
+            progressBar.querySelector('.progress-fill').style.width = '0%';
+        }
+
+        // Générer un mot de passe sécurisé (adapté du code Android)
+        function generateSecurePassword(length, includeSpecialChars, includeLowercase, includeUppercase, includeNumbers) {
+            // Utiliser crypto.getRandomValues pour une meilleure sécurité
+            const array = new Uint8Array(length * 2);
+            crypto.getRandomValues(array);
+
+            let charPool = '';
+            if (includeLowercase) charPool += LOWERCASE_CHARACTERS;
+            if (includeUppercase) charPool += UPPERCASE_CHARACTERS;
+            if (includeNumbers) charPool += NUMERIC_CHARACTERS;
+            if (includeSpecialChars) charPool += SPECIAL_CHARACTERS;
+
+            const passwordChars = [];
+
+            // Assurer au moins deux caractères de chaque type requis
+            if (includeLowercase) {
+                passwordChars.push(LOWERCASE_CHARACTERS[array[0] % LOWERCASE_CHARACTERS.length]);
+                passwordChars.push(LOWERCASE_CHARACTERS[array[1] % LOWERCASE_CHARACTERS.length]);
+            }
+
+            if (includeUppercase) {
+                passwordChars.push(UPPERCASE_CHARACTERS[array[2] % UPPERCASE_CHARACTERS.length]);
+                passwordChars.push(UPPERCASE_CHARACTERS[array[3] % UPPERCASE_CHARACTERS.length]);
+            }
+
+            if (includeNumbers) {
+                passwordChars.push(NUMERIC_CHARACTERS[array[4] % NUMERIC_CHARACTERS.length]);
+                passwordChars.push(NUMERIC_CHARACTERS[array[5] % NUMERIC_CHARACTERS.length]);
+            }
+
+            if (includeSpecialChars) {
+                passwordChars.push(SPECIAL_CHARACTERS[array[6] % SPECIAL_CHARACTERS.length]);
+                passwordChars.push(SPECIAL_CHARACTERS[array[7] % SPECIAL_CHARACTERS.length]);
+            }
+
+            // Compléter avec des caractères aléatoires
+            for (let i = passwordChars.length; i < length; i++) {
+                passwordChars.push(charPool[array[i] % charPool.length]);
+            }
+
+            // Mélanger plusieurs fois pour une meilleure randomisation
+            for (let i = 0; i < 3; i++) {
+                shuffleArray(passwordChars);
+            }
+
+            return passwordChars.join('');
+        }
+
+        // Mélanger un tableau (équivalent à Collections.shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[i], array[j]];
+            }
+        }
+
+        // Calculer la force du mot de passe (adapté du code Android)
+        function calculatePasswordStrength(password) {
+            let score = 0;
+
+            // Longueur (jusqu'à 30 points)
+            score += Math.min(30, password.length * 2);
+
+            // Complexité (jusqu'à 70 points)
+            let hasLower = false, hasUpper = false, hasDigit = false, hasSpecial = false;
+            const chars = new Set();
+
+            for (let char of password) {
+                chars.add(char);
+                if (LOWERCASE_CHARACTERS.includes(char)) hasLower = true;
+                else if (UPPERCASE_CHARACTERS.includes(char)) hasUpper = true;
+                else if (NUMERIC_CHARACTERS.includes(char)) hasDigit = true;
+                else if (SPECIAL_CHARACTERS.includes(char)) hasSpecial = true;
+            }
+
+            const uniqueChars = chars.size;
+
+            // Bonus pour la variété de caractères
+            if (hasLower) score += 10;
+            if (hasUpper) score += 10;
+            if (hasDigit) score += 10;
+            if (hasSpecial) score += 15;
+
+            // Bonus pour les caractères uniques (jusqu'à 25 points)
+            score += Math.min(25, uniqueChars * 2);
+
+            // Limiter le score à 100
+            return Math.min(100, score);
+        }
+
+        // Mettre à jour l'indicateur de force
+        function updateStrengthIndicator(strength) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+
+            strengthFill.style.width = strength + '%';
+
+            if (strength >= 80) {
+                strengthFill.className = 'strength-fill strong';
+                strengthText.textContent = 'Très fort';
+            } else if (strength >= 60) {
+                strengthFill.className = 'strength-fill medium';
+                strengthText.textContent = 'Fort';
+            } else if (strength >= 40) {
+                strengthFill.className = 'strength-fill weak';
+                strengthText.textContent = 'Moyen';
+            } else {
+                strengthFill.className = 'strength-fill weak';
+                strengthText.textContent = 'Faible';
+            }
+        }
+
+        // Sauvegarder le mot de passe généré
+        function saveGeneratedPassword() {
+            if (!currentGeneratedPassword) {
+                showNotification('Aucun mot de passe à sauvegarder', 'error');
+                return;
+            }
+
+            document.getElementById('savePasswordModal').classList.add('active');
+        }
+
+        // Fermer le modal de sauvegarde
+        function closeSaveModal() {
+            document.getElementById('savePasswordModal').classList.remove('active');
+        }
+
+        // Confirmer la sauvegarde
+        function confirmSavePassword() {
+            const title = document.getElementById('passwordTitle').value.trim();
+            const email = document.getElementById('passwordEmail').value.trim();
+
+            if (!title) {
+                showNotification('Le nom du compte ne peut pas être vide', 'error');
+                return;
+            }
+
+            // Créer un nouvel objet mot de passe
+            const newPassword = {
+                id: ++passwordCounter,
+                title: title,
+                password: currentGeneratedPassword,
+                email: email,
+                icon: selectedIcon,
+                strength: calculatePasswordStrength(currentGeneratedPassword),
+                category: getCategoryFromIcon(selectedIcon),
+                createdAt: new Date().toISOString()
+            };
+
+            // Ajouter à la liste
+            savedPasswords.push(newPassword);
+
+            // Sauvegarder dans localStorage
+            localStorage.setItem('savedPasswords', JSON.stringify(savedPasswords));
+
+            // Mettre à jour l'affichage
+            updatePasswordsDisplay();
+
+            showNotification(`Mot de passe '${title}' sauvegardé`, 'success');
+            closeSaveModal();
+            closePasswordGenerator();
+
+            // Réinitialiser les champs
+            document.getElementById('passwordTitle').value = '';
+            document.getElementById('passwordEmail').value = '';
+            selectedIcon = 'fas fa-key';
+
+            // Ajout: journaliser l'activité et mettre à jour le widget
+            addActivityEvent(`Nouveau mot de passe ajouté pour ${title}`, 'fas fa-plus', null, 'add');
+            renderRecentActivity();
+            refreshRecentActivityTimes();
+        }
+
+        // Obtenir la catégorie à partir de l'icône
+        function getCategoryFromIcon(icon) {
+            const iconCategories = {
+                'fab fa-facebook': 'social',
+                'fab fa-twitter': 'social',
+                'fab fa-linkedin': 'social',
+                'fab fa-instagram': 'social',
+                'fab fa-google': 'email',
+                'fab fa-microsoft': 'email',
+                'fas fa-envelope': 'email',
+                'fas fa-university': 'banking',
+                'fas fa-credit-card': 'banking',
+                'fab fa-amazon': 'shopping',
+                'fas fa-shopping-cart': 'shopping',
+                'fas fa-briefcase': 'work',
+                'fas fa-home': 'work'
+            };
+            return iconCategories[icon] || 'other';
+        }
+
+        // Mettre à jour l'affichage des mots de passe
+        function updatePasswordsDisplay() {
+            const grid = document.getElementById('passwordsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (savedPasswords.length === 0) {
+                // Afficher l'état vide
+                emptyState.style.display = 'block';
+                updateUserStats();
+                return;
+            }
+
+            // Masquer l'état vide
+            emptyState.style.display = 'none';
+
+            // Supprimer tous les mots de passe existants (sauf l'état vide)
+            const existingCards = grid.querySelectorAll('.password-card');
+            existingCards.forEach(card => card.remove());
+
+            // Ajouter tous les mots de passe sauvegardés
+            savedPasswords.forEach(password => {
+                const passwordCard = createPasswordCard(password);
+                grid.appendChild(passwordCard);
+            });
+
+            // Mettre à jour les statistiques
+            updateUserStats();
+        }
+
+        // Mettre à jour les statistiques utilisateur
+        function updateUserStats() {
+            const passwordCount = savedPasswords.length;
+            const categories = [...new Set(savedPasswords.map(p => p.category))];
+            const avgStrength = savedPasswords.length > 0 ?
+                Math.round(savedPasswords.reduce((sum, p) => sum + p.strength, 0) / savedPasswords.length) : 0;
+
+            // Mettre à jour les cartes de stat par leurs IDs
+            const elPw = document.getElementById('stat_passwords');
+            const elCat = document.getElementById('stat_categories');
+            const elSec = document.getElementById('stat_security');
+            const elSync = document.getElementById('stat_last_sync');
+
+            if (elPw) elPw.textContent = String(passwordCount);
+            if (elCat) elCat.textContent = String(categories.length);
+            if (elSec) elSec.textContent = avgStrength + '%';
+
+            if (elSync) {
+                const lastSyncIso = localStorage.getItem('lastSync');
+                elSync.textContent = lastSyncIso ? formatRelativeTime(lastSyncIso) : 'Jamais';
+            }
+
+            // Mettre à jour le widget "Analyse de sécurité"
+            updateSecurityMetrics();
+        }
+
+        // Calculer et afficher les métriques de sécurité (fort/faible/doublons)
+        function updateSecurityMetrics() {
+            const total = savedPasswords.length;
+            let strong = 0, weak = 0;
+            const counts = new Map();
+
+            for (const p of savedPasswords) {
+                if (p.strength >= 80) strong++;
+                if (p.strength < 40) weak++;
+                const key = p.password;
+                counts.set(key, (counts.get(key) || 0) + 1);
+            }
+            let duplicates = 0;
+            counts.forEach(c => { if (c > 1) duplicates += c; });
+
+            const strongEl = document.getElementById('metric_strong');
+            const weakEl = document.getElementById('metric_weak');
+            const dupEl = document.getElementById('metric_duplicates');
+
+            if (strongEl) strongEl.textContent = total ? `${strong}/${total}` : '';
+            if (weakEl) weakEl.textContent = total ? `${weak}/${total}` : '';
+            if (dupEl) dupEl.textContent = total ? `${duplicates}/${total}` : '';
+        }
+
+        // Formater un temps relatif (ex: "il y a 5 min", "il y a 2h")
+        function formatRelativeTime(isoString) {
+            const then = new Date(isoString);
+            const now = new Date();
+            const diffMs = now - then;
+            const diffSec = Math.floor(diffMs / 1000);
+            const diffMin = Math.floor(diffSec / 60);
+            const diffHour = Math.floor(diffMin / 60);
+            const diffDay = Math.floor(diffHour / 24);
+
+            if (diffMin < 1) return "à l'instant";
+            if (diffMin < 60) return `il y a ${diffMin} min`;
+            if (diffHour < 24) return `il y a ${diffHour}h`;
+            if (diffDay === 1) return 'hier';
+            return `il y a ${diffDay} jours`;
+        }
+
+        // Lancer une synchronisation (démo locale)
+        function performSync() {
+            localStorage.setItem('lastSync', new Date().toISOString());
+            updateUserStats();
+
+            // Ajout: journaliser l'activité de synchronisation
+            addActivityEvent('Synchronisation automatique', 'fas fa-sync-alt', null, 'sync');
+            renderRecentActivity();
+            refreshRecentActivityTimes();
+
+            showNotification('Synchronisation effectuée', 'success');
+        }
+
+        // Obtenir le label de la catégorie
+        function getCategoryLabel(category) {
+            const labels = {
+                'social': 'Réseaux sociaux',
+                'email': 'Email',
+                'banking': 'Banque',
+                'shopping': 'Shopping',
+                'work': 'Travail',
+                'other': 'Autre'
+            };
+            return labels[category] || 'Autre';
+        }
+
+        // Formater la date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 1) return 'aujourd\'hui';
+            if (diffDays === 2) return 'hier';
+            if (diffDays <= 7) return `il y a ${diffDays - 1} jours`;
+            if (diffDays <= 30) return `il y a ${Math.floor(diffDays / 7)} semaines`;
+            return `il y a ${Math.floor(diffDays / 30)} mois`;
+        }
+
+        // Créer une carte de mot de passe
+        function createPasswordCard(password) {
+            const card = document.createElement('div');
+            card.className = 'password-card';
+            card.dataset.passwordId = password.id;
+
+            const strengthClass = password.strength >= 80 ? 'strong' :
+                password.strength >= 60 ? 'medium' : 'weak';
+            const strengthText = password.strength >= 80 ? 'Très fort' :
+                password.strength >= 60 ? 'Fort' :
+                    password.strength >= 40 ? 'Moyen' : 'Faible';
+
+            card.innerHTML = `
+                <div class="password-header">
+                    <div class="service-icon">
+                        <i class="${password.icon}"></i>
+                    </div>
+                    <div class="password-info">
+                        <h3>${password.title}</h3>
+                        <p class="username">${password.email}</p>
+                    </div>
+                    <div class="password-actions">
+                        <button class="action-icon-btn" onclick="togglePassword('pass${password.id}')">
+                            <i class="fas fa-eye" id="eye${password.id}"></i>
+                        </button>
+                        <button class="action-icon-btn" onclick="copyPassword('${password.password}')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="action-icon-btn" onclick="editPassword(${password.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-icon-btn" onclick="deletePassword(${password.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="password-content">
+                    <div class="password-field">
+                        <input type="password" value="${password.password}" id="pass${password.id}" readonly>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill ${strengthClass}"></div>
+                        </div>
+                        <span class="strength-text">${strengthText}</span>
+                    </div>
+                </div>
+                <div class="password-footer">
+                    <span class="category-tag ${password.category}">${getCategoryLabel(password.category)}</span>
+                    <span class="last-updated">Créé ${formatDate(password.createdAt)}</span>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Copier un mot de passe
+        function copyPassword(password) {
+            navigator.clipboard.writeText(password).then(() => {
+                showNotification('Mot de passe copié !', 'success');
+            }).catch(() => {
+                // Fallback
+                const textArea = document.createElement('textarea');
+                textArea.value = password;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Mot de passe copié !', 'success');
+            });
+        }
+
+        // Supprimer un mot de passe
+        function deletePassword(passwordId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce mot de passe ?')) {
+                savedPasswords = savedPasswords.filter(p => p.id !== passwordId);
+                localStorage.setItem('savedPasswords', JSON.stringify(savedPasswords));
+                updatePasswordsDisplay();
+                showNotification('Mot de passe supprimé', 'success');
+            }
+        }
+
+        // Éditer un mot de passe (placeholder pour l'instant)
+        function editPassword(passwordId) {
+            showNotification('Fonctionnalité d\'édition à venir', 'info');
+        }
+
+        // Charger les mots de passe sauvegardés au démarrage
+        function loadSavedPasswords() {
+            const saved = localStorage.getItem('savedPasswords');
+            if (saved) {
+                savedPasswords = JSON.parse(saved);
+                // Trouver le plus grand ID pour continuer la numérotation
+                if (savedPasswords.length > 0) {
+                    passwordCounter = Math.max(...savedPasswords.map(p => p.id));
+                }
+            }
+            updatePasswordsDisplay();
+        }
+
+        // Sélectionner une icône
+        document.querySelectorAll('.icon-option').forEach(option => {
+            option.addEventListener('click', function () {
+                document.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedIcon = this.dataset.icon;
+            });
+        });
+
+        // Afficher une notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Fermer les modals en cliquant à l'extérieur
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('password-generator-modal') ||
+                event.target.classList.contains('save-password-modal') ||
+                event.target.classList.contains('activity-modal')) {
+                event.target.classList.remove('active');
+            }
+        });
+
+        // Fermer les modals avec Escape
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                document.getElementById('passwordGeneratorModal').classList.remove('active');
+                document.getElementById('savePasswordModal').classList.remove('active');
+                const am = document.getElementById('activityModal');
+                if (am) am.classList.remove('active');
+            }
+        });
+        // Utilitaire: formater une durée ISO courte (ex: PT3H, PT45M) en relatif à maintenant
+        function formatRelativeFromDuration(isoDuration) {
+            // Support simple: PTnH, PTnM
+            const now = new Date();
+            let deltaMs = 0;
+            const matchH = isoDuration.match(/^PT(\d+)H$/);
+            const matchM = isoDuration.match(/^PT(\d+)M$/);
+            if (matchH) deltaMs = parseInt(matchH[1], 10) * 60 * 60 * 1000;
+            else if (matchM) deltaMs = parseInt(matchM[1], 10) * 60 * 1000;
+            const past = new Date(now.getTime() - deltaMs);
+            return formatRelativeTime(past.toISOString());
+        }
+
+        function refreshRecentActivityTimes() {
+            const container = document.getElementById('recentActivity');
+            if (!container) return;
+            container.querySelectorAll('.activity-item').forEach(item => {
+                const timeEl = item.querySelector('.activity-time');
+                if (!timeEl) return;
+                const ts = item.getAttribute('data-timestamp');
+                const isoDur = item.getAttribute('data-time');
+                if (ts) {
+                    timeEl.textContent = formatRelativeTime(ts);
+                } else if (isoDur) {
+                    timeEl.textContent = formatRelativeFromDuration(isoDur);
+                }
+            });
+        }
+
+        // --- Activité récente: persistance et rendu ---
+        function loadActivityEvents() {
+            const saved = localStorage.getItem('activityEvents');
+            if (saved) {
+                try { activityEvents = JSON.parse(saved) || []; } catch (_) { activityEvents = []; }
+                // Migration: ajouter un type si manquant
+                let migrated = false;
+                activityEvents = activityEvents.map(e => {
+                    if (!e.type) {
+                        let t = 'other';
+                        if (e.icon && e.icon.includes('fa-plus')) t = 'add';
+                        else if (e.icon && (e.icon.includes('fa-edit') || e.icon.includes('fa-pen'))) t = 'edit';
+                        else if (e.icon && e.icon.includes('fa-sync')) t = 'sync';
+                        migrated = true;
+                        return { ...e, type: t };
+                    }
+                    return e;
+                });
+                if (migrated) localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
+            }
+            if (!saved || activityEvents.length === 0) {
+                const now = new Date();
+                activityEvents = [
+                    { id: now.getTime() - 1, text: 'Nouveau mot de passe ajouté pour Gmail', icon: 'fas fa-plus', timestamp: new Date(now.getTime() - 1 * 60 * 60 * 1000).toISOString(), type: 'add' },
+                    { id: now.getTime() - 2, text: 'Mot de passe Facebook modifié', icon: 'fas fa-edit', timestamp: new Date(now.getTime() - 3 * 60 * 60 * 1000).toISOString(), type: 'edit' },
+                    { id: now.getTime() - 3, text: 'Synchronisation automatique', icon: 'fas fa-sync-alt', timestamp: new Date(now.getTime() - 5 * 60 * 60 * 1000).toISOString(), type: 'sync' }
+                ];
+                localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
+            }
+        }
+        function saveActivityEvents() {
+            localStorage.setItem('activityEvents', JSON.stringify(activityEvents));
+        }
+        function addActivityEvent(text, icon, timestampIso, type) {
+            const evt = {
+                id: Date.now() + Math.floor(Math.random() * 1000),
+                text,
+                icon,
+                timestamp: timestampIso || new Date().toISOString(),
+                type: type || 'other'
+            };
+            activityEvents.unshift(evt);
+            if (activityEvents.length > 100) activityEvents = activityEvents.slice(0, 100);
+            if (activitySyncEnabled) {
+                enqueueActivityForSync(evt);
+            }
+            saveActivityEvents();
+        }
+        function renderRecentActivity(limit) {
+            const container = document.getElementById('recentActivity');
+            if (!container) return;
+            const l = (typeof limit === 'number') ? limit : activityCardLimit;
+            const events = activityEvents.slice(0, l);
+            container.innerHTML = events.map(evt => `
+                <div class="activity-item" data-timestamp="${evt.timestamp}">
+                    <div class="activity-icon"><i class="${evt.icon}"></i></div>
+                    <div class="activity-text">${evt.text}</div>
+                    <div class="activity-time">${formatRelativeTime(evt.timestamp)}</div>
+                </div>
+            `).join('');
+        }
+
+        function openActivityModal() {
+            const modal = document.getElementById('activityModal');
+            if (!modal) return;
+            modal.classList.add('active');
+            currentActivityFilter = 'all';
+            activityModalShown = 0;
+            renderActivityModal(true);
+            // Si la synchronisation est activée, tenter de récupérer et fusionner les activités distantes
+            if (activitySyncEnabled) {
+                fetchActivitiesFromAPI().then(mergeRemoteActivities);
+            }
+        }
+        function closeActivityModal() {
+            const modal = document.getElementById('activityModal');
+            if (!modal) return;
+            modal.classList.remove('active');
+        }
+        function setActivityFilter(type) {
+            currentActivityFilter = type;
+            activityModalShown = 0;
+            renderActivityModal(true);
+        }
+        function getFilteredActivities() {
+            if (currentActivityFilter === 'all') return activityEvents;
+            return activityEvents.filter(e => e.type === currentActivityFilter);
+        }
+        function renderActivityModal(reset) {
+            const list = document.getElementById('activityListContainer');
+            if (!list) return;
+            if (reset) list.innerHTML = '';
+            const filtered = getFilteredActivities();
+            const slice = filtered.slice(activityModalShown, activityModalShown + activityModalPageSize);
+            const html = slice.map(evt => `
+                <div class="activity-item" data-timestamp="${evt.timestamp}">
+                    <div class="activity-icon"><i class="${evt.icon}"></i></div>
+                    <div class="activity-text">${evt.text}</div>
+                    <div class="activity-time">${formatRelativeTime(evt.timestamp)}</div>
+                </div>
+            `).join('');
+            list.insertAdjacentHTML('beforeend', html);
+            activityModalShown += slice.length;
+        }
+        function loadMoreActivities() {
+            renderActivityModal(false);
+        }
+        function clearActivityHistory() {
+            if (!confirm("Effacer tout l'historique ?")) return;
+            activityEvents = [];
+            saveActivityEvents();
+            renderRecentActivity();
+            refreshRecentActivityTimes();
+            const list = document.getElementById('activityListContainer');
+            if (list) list.innerHTML = '';
+        }
+
+        // ==== Préparation synchronisation API (placeholders sûrs) ====
+        function loadActivitySyncQueue() {
+            const saved = localStorage.getItem('activitySyncQueue');
+            try { activitySyncQueue = saved ? JSON.parse(saved) : []; } catch (_) { activitySyncQueue = []; }
+            if (!Array.isArray(activitySyncQueue)) activitySyncQueue = [];
+        }
+        function enqueueActivityForSync(evt) {
+            if (!evt) return;
+            activitySyncQueue.push(evt);
+            localStorage.setItem('activitySyncQueue', JSON.stringify(activitySyncQueue));
+        }
+        async function flushActivitySyncQueue() {
+            if (!activitySyncEnabled || !activitySyncEndpoint || activitySyncQueue.length === 0) return;
+            try {
+                const res = await fetch(activitySyncEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ events: activitySyncQueue })
+                });
+                if (res.ok) {
+                    activitySyncQueue = [];
+                    localStorage.setItem('activitySyncQueue', JSON.stringify(activitySyncQueue));
+                    localStorage.setItem('lastActivitySync', new Date().toISOString());
+                }
+            } catch (e) {
+                // En cas d'erreur réseau, garder la queue pour une tentative ultérieure
+            }
+        }
+        async function fetchActivitiesFromAPI() {
+            if (!activitySyncEnabled || !activitySyncEndpoint) return [];
+            try {
+                const res = await fetch(activitySyncEndpoint, { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) return [];
+                const data = await res.json();
+                if (data && Array.isArray(data.events)) return data.events;
+            } catch (_) { }
+            return [];
+        }
+        function mergeRemoteActivities(remoteEvents) {
+            if (!Array.isArray(remoteEvents) || remoteEvents.length === 0) return;
+            const byId = new Map(activityEvents.map(e => [String(e.id), e]));
+            for (const ev of remoteEvents) {
+                const key = String(ev.id || `${ev.timestamp}-${ev.text}`);
+                if (!byId.has(key)) byId.set(key, ev);
+            }
+            activityEvents = Array.from(byId.values())
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, 100);
+            saveActivityEvents();
+            renderRecentActivity();
+            refreshRecentActivityTimes();
+        }
     </script>
     <script src="../dark-mode.js"></script>
-
 
 </body>
 
